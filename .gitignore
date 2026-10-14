@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env*
+!.env.example
+
+# Build outputs
+.output/
+dist/
+dist-ssr/
+
+# System / M365 folders
+.fx/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor and OS files
+*.local
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
