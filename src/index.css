@@ -1,0 +1,374 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root,
+  .dark {
+    --background: 222 47% 5%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 189 94% 43%;
+    --primary-foreground: 222 47% 5%;
+    --secondary: 292 84% 61%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 222 35% 13%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 189 94% 43%;
+    --accent-foreground: 222 47% 5%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 189 94% 43%;
+    --radius: 0.75rem;
+    --success: 84 81% 44%;
+    --success-foreground: 222 47% 5%;
+    --gold: 43 96% 56%;
+    --gold-foreground: 220 20% 10%;
+    --sidebar-background: 222 47% 7%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 189 94% 43%;
+    --sidebar-primary-foreground: 222 47% 5%;
+    --sidebar-accent: 292 84% 61%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 18%;
+    --sidebar-ring: 189 94% 43%;
+    --sidebar: 222 47% 7%;
+    --chart-1: 189 94% 43%;
+    --chart-2: 292 84% 61%;
+    --chart-3: 84 81% 44%;
+    --chart-4: 43 96% 56%;
+    --chart-5: 222 47% 30%;
+    --font-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --gradient-hero: linear-gradient(135deg, #06b6d4 0%, #d946ef 100%);
+    --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+    --shadow-xs: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
+    --shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.6);
+    --shadow-md: 0 8px 24px 0 rgba(0, 0, 0, 0.65);
+    --shadow-lg: 0 12px 36px 0 rgba(0, 0, 0, 0.7);
+    --shadow-xl: 0 20px 48px 0 rgba(0, 0, 0, 0.75);
+    --shadow-2xl: 0 32px 64px 0 rgba(0, 0, 0, 0.85);
+    --spacing: 0.25rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.01em;
+  }
+  .gradient-hero {
+    background: linear-gradient(135deg, hsl(224 64% 33%) 0%, hsl(224 64% 26%) 55%, hsl(160 84% 30%) 100%);
+  }
+  .gradient-gold {
+    background: linear-gradient(135deg, hsl(43 96% 56%) 0%, hsl(38 92% 50%) 100%);
+  }
+}
+
+@keyframes splash-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes splash-float {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes splash-caption {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes splash-dot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+.animate-splash-enter {
+  animation: splash-enter 0.5s ease-out;
+}
+
+.animate-splash-float {
+  animation: splash-float 2s ease-in-out infinite;
+}
+
+.animate-splash-caption {
+  animation: splash-caption 0.5s ease-out 0.3s both;
+}
+
+.animate-splash-dot {
+  animation: splash-dot 0.8s infinite;
+}
+
+/* ===== Mikro-animacije: BH KONVER vizuelni identitet ===== */
+@keyframes bh-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes bh-arrow-flow {
+  0% { transform: translateX(-6px); opacity: 0.35; }
+  50% { transform: translateX(6px); opacity: 1; }
+  100% { transform: translateX(-6px); opacity: 0.35; }
+}
+@keyframes bh-pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  70% { transform: scale(1.25); opacity: 0; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+@keyframes bh-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(320%); }
+}
+
+.animate-fade-up { animation: bh-fade-up 0.6s ease-out both; }
+.animate-fade-up-delay-1 { animation: bh-fade-up 0.6s ease-out 0.12s both; }
+.animate-fade-up-delay-2 { animation: bh-fade-up 0.6s ease-out 0.24s both; }
+.animate-arrow-flow { animation: bh-arrow-flow 2s ease-in-out infinite; }
+.animate-pulse-ring { animation: bh-pulse-ring 1.8s ease-out infinite; }
+.animate-scan { animation: bh-scan 2.2s linear infinite; }
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.icon-tilt { transition: transform 0.3s ease; }
+.icon-tilt:hover { transform: rotate(8deg) scale(1.06); }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-up-delay-1,
+  .animate-fade-up-delay-2,
+  .animate-arrow-flow,
+  .animate-pulse-ring,
+  .animate-scan { animation: none !important; }
+}
+
+/* ===== Glassmorphism & BH KONVER NEURAL CORE ===== */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.input-glow:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
+  border-color: #06b6d4;
+}
+
+.glass-card-hover {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+.glass-card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -10px rgba(30, 58, 138, 0.12);
+}
+
+.hero-mesh {
+  background:
+    radial-gradient(at 0% 0%, hsla(224, 64%, 33%, 0.07) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(160, 84%, 39%, 0.07) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, hsla(217, 91%, 60%, 0.05) 0px, transparent 50%);
+}
+.dark .hero-mesh {
+  background:
+    radial-gradient(at 0% 0%, hsla(224, 64%, 40%, 0.14) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(160, 84%, 39%, 0.12) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, hsla(217, 91%, 60%, 0.08) 0px, transparent 50%);
+}
+
+.fluid-cta {
+  background: linear-gradient(135deg, hsl(224 64% 33%) 0%, hsl(217 91% 45%) 50%, hsl(160 84% 35%) 100%);
+  background-size: 200% 200%;
+  animation: fluid-cta-shift 6s ease infinite;
+}
+@keyframes fluid-cta-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floating-cube {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-14px) rotate(4deg) scale(1.04);
+  }
+  50% {
+    transform: translateY(-28px) rotate(-3deg) scale(1.08);
+  }
+  75% {
+    transform: translateY(-12px) rotate(2deg) scale(1.02);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+}
+
+.animate-floating-cube {
+  animation: floating-cube ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes tech-drift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.animate-tech-drift {
+  animation: tech-drift 24s ease infinite;
+}
+
+/* ===== Shimmer Wave Skeleton ===== */
+@keyframes shimmer-wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.08) 25%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.08) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer-wave 2s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* ===== Illuminated Glowing Background Animations (Sijalica & Rubrike) ===== */
+@keyframes bulb-illuminate-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 25px rgba(6, 182, 212, 0.35)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.2));
+    opacity: 0.14;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    filter: drop-shadow(0 0 50px rgba(6, 182, 212, 0.65)) drop-shadow(0 0 90px rgba(245, 158, 11, 0.35)) drop-shadow(0 0 130px rgba(59, 130, 246, 0.45));
+    opacity: 0.24;
+    transform: translate3d(0, -18px, 0) scale(1.06) rotate(2deg);
+  }
+}
+
+@keyframes category-illuminate-pulse {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    opacity: 0.13;
+  }
+  33% {
+    transform: translate3d(-10px, -20px, 0) scale(1.05) rotate(2deg);
+    opacity: 0.22;
+  }
+  66% {
+    transform: translate3d(12px, -8px, 0) scale(0.98) rotate(-1.5deg);
+    opacity: 0.16;
+  }
+}
+
+@keyframes aura-expansion {
+  0%, 100% {
+    transform: scale(0.9) translate3d(0, 0, 0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.22) translate3d(0, -10px, 0);
+    opacity: 0.75;
+  }
+}
+
+.animate-bulb-glow {
+  animation: bulb-illuminate-pulse 8s ease-in-out infinite;
+  will-change: transform, filter, opacity;
+}
+
+.animate-category-float {
+  animation: category-illuminate-pulse 10s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-aura-pulse {
+  animation: aura-expansion 6s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-bulb-glow,
+  .animate-category-float,
+  .animate-aura-pulse,
+  .animate-shimmer::after {
+    animation: none !important;
+  }
+}
+
+

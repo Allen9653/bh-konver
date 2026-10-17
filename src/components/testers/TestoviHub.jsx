@@ -1,0 +1,255 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { ArrowRight, Brain, CarFront, Landmark, Sparkles, CheckCircle2, Crown, Trophy } from "lucide-react";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { SEO } from "@/components/SEO";
+import { FreemiumPaywallModal } from "@/components/free-tools/FreemiumPaywallModal";
+import { BackButton } from "@/components/common/BackButton";
+
+const testConfigs = [
+  {
+    id: "general",
+    icon: Landmark,
+    to: "/testovi/opste-znanje",
+  },
+  {
+    id: "traffic",
+    icon: CarFront,
+    to: "/testovi/saobracajni",
+  },
+  {
+    id: "iq",
+    icon: Brain,
+    to: "/testovi/logika",
+  },
+  {
+    id: "personality",
+    icon: Sparkles,
+    to: "/testovi/licnost",
+  },
+];
+
+export default function TestoviHub() {
+  const { t } = useTranslation();
+  const [paywallOpen, setPaywallOpen] = useState(false);
+
+  const tests = [
+    {
+      title: t("tests.generalTitle", "Opšte znanje o BiH"),
+      description: t(
+        "tests.generalDesc",
+        "Kratki i zanimljivi kviz o geografiji, gradovima, historiji i bogatoj kulturi Bosne i Hercegovine."
+      ),
+      icon: Landmark,
+      to: "/testovi/opste-znanje",
+      badge: t("tests.freemiumBadge", "Freemium dostupno"),
+      questions: t("tests.generalQuestions", "10 pitanja"),
+    },
+    {
+      title: t("tests.trafficTitle", "Saobraćajni test"),
+      description: t(
+        "tests.trafficDesc",
+        "Provjerite i utvrdite znanje saobraćajnih propisa, znakova i pravila prvenstva prolaza na raskrsnicama."
+      ),
+      icon: CarFront,
+      to: "/testovi/saobracajni",
+      badge: t("tests.freemiumBadge", "Freemium dostupno"),
+      questions: t("tests.trafficQuestions", "10 pitanja"),
+    },
+    {
+      title: t("tests.iqTitle", "IQ i logički test"),
+      description: t(
+        "tests.iqDesc",
+        "Testirajte svoje logičko zaključivanje, prepoznavanje niza brojeva i misaone obrasce."
+      ),
+      icon: Brain,
+      to: "/testovi/logika",
+      badge: t("tests.freemiumBadge", "Freemium dostupno"),
+      questions: t("tests.iqQuestions", "10 zadataka"),
+    },
+    {
+      title: t("tests.personalityTitle", "Test ličnosti"),
+      description: t(
+        "tests.personalityDesc",
+        "Informativna samoprocjena koja vam pomaže da bolje razumijete svoje lične preferencije i radne navike."
+      ),
+      icon: Sparkles,
+      to: "/testovi/licnost",
+      badge: t("tests.freemiumBadge", "Freemium dostupno"),
+      questions: t("tests.personalityQuestions", "Kratka procjena"),
+    },
+  ];
+
+  const pageTitle = t("tests.seoTitle", "Online kvizovi i testovi znanja | BH KONVER");
+  const pageDescription = t(
+    "tests.seoDesc",
+    "Isprobajte Freemium testove opšteg znanja o BiH, saobraćajnih propisa, logičke IQ zadatke i test ličnosti. Brzo, zabavno i bez čekanja."
+  );
+
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        path="/testovi"
+        jsonLd={{
+          "@type": "CollectionPage",
+          name: pageTitle,
+          description: pageDescription,
+        }}
+      />
+      <Navbar activeCategory="TESTOVI" />
+      <main className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+        <div className="mb-6">
+          <BackButton label={t("common.backToHome", "← Povratak na početnu")} fallbackTo="/" />
+        </div>
+
+        {/* Hero Section */}
+        <section className="mb-8 rounded-3xl border border-border/80 p-6 sm:p-10 shadow-sm glass-panel relative overflow-hidden">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                <Trophy className="h-3.5 w-3.5" />
+                <span>{t("tests.badge", "DOBRO DOŠLI U TESTOVE ZNANJA · FREEMIUM")}</span>
+              </div>
+              <h1 className="mt-4 font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+                {t("tests.heroTitle", "Dobro došli! Pozivamo vas da testirate svoje znanje i vještine")}
+              </h1>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                {t(
+                  "tests.heroDesc",
+                  "Želite provjeriti koliko dobro poznajete Bosnu i Hercegovinu, ponoviti saobraćajna pravila prije vožnje, razmrdati vijuge logičkim zadacima ili istražiti svoj profil ličnosti? Na pravom ste mjestu! Svi testovi na BH Konveru dostupni su kao Freemium opcija – možete odmah započeti rješavanje pitanja, dobiti trenutne bodove i provjeriti tačne odgovore potpuno besplatno, bez ikakvog čekanja."
+                )}
+              </p>
+
+              <div className="mt-6 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-foreground">
+                <span className="flex items-center gap-1.5 font-medium">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600" /> {t("tests.benefit1", "Svi testovi dostupni besplatno")}
+                </span>
+                <span className="flex items-center gap-1.5 font-medium">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600" /> {t("tests.benefit2", "Trenutni bodovni rezultati")}
+                </span>
+                <span className="flex items-center gap-1.5 font-medium">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600" /> {t("tests.benefit3", "Bez registracije za osnovni test")}
+                </span>
+              </div>
+            </div>
+
+            <div className="shrink-0 flex items-center justify-center p-3 sm:p-4 rounded-3xl bg-slate-900/60 border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.25)]">
+              <img
+                src="/categories/testovi.png"
+                alt="Testovi BH KONVER"
+                className="h-20 w-20 sm:h-28 sm:w-28 object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Available Tests Cards */}
+        <div className="mb-8">
+          <h2 className="text-base font-bold text-foreground sm:text-lg mb-4">
+            {t("tests.availableTitle", "Dostupni Freemium testovi")}
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {tests.map(({ title, description, icon: Icon, to, badge, questions }) => (
+              <Link
+                key={title}
+                to={to}
+                className="glass-panel glass-card-hover group flex flex-col justify-between rounded-2xl p-5 shadow-sm transition-all hover:border-primary/50"
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-400">
+                      {badge}
+                    </span>
+                  </div>
+
+                  <h2 className="mt-4 font-display text-base font-bold text-foreground group-hover:text-primary transition-colors">
+                    {title}
+                  </h2>
+
+                  <p className="mt-2 text-xs leading-5 text-muted-foreground">{description}</p>
+                </div>
+
+                <div className="mt-5 flex items-center justify-between border-t border-border/60 pt-3 text-xs">
+                  <span className="text-muted-foreground font-medium">{questions}</span>
+                  <span className="inline-flex items-center gap-1 font-bold text-primary group-hover:translate-x-1 transition-transform">
+                    {t("tests.startTest", "Započni test")} <ArrowRight className="h-3.5 w-3.5" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Premium Banner */}
+        <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-card p-6 sm:p-8 shadow-sm">
+          <div className="filter blur-[1.5px] select-none opacity-60 pointer-events-none">
+            <div className="grid gap-4 sm:grid-cols-3">
+              <div className="rounded-xl border border-border p-4 bg-muted/40">
+                <span className="text-xs font-bold text-foreground">
+                  {t("tests.feature1Title", "Službeni PDF Certifikat o položenom testu")}
+                </span>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {t("tests.feature1Desc", "Verifikovani dokument s vašim imenom, postignutim procentom i QR potvrdom.")}
+                </p>
+              </div>
+              <div className="rounded-xl border border-border p-4 bg-muted/40">
+                <span className="text-xs font-bold text-foreground">
+                  {t("tests.feature2Title", "Detaljna psihološka i logička analiza odgovora")}
+                </span>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {t("tests.feature2Desc", "Komparativna statistika, analiza snaga i preporuke za poboljšanje vještina.")}
+                </p>
+              </div>
+              <div className="rounded-xl border border-border p-4 bg-muted/40">
+                <span className="text-xs font-bold text-foreground">
+                  {t("tests.feature3Title", "Neograničeno ponavljanje s novim setovima pitanja")}
+                </span>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {t("tests.feature3Desc", "Baza od preko 500 naprednih pitanja i praćenje vašeg napretka kroz vrijeme.")}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/70 backdrop-blur-[3px] p-4 text-center">
+            <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+              <Crown className="h-3.5 w-3.5" /> {t("tests.proTitle", "PRO NAPREDNE ANALIZE")}
+            </span>
+            <p className="mt-2 text-sm font-semibold text-foreground max-w-md">
+              {t(
+                "tests.proDesc",
+                "Svi testovi su besplatni za rješavanje. Ako želite službeni PDF certifikat i detaljnu analizu svakog odgovora, pogledajte našu Premium ponudu."
+              )}
+            </p>
+            <button
+              type="button"
+              onClick={() => setPaywallOpen(true)}
+              className="mt-3.5 inline-flex items-center gap-2 rounded-xl fluid-cta px-5 py-2.5 text-xs font-bold text-white shadow-md transition-transform hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <Sparkles className="h-4 w-4" /> {t("tests.proCta", "Otključaj puni izvještaj i certifikat (PayPal & Banka)")}
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <Footer activeCategory="TESTOVI" />
+      <FreemiumPaywallModal
+        open={paywallOpen}
+        onOpenChange={setPaywallOpen}
+        title={t("tests.paywallTitle", "Premium certifikati i analize")}
+        description={t(
+          "tests.paywallDesc",
+          "Otključajte detaljne izvještaje o rezultatima i službene certifikate o završenim testovima."
+        )}
+        redirectPath="/testovi"
+      />
+    </div>
+  );
+}
