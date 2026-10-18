@@ -268,94 +268,132 @@ export const ModernEuropassPreview = forwardRef<HTMLDivElement, ModernEuropassPr
               {/* Header: Candidate Name & Target Title */}
               <div className="border-b-2 border-slate-100 pb-5">
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-[#003399] tracking-tight">
-                  {t(data.personal.fullName) || "Ime i Prezime"}
+                  {data.personal.fullName.trim() ? (
+                    t(data.personal.fullName)
+                  ) : (
+                    <span className="text-slate-300 italic font-normal text-xl sm:text-2xl">
+                      [Vaše Ime i Prezime]
+                    </span>
+                  )}
                 </h1>
                 <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest mt-1">
-                  {t(data.personal.jobTitle) || "Profesionalna Pozicija"}
+                  {data.personal.jobTitle.trim() ? (
+                    t(data.personal.jobTitle)
+                  ) : (
+                    <span className="text-slate-400 italic font-normal normal-case text-xs">
+                      [Željeno Zvanje / Radna Pozicija]
+                    </span>
+                  )}
                 </p>
               </div>
 
               {/* Profile / Summary */}
-              {data.personal.summary && (
-                <div>
-                  <h3 className="text-xs font-bold text-[#003399] uppercase tracking-wider mb-2 flex items-center gap-1.5 border-b border-[#003399]/20 pb-1">
-                    <span>{labels.profile}</span>
-                  </h3>
+              <div>
+                <h3 className="text-xs font-bold text-[#003399] uppercase tracking-wider mb-2 flex items-center gap-1.5 border-b border-[#003399]/20 pb-1">
+                  <span>{labels.profile}</span>
+                </h3>
+                {data.personal.summary.trim() ? (
                   <p className="text-xs leading-relaxed text-slate-600 text-justify">
                     {t(data.personal.summary)}
                   </p>
-                </div>
-              )}
+                ) : (
+                  <p className="text-xs text-slate-400 italic bg-slate-50 p-2.5 rounded border border-dashed border-slate-200">
+                    [Ovdje se prikazuje vaš profesionalni profil i rezime čim popunite polje &quot;O meni&quot; u formi lijevo]
+                  </p>
+                )}
+              </div>
 
               {/* Work Experience */}
-              {data.experiences && data.experiences.length > 0 && (
-                <div>
-                  <h3 className="text-xs font-bold text-[#003399] uppercase tracking-wider mb-3 flex items-center gap-1.5 border-b border-[#003399]/20 pb-1">
-                    <Briefcase className="h-3.5 w-3.5 text-[#003399]" />
-                    <span>{labels.workExperience}</span>
-                  </h3>
+              <div>
+                <h3 className="text-xs font-bold text-[#003399] uppercase tracking-wider mb-3 flex items-center gap-1.5 border-b border-[#003399]/20 pb-1">
+                  <Briefcase className="h-3.5 w-3.5 text-[#003399]" />
+                  <span>{labels.workExperience}</span>
+                </h3>
 
+                {data.experiences.filter((e) => e.position.trim() || e.company.trim()).length > 0 ? (
                   <div className="space-y-4">
-                    {data.experiences.map((exp) => (
-                      <div key={exp.id} className="relative pl-4 border-l-2 border-blue-200 space-y-1">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
-                          <span className="font-bold text-slate-900 text-[13px]">
-                            {t(exp.position)}
-                          </span>
-                          <span className="text-[10px] font-bold text-[#003399] bg-blue-50 px-2 py-0.5 rounded border border-blue-100 self-start sm:self-auto">
-                            {t(exp.startDate)} – {exp.isCurrent ? labels.present : t(exp.endDate)}
-                          </span>
-                        </div>
+                    {data.experiences
+                      .filter((e) => e.position.trim() || e.company.trim())
+                      .map((exp) => (
+                        <div key={exp.id} className="relative pl-4 border-l-2 border-blue-200 space-y-1">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
+                            <span className="font-bold text-slate-900 text-[13px]">
+                              {t(exp.position) || "Radna pozicija"}
+                            </span>
+                            {(exp.startDate || exp.endDate || exp.isCurrent) && (
+                              <span className="text-[10px] font-bold text-[#003399] bg-blue-50 px-2 py-0.5 rounded border border-blue-100 self-start sm:self-auto">
+                                {exp.startDate ? t(exp.startDate) : ""} {exp.startDate && (exp.endDate || exp.isCurrent) ? "–" : ""}{" "}
+                                {exp.isCurrent ? labels.present : t(exp.endDate)}
+                              </span>
+                            )}
+                          </div>
 
-                        <div className="text-xs font-semibold text-slate-600">
-                          {t(exp.company)} {exp.city ? `· ${t(exp.city)}` : ""}
-                        </div>
+                          {(exp.company || exp.city) && (
+                            <div className="text-xs font-semibold text-slate-600">
+                              {t(exp.company)} {exp.city ? `· ${t(exp.city)}` : ""}
+                            </div>
+                          )}
 
-                        {exp.description && (
-                          <p className="text-xs text-slate-600 leading-relaxed pt-1">
-                            {t(exp.description)}
-                          </p>
-                        )}
-                      </div>
-                    ))}
+                          {exp.description && (
+                            <p className="text-xs text-slate-600 leading-relaxed pt-1">
+                              {t(exp.description)}
+                            </p>
+                          )}
+                        </div>
+                      ))}
                   </div>
-                </div>
-              )}
+                ) : (
+                  <div className="p-3 border border-dashed border-blue-200 bg-blue-50/20 rounded text-xs text-slate-400 italic">
+                    [Unesite radno iskustvo (poziciju, firmu, period) u sekciji &quot;Iskustvo&quot; u formi lijevo]
+                  </div>
+                )}
+              </div>
 
               {/* Education & Training */}
-              {data.educations && data.educations.length > 0 && (
-                <div>
-                  <h3 className="text-xs font-bold text-[#003399] uppercase tracking-wider mb-3 flex items-center gap-1.5 border-b border-[#003399]/20 pb-1">
-                    <GraduationCap className="h-3.5 w-3.5 text-[#003399]" />
-                    <span>{labels.educationAndTraining}</span>
-                  </h3>
+              <div>
+                <h3 className="text-xs font-bold text-[#003399] uppercase tracking-wider mb-3 flex items-center gap-1.5 border-b border-[#003399]/20 pb-1">
+                  <GraduationCap className="h-3.5 w-3.5 text-[#003399]" />
+                  <span>{labels.educationAndTraining}</span>
+                </h3>
 
+                {data.educations.filter((edu) => edu.degree.trim() || edu.institution.trim()).length > 0 ? (
                   <div className="space-y-4">
-                    {data.educations.map((edu) => (
-                      <div key={edu.id} className="relative pl-4 border-l-2 border-emerald-200 space-y-1">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
-                          <span className="font-bold text-slate-900 text-[13px]">
-                            {t(edu.degree)}
-                          </span>
-                          <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 self-start sm:self-auto">
-                            {t(edu.startDate)} – {t(edu.endDate)}
-                          </span>
-                        </div>
+                    {data.educations
+                      .filter((edu) => edu.degree.trim() || edu.institution.trim())
+                      .map((edu) => (
+                        <div key={edu.id} className="relative pl-4 border-l-2 border-emerald-200 space-y-1">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
+                            <span className="font-bold text-slate-900 text-[13px]">
+                              {t(edu.degree) || "Diploma / Stepen"}
+                            </span>
+                            {(edu.startDate || edu.endDate) && (
+                              <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 self-start sm:self-auto">
+                                {edu.startDate ? t(edu.startDate) : ""} {edu.startDate && edu.endDate ? "–" : ""}{" "}
+                                {t(edu.endDate)}
+                              </span>
+                            )}
+                          </div>
 
-                        <div className="text-xs font-semibold text-slate-600">
-                          {t(edu.institution)} {edu.city ? `· ${t(edu.city)}` : ""}
-                        </div>
+                          {(edu.institution || edu.city) && (
+                            <div className="text-xs font-semibold text-slate-600">
+                              {t(edu.institution)} {edu.city ? `· ${t(edu.city)}` : ""}
+                            </div>
+                          )}
 
-                        {edu.description && (
-                          <p className="text-xs text-slate-600 leading-relaxed pt-1">
-                            {t(edu.description)}
-                          </p>
-                        )}
-                      </div>
-                    ))}
+                          {edu.description && (
+                            <p className="text-xs text-slate-600 leading-relaxed pt-1">
+                              {t(edu.description)}
+                            </p>
+                          )}
+                        </div>
+                      ))}
                   </div>
-                </div>
-              )}
+                ) : (
+                  <div className="p-3 border border-dashed border-emerald-200 bg-emerald-50/20 rounded text-xs text-slate-400 italic">
+                    [Unesite obrazovanje (fakultet, školu, smjer) u sekciji &quot;Fakultet&quot; u formi lijevo]
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

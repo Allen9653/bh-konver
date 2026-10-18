@@ -68,7 +68,58 @@ export interface CvData {
   drivingLicense: string; // npr. "B, B1"
 }
 
-export const INITIAL_CV_DATA: CvData = {
+export const EMPTY_CV_DATA: CvData = {
+  language: "bs",
+  personal: {
+    fullName: "",
+    jobTitle: "",
+    email: "",
+    phone: "",
+    address: "",
+    birthDate: "",
+    nationality: "",
+    website: "",
+    linkedin: "",
+    summary: "",
+    photoUrl: "",
+    photoShape: "rounded",
+  },
+  experiences: [
+    {
+      id: "exp-1",
+      position: "",
+      company: "",
+      city: "",
+      startDate: "",
+      endDate: "",
+      isCurrent: false,
+      description: "",
+    },
+  ],
+  educations: [
+    {
+      id: "edu-1",
+      degree: "",
+      institution: "",
+      city: "",
+      startDate: "",
+      endDate: "",
+      description: "",
+    },
+  ],
+  skills: [
+    { id: "sk-1", name: "", level: "advanced" },
+  ],
+  languages: [
+    { id: "lang-1", language: "", level: "native" },
+  ],
+  certificates: [],
+  drivingLicense: "",
+};
+
+export const INITIAL_CV_DATA: CvData = EMPTY_CV_DATA;
+
+export const SAMPLE_CV_DATA: CvData = {
   language: "bs",
   personal: {
     fullName: "Mirza Hodžić",

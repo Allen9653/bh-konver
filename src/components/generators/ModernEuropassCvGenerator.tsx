@@ -8,7 +8,8 @@ import {
   SkillItem,
   LanguageItem,
   CertificateItem,
-  INITIAL_CV_DATA,
+  EMPTY_CV_DATA,
+  SAMPLE_CV_DATA,
 } from "@/types/cv";
 import { CvLanguageSelector } from "./cv/CvLanguageSelector";
 import { CvPhotoUploader } from "./cv/CvPhotoUploader";
@@ -47,11 +48,19 @@ export default function ModernEuropassCvGenerator() {
   const [cvData, setCvData] = useState<CvData>(() => {
     try {
       const saved = localStorage.getItem("bh_cv_generator_data");
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // If the stored data is the hardcoded sample 'Mirza Hodžić', clear it so user starts with an interactive empty form
+        if (parsed?.personal?.fullName === "Mirza Hodžić") {
+          localStorage.removeItem("bh_cv_generator_data");
+          return EMPTY_CV_DATA;
+        }
+        return parsed;
+      }
     } catch (e) {
       console.warn("Could not load stored CV data:", e);
     }
-    return INITIAL_CV_DATA;
+    return EMPTY_CV_DATA;
   });
 
   // Track unlocked premium languages
@@ -65,8 +74,9 @@ export default function ModernEuropassCvGenerator() {
     return {};
   });
 
-  // Active form section tab
+  // Active form section tab and view mode
   const [activeTab, setActiveTab] = useState<"personal" | "experience" | "education" | "skills" | "certificates">("personal");
+  const [viewMode, setViewMode] = useState<"tabs" | "all">("tabs");
   const [importModalOpen, setImportModalOpen] = useState(false);
   const [zoomScale, setZoomScale] = useState(0.82);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -268,39 +278,18 @@ export default function ModernEuropassCvGenerator() {
 
   // Reset to sample template
   const handleResetToSample = () => {
-    if (confirm("Da li želite učitati primjerni Europass obrazac? Svi trenutni unosi bit će zamijenjeni.")) {
-      setCsvData(INITIAL_CV_DATA);
+    if (confirm("Da li želite učitati ogledni Europass primjer sa popunjenim podacima? Svi trenutni unosi bit će zamijenjeni.")) {
+      setCvData(SAMPLE_CV_DATA);
       toast.info("Učitan je ogledni Europass primjer!");
     }
   };
 
   // Clear all fields
   const handleClearAll = () => {
-    if (confirm("Da li sigurno želite isprazniti sva polja obrasca?")) {
-      setCsvData({
-        language: "bs",
-        personal: {
-          fullName: "",
-          jobTitle: "",
-          email: "",
-          phone: "",
-          address: "",
-          birthDate: "",
-          nationality: "",
-          website: "",
-          linkedin: "",
-          summary: "",
-          photoUrl: "",
-          photoShape: "rounded",
-        },
-        experiences: [],
-        educations: [],
-        skills: [],
-        languages: [],
-        certificates: [],
-        drivingLicense: "",
-      });
-      toast.info("Obrazac je očišćen.");
+    if (confirm("Da li sigurno želite isprazniti sva polja obrasca kako biste unijeli svoje podatke?")) {
+      setCvData(EMPTY_CV_DATA);
+      localStorage.removeItem("bh_cv_generator_data");
+      toast.info("Obrazac je očišćen. Možete unijeti svoje lične podatke.");
     }
   };
 
@@ -414,95 +403,132 @@ export default function ModernEuropassCvGenerator() {
                   <span>KORAK 2: UNOS PODATAKA</span>
                 </div>
                 <h3 className="text-base font-bold text-foreground mt-0.5">
-                  Strukturirana polja životopisa
+                  Interaktivna forma za unos i uređivanje
                 </h3>
               </div>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={handleClearAll}
-                className="text-[11px] text-destructive hover:bg-destructive/10 h-7 px-2"
-              >
-                Isprazni
-              </Button>
+              <div className="flex items-center gap-1.5">
+                <div className="flex items-center bg-muted/60 p-0.5 rounded-lg border border-border/80 text-[11px]">
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("tabs")}
+                    className={`px-2.5 py-1 rounded font-semibold transition-all ${
+                      viewMode === "tabs"
+                        ? "bg-background text-foreground shadow-xs"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    Tabovi
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("all")}
+                    className={`px-2.5 py-1 rounded font-semibold transition-all ${
+                      viewMode === "all"
+                        ? "bg-background text-foreground shadow-xs"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    Sva polja odjednom
+                  </button>
+                </div>
+
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleClearAll}
+                  className="text-[11px] text-destructive hover:bg-destructive/10 h-7 px-2"
+                >
+                  Isprazni
+                </Button>
+              </div>
             </div>
 
-            {/* Navigation Tabs */}
-            <div className="grid grid-cols-5 gap-1 p-1 bg-muted/60 rounded-xl border border-border/80">
-              <button
-                type="button"
-                onClick={() => setActiveTab("personal")}
-                className={`py-2 px-1 text-[11px] font-bold rounded-lg transition-all flex flex-col items-center gap-1 ${
-                  activeTab === "personal"
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-background/80 hover:text-foreground"
-                }`}
-              >
-                <User className="h-3.5 w-3.5" />
-                <span>Osobno</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab("experience")}
-                className={`py-2 px-1 text-[11px] font-bold rounded-lg transition-all flex flex-col items-center gap-1 ${
-                  activeTab === "experience"
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-background/80 hover:text-foreground"
-                }`}
-              >
-                <Briefcase className="h-3.5 w-3.5" />
-                <span>Iskustvo</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab("education")}
-                className={`py-2 px-1 text-[11px] font-bold rounded-lg transition-all flex flex-col items-center gap-1 ${
-                  activeTab === "education"
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-background/80 hover:text-foreground"
-                }`}
-              >
-                <GraduationCap className="h-3.5 w-3.5" />
-                <span>Fakultet</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab("skills")}
-                className={`py-2 px-1 text-[11px] font-bold rounded-lg transition-all flex flex-col items-center gap-1 ${
-                  activeTab === "skills"
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-background/80 hover:text-foreground"
-                }`}
-              >
-                <Wrench className="h-3.5 w-3.5" />
-                <span>Vještine</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab("certificates")}
-                className={`py-2 px-1 text-[11px] font-bold rounded-lg transition-all flex flex-col items-center gap-1 ${
-                  activeTab === "certificates"
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-background/80 hover:text-foreground"
-                }`}
-              >
-                <Award className="h-3.5 w-3.5" />
-                <span>Diplome</span>
-              </button>
-            </div>
+            {/* Navigation Tabs (shown if viewMode === 'tabs') */}
+            {viewMode === "tabs" && (
+              <div className="grid grid-cols-5 gap-1 p-1 bg-muted/60 rounded-xl border border-border/80">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("personal")}
+                  className={`py-2 px-1 text-[11px] font-bold rounded-lg transition-all flex flex-col items-center gap-1 ${
+                    activeTab === "personal"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:bg-background/80 hover:text-foreground"
+                  }`}
+                >
+                  <User className="h-3.5 w-3.5" />
+                  <span>Osobno</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("experience")}
+                  className={`py-2 px-1 text-[11px] font-bold rounded-lg transition-all flex flex-col items-center gap-1 ${
+                    activeTab === "experience"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:bg-background/80 hover:text-foreground"
+                  }`}
+                >
+                  <Briefcase className="h-3.5 w-3.5" />
+                  <span>Iskustvo</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("education")}
+                  className={`py-2 px-1 text-[11px] font-bold rounded-lg transition-all flex flex-col items-center gap-1 ${
+                    activeTab === "education"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:bg-background/80 hover:text-foreground"
+                  }`}
+                >
+                  <GraduationCap className="h-3.5 w-3.5" />
+                  <span>Fakultet</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("skills")}
+                  className={`py-2 px-1 text-[11px] font-bold rounded-lg transition-all flex flex-col items-center gap-1 ${
+                    activeTab === "skills"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:bg-background/80 hover:text-foreground"
+                  }`}
+                >
+                  <Wrench className="h-3.5 w-3.5" />
+                  <span>Vještine</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("certificates")}
+                  className={`py-2 px-1 text-[11px] font-bold rounded-lg transition-all flex flex-col items-center gap-1 ${
+                    activeTab === "certificates"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:bg-background/80 hover:text-foreground"
+                  }`}
+                >
+                  <Award className="h-3.5 w-3.5" />
+                  <span>Diplome</span>
+                </button>
+              </div>
+            )}
 
             {/* TAB CONTENT: Personal */}
-            {activeTab === "personal" && (
-              <div className="space-y-4 pt-1">
+            {(viewMode === "all" || activeTab === "personal") && (
+              <div className="space-y-4 pt-1 border-b border-border/60 pb-5">
+                {viewMode === "all" && (
+                  <div className="flex items-center gap-2 pb-1 border-b border-border">
+                    <User className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">
+                      1. Osobni i kontakt podaci
+                    </span>
+                  </div>
+                )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1.5">
                     <Label className="text-xs font-semibold">Ime i prezime *</Label>
                     <Input
                       value={cvData.personal.fullName}
                       onChange={(e) => updatePersonal("fullName", e.target.value)}
-                      placeholder="npr. Mirza Hodžić"
-                      className="text-xs"
+                      placeholder="Unesite Vaše ime i prezime (npr. Lejla Hadžić)"
+                      className="text-xs font-medium"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -510,7 +536,7 @@ export default function ModernEuropassCvGenerator() {
                     <Input
                       value={cvData.personal.jobTitle}
                       onChange={(e) => updatePersonal("jobTitle", e.target.value)}
-                      placeholder="npr. Senior Software Engineer"
+                      placeholder="Vaše zvanje / pozicija (npr. Softverski inženjer)"
                       className="text-xs"
                     />
                   </div>
@@ -523,7 +549,7 @@ export default function ModernEuropassCvGenerator() {
                       type="email"
                       value={cvData.personal.email}
                       onChange={(e) => updatePersonal("email", e.target.value)}
-                      placeholder="ime@example.com"
+                      placeholder="vas.email@primjer.ba"
                       className="text-xs"
                     />
                   </div>
@@ -532,7 +558,7 @@ export default function ModernEuropassCvGenerator() {
                     <Input
                       value={cvData.personal.phone}
                       onChange={(e) => updatePersonal("phone", e.target.value)}
-                      placeholder="+387 61 000 000"
+                      placeholder="npr. +387 61 123 456"
                       className="text-xs"
                     />
                   </div>
@@ -544,7 +570,7 @@ export default function ModernEuropassCvGenerator() {
                     <Input
                       value={cvData.personal.address}
                       onChange={(e) => updatePersonal("address", e.target.value)}
-                      placeholder="Sarajevo, Bosna i Hercegovina"
+                      placeholder="npr. Sarajevo, Bosna i Hercegovina"
                       className="text-xs"
                     />
                   </div>
@@ -553,7 +579,7 @@ export default function ModernEuropassCvGenerator() {
                     <Input
                       value={cvData.personal.birthDate}
                       onChange={(e) => updatePersonal("birthDate", e.target.value)}
-                      placeholder="15.04.1993."
+                      placeholder="npr. 15.04.1995."
                       className="text-xs"
                     />
                   </div>
@@ -565,7 +591,7 @@ export default function ModernEuropassCvGenerator() {
                     <Input
                       value={cvData.personal.nationality}
                       onChange={(e) => updatePersonal("nationality", e.target.value)}
-                      placeholder="Državljanstvo BiH"
+                      placeholder="npr. Državljanstvo BiH"
                       className="text-xs"
                     />
                   </div>
@@ -574,7 +600,7 @@ export default function ModernEuropassCvGenerator() {
                     <Input
                       value={cvData.drivingLicense}
                       onChange={(e) => setCsvData((prev) => ({ ...prev, drivingLicense: e.target.value }))}
-                      placeholder="B kategorija"
+                      placeholder="npr. B kategorija"
                       className="text-xs"
                     />
                   </div>
@@ -586,7 +612,7 @@ export default function ModernEuropassCvGenerator() {
                     <Input
                       value={cvData.personal.linkedin}
                       onChange={(e) => updatePersonal("linkedin", e.target.value)}
-                      placeholder="linkedin.com/in/profil"
+                      placeholder="npr. linkedin.com/in/vasprofil"
                       className="text-xs"
                     />
                   </div>
@@ -595,7 +621,7 @@ export default function ModernEuropassCvGenerator() {
                     <Input
                       value={cvData.personal.website}
                       onChange={(e) => updatePersonal("website", e.target.value)}
-                      placeholder="https://mojportfolio.ba"
+                      placeholder="npr. https://mojportfolio.ba"
                       className="text-xs"
                     />
                   </div>
@@ -607,7 +633,7 @@ export default function ModernEuropassCvGenerator() {
                     rows={4}
                     value={cvData.personal.summary}
                     onChange={(e) => updatePersonal("summary", e.target.value)}
-                    placeholder="Sažeti opis vašeg stručnog profila, ciljeva i ključnih postignuća..."
+                    placeholder="Ovdje napišite sažetak vašeg profesionalnog profila, ključne kompetencije, ciljeve u karijeri i dosadašnja postignuća..."
                     className="text-xs leading-relaxed"
                   />
                 </div>
@@ -615,8 +641,16 @@ export default function ModernEuropassCvGenerator() {
             )}
 
             {/* TAB CONTENT: Experience */}
-            {activeTab === "experience" && (
-              <div className="space-y-4 pt-1">
+            {(viewMode === "all" || activeTab === "experience") && (
+              <div className="space-y-4 pt-1 border-b border-border/60 pb-5">
+                {viewMode === "all" && (
+                  <div className="flex items-center gap-2 pb-1 border-b border-border">
+                    <Briefcase className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">
+                      2. Radno iskustvo
+                    </span>
+                  </div>
+                )}
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-foreground">
                     Radno iskustvo ({cvData.experiences.length})
@@ -629,13 +663,13 @@ export default function ModernEuropassCvGenerator() {
                     className="gap-1 text-xs h-8"
                   >
                     <Plus className="h-3.5 w-3.5" />
-                    Dodaj iskustvo
+                    Dodaj poziciju
                   </Button>
                 </div>
 
                 {cvData.experiences.length === 0 ? (
                   <div className="p-6 text-center rounded-xl border border-dashed border-border text-xs text-muted-foreground">
-                    Nema unesenog radnog iskustva. Kliknite na &quot;Dodaj iskustvo&quot;.
+                    Nema unesenog radnog iskustva. Kliknite na &quot;Dodaj poziciju&quot;.
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -662,13 +696,13 @@ export default function ModernEuropassCvGenerator() {
                           <Input
                             value={exp.position}
                             onChange={(e) => updateExperience(exp.id, "position", e.target.value)}
-                            placeholder="Pozicija (npr. Frontend Dev)"
-                            className="text-xs"
+                            placeholder="Radna pozicija (npr. Voditelj prodaje, Java inženjer)"
+                            className="text-xs font-medium"
                           />
                           <Input
                             value={exp.company}
                             onChange={(e) => updateExperience(exp.id, "company", e.target.value)}
-                            placeholder="Kompanija / Poslodavac"
+                            placeholder="Kompanija / Poslodavac (npr. BH Telecom)"
                             className="text-xs"
                           />
                         </div>
@@ -677,20 +711,20 @@ export default function ModernEuropassCvGenerator() {
                           <Input
                             value={exp.startDate}
                             onChange={(e) => updateExperience(exp.id, "startDate", e.target.value)}
-                            placeholder="Početak (03/2021)"
+                            placeholder="Od (npr. 01/2021)"
                             className="text-xs"
                           />
                           <Input
                             value={exp.isCurrent ? "Trenutno" : exp.endDate}
                             disabled={exp.isCurrent}
                             onChange={(e) => updateExperience(exp.id, "endDate", e.target.value)}
-                            placeholder="Kraj (08/2023)"
+                            placeholder="Do (npr. 06/2023)"
                             className="text-xs"
                           />
                           <Input
                             value={exp.city}
                             onChange={(e) => updateExperience(exp.id, "city", e.target.value)}
-                            placeholder="Grad (Sarajevo)"
+                            placeholder="Grad (npr. Sarajevo)"
                             className="text-xs"
                           />
                         </div>
@@ -712,7 +746,7 @@ export default function ModernEuropassCvGenerator() {
                           rows={2}
                           value={exp.description}
                           onChange={(e) => updateExperience(exp.id, "description", e.target.value)}
-                          placeholder="Opis zadataka, tehnologija i odgovornosti..."
+                          placeholder="Opišite Vaša zaduženja, korištene tehnologije, vođene projekte i postignute rezultate..."
                           className="text-xs leading-relaxed"
                         />
                       </div>
@@ -723,8 +757,16 @@ export default function ModernEuropassCvGenerator() {
             )}
 
             {/* TAB CONTENT: Education */}
-            {activeTab === "education" && (
-              <div className="space-y-4 pt-1">
+            {(viewMode === "all" || activeTab === "education") && (
+              <div className="space-y-4 pt-1 border-b border-border/60 pb-5">
+                {viewMode === "all" && (
+                  <div className="flex items-center gap-2 pb-1 border-b border-border">
+                    <GraduationCap className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">
+                      3. Obrazovanje i osposobljavanje
+                    </span>
+                  </div>
+                )}
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-foreground">
                     Obrazovanje i osposobljavanje ({cvData.educations.length})
@@ -769,21 +811,21 @@ export default function ModernEuropassCvGenerator() {
                         <Input
                           value={edu.degree}
                           onChange={(e) => updateEducation(edu.id, "degree", e.target.value)}
-                          placeholder="Stečeni naziv / Zvanje (npr. Bachelor elektrotehnike)"
-                          className="text-xs"
+                          placeholder="Stečeni naziv / Zvanje / Diploma (npr. Bachelor elektrotehnike)"
+                          className="text-xs font-medium"
                         />
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                           <Input
                             value={edu.institution}
                             onChange={(e) => updateEducation(edu.id, "institution", e.target.value)}
-                            placeholder="Ustanova (Univerzitet / Fakultet)"
+                            placeholder="Ustanova (Univerzitet / Fakultet / Srednja škola)"
                             className="text-xs"
                           />
                           <Input
                             value={edu.city}
                             onChange={(e) => updateEducation(edu.id, "city", e.target.value)}
-                            placeholder="Grad (npr. Tuzla)"
+                            placeholder="Grad (npr. Tuzla, Sarajevo)"
                             className="text-xs"
                           />
                         </div>
@@ -792,13 +834,13 @@ export default function ModernEuropassCvGenerator() {
                           <Input
                             value={edu.startDate}
                             onChange={(e) => updateEducation(edu.id, "startDate", e.target.value)}
-                            placeholder="Godina upisa (2015)"
+                            placeholder="Godina upisa (npr. 2017)"
                             className="text-xs"
                           />
                           <Input
                             value={edu.endDate}
                             onChange={(e) => updateEducation(edu.id, "endDate", e.target.value)}
-                            placeholder="Godina diplomiranja (2019)"
+                            placeholder="Godina završetka (npr. 2021)"
                             className="text-xs"
                           />
                         </div>
@@ -807,7 +849,7 @@ export default function ModernEuropassCvGenerator() {
                           rows={2}
                           value={edu.description}
                           onChange={(e) => updateEducation(edu.id, "description", e.target.value)}
-                          placeholder="Smjer, stečene kompetencije ili opis rada..."
+                          placeholder="Smjer, stečene stručne kompetencije, diplomski rad ili relevantni predmeti..."
                           className="text-xs leading-relaxed"
                         />
                       </div>
@@ -818,8 +860,16 @@ export default function ModernEuropassCvGenerator() {
             )}
 
             {/* TAB CONTENT: Skills & Languages */}
-            {activeTab === "skills" && (
-              <div className="space-y-5 pt-1">
+            {(viewMode === "all" || activeTab === "skills") && (
+              <div className="space-y-5 pt-1 border-b border-border/60 pb-5">
+                {viewMode === "all" && (
+                  <div className="flex items-center gap-2 pb-1 border-b border-border">
+                    <Wrench className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">
+                      4. Vještine i jezici
+                    </span>
+                  </div>
+                )}
                 {/* Skills Section */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
@@ -844,7 +894,7 @@ export default function ModernEuropassCvGenerator() {
                         <Input
                           value={skill.name}
                           onChange={(e) => updateSkill(skill.id, "name", e.target.value)}
-                          placeholder="Naziv vještine (npr. React, SQL, Photoshop)"
+                          placeholder="Naziv vještine (npr. Upravljanje timom, Python, AutoCAD, Excel)"
                           className="text-xs flex-1"
                         />
                         <select
@@ -893,7 +943,7 @@ export default function ModernEuropassCvGenerator() {
                         <Input
                           value={item.language}
                           onChange={(e) => updateLanguage(item.id, "language", e.target.value)}
-                          placeholder="Jezik (npr. Engleski, Njemački)"
+                          placeholder="Jezik (npr. Engleski, Njemački, Turski)"
                           className="text-xs flex-1"
                         />
                         <select
@@ -924,8 +974,16 @@ export default function ModernEuropassCvGenerator() {
             )}
 
             {/* TAB CONTENT: Certificates */}
-            {activeTab === "certificates" && (
+            {(viewMode === "all" || activeTab === "certificates") && (
               <div className="space-y-4 pt-1">
+                {viewMode === "all" && (
+                  <div className="flex items-center gap-2 pb-1 border-b border-border">
+                    <Award className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">
+                      5. Certifikati i priznanja
+                    </span>
+                  </div>
+                )}
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-foreground">
                     Certifikati i licence ({cvData.certificates.length})
@@ -954,7 +1012,7 @@ export default function ModernEuropassCvGenerator() {
                           <Input
                             value={cert.title}
                             onChange={(e) => updateCertificate(cert.id, "title", e.target.value)}
-                            placeholder="Naziv certifikata (npr. AWS Certified Solutions Architect)"
+                            placeholder="Naziv certifikata (npr. Scrum Master, Cisco CCNA, Stručni ispit)"
                             className="text-xs font-semibold"
                           />
                           <button
@@ -969,13 +1027,13 @@ export default function ModernEuropassCvGenerator() {
                           <Input
                             value={cert.issuer}
                             onChange={(e) => updateCertificate(cert.id, "issuer", e.target.value)}
-                            placeholder="Izdavač (npr. Amazon Web Services)"
+                            placeholder="Izdavač / Organizacija (npr. Scrum.org)"
                             className="text-xs"
                           />
                           <Input
                             value={cert.year}
                             onChange={(e) => updateCertificate(cert.id, "year", e.target.value)}
-                            placeholder="Godina (2023)"
+                            placeholder="Godina (npr. 2023)"
                             className="text-xs"
                           />
                         </div>
