@@ -1,7 +1,8 @@
-import { useRef, ChangeEvent } from "react";
+import { useRef, useState, ChangeEvent, DragEvent } from "react";
 import { PhotoShape } from "@/types/cv";
-import { Camera, Trash2, Upload, Sparkles } from "lucide-react";
+import { Camera, Trash2, Upload, Sparkles, CheckCircle2, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface CvPhotoUploaderProps {
   photoUrl: string;
@@ -17,18 +18,16 @@ export function CvPhotoUploader({
   onShapeChange,
 }: CvPhotoUploaderProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
-  const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
+  const processFile = (file: File) => {
     if (!file.type.startsWith("image/")) {
-      alert("Molimo odaberite sliku (JPG, PNG ili WEBP).");
+      toast.error("Molimo odaberite validan format slike (JPG, PNG ili WEBP).");
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) {
-      alert("Fotografija ne smije biti veća od 5 MB.");
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("Fotografija ne smije biti veća od 10 MB.");
       return;
     }
 
@@ -37,9 +36,41 @@ export function CvPhotoUploader({
       const result = event.target?.result as string;
       if (result) {
         onPhotoChange(result);
+        toast.success("Fotografija je uspješno učitana u Vaš CV!");
       }
     };
+    reader.onerror = () => {
+      toast.error("Došlo je do greške pri čitanju datoteke fotografije.");
+    };
     reader.readAsDataURL(file);
+  };
+
+  const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      processFile(file);
+    }
+    // Reset file input so user can re-upload same file if desired
+    e.target.value = "";
+  };
+
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      processFile(file);
+    }
   };
 
   const shapes: Array<{ id: PhotoShape; label: string }> = [
@@ -59,7 +90,7 @@ export function CvPhotoUploader({
           Profesionalna profilna slika za CV
         </h3>
         <p className="text-xs text-muted-foreground mt-0.5">
-          Standardizovani Europass format preporučuje portret sa svijetlom neutralnom pozadinom.
+          Učitajte Vašu sliku klikom ili prevlačenjem. Slika se trenutno integriše u dokument.
         </p>
       </div>
 
@@ -71,11 +102,24 @@ export function CvPhotoUploader({
         className="hidden"
       />
 
-      <div className="flex flex-col sm:flex-row items-center gap-6 p-4 rounded-xl border border-dashed border-border/80 bg-muted/20">
+      <div
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        className={`flex flex-col sm:flex-row items-center gap-6 p-4 sm:p-5 rounded-xl border-2 border-dashed transition-all ${
+          isDragging
+            ? "border-primary bg-primary/10 scale-[1.01]"
+            : "border-border/80 bg-muted/20 hover:bg-muted/30"
+        }`}
+      >
         {/* Preview Frame */}
-        <div className="relative group shrink-0">
+        <div
+          onClick={() => fileInputRef.current?.click()}
+          className="relative group shrink-0 cursor-pointer"
+          title="Kliknite za odabir fotografije"
+        >
           <div
-            className={`h-28 w-28 sm:h-32 sm:w-32 overflow-hidden border-2 border-primary/40 bg-muted/60 shadow-md flex items-center justify-center transition-all ${
+            className={`h-28 w-28 sm:h-32 sm:w-32 overflow-hidden border-2 border-primary/40 bg-background shadow-md flex items-center justify-center transition-all group-hover:border-primary ${
               photoShape === "circle"
                 ? "rounded-full"
                 : photoShape === "rounded"
@@ -91,8 +135,13 @@ export function CvPhotoUploader({
               />
             ) : (
               <div className="flex flex-col items-center justify-center text-muted-foreground p-3 text-center">
-                <Camera className="h-8 w-8 mb-1 opacity-60" />
-                <span className="text-[11px] font-medium leading-tight">Nema slike</span>
+                <Camera className="h-8 w-8 mb-1 text-primary/70 group-hover:scale-110 transition-transform" />
+                <span className="text-[11px] font-semibold text-foreground leading-tight">
+                  Učitaj sliku
+                </span>
+                <span className="text-[9px] text-muted-foreground mt-0.5">
+                  Klikni ili prevuci
+                </span>
               </div>
             )}
           </div>
@@ -100,7 +149,11 @@ export function CvPhotoUploader({
           {photoUrl && (
             <button
               type="button"
-              onClick={() => onPhotoChange("")}
+              onClick={(e) => {
+                e.stopPropagation();
+                onPhotoChange("");
+                toast.info("Fotografija je uklonjena iz CV-ja.");
+              }}
               title="Ukloni fotografiju"
               className="absolute -top-1 -right-1 h-7 w-7 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center shadow-md hover:scale-110 transition-transform"
             >
@@ -117,10 +170,10 @@ export function CvPhotoUploader({
               variant="default"
               size="sm"
               onClick={() => fileInputRef.current?.click()}
-              className="gap-2 font-semibold"
+              className="gap-2 font-semibold shadow-xs"
             >
               <Upload className="h-4 w-4" />
-              {photoUrl ? "Promijeni fotografiju" : "Učitaj fotografiju (JPG / PNG)"}
+              {photoUrl ? "Promijeni fotografiju" : "Izaberi fotografiju s računara / mobitela"}
             </Button>
 
             {photoUrl && (
@@ -128,7 +181,10 @@ export function CvPhotoUploader({
                 type="button"
                 variant="outline"
                 size="sm"
-                onClick={() => onPhotoChange("")}
+                onClick={() => {
+                  onPhotoChange("");
+                  toast.info("Fotografija je uklonjena.");
+                }}
                 className="text-destructive hover:bg-destructive/10"
               >
                 Ukloni
@@ -139,7 +195,7 @@ export function CvPhotoUploader({
           {/* Shape Selection */}
           <div>
             <span className="text-xs font-semibold text-muted-foreground block mb-1.5">
-              Oblik okvira fotografije:
+              Oblik okvira fotografije u CV-ju:
             </span>
             <div className="grid grid-cols-3 gap-2">
               {shapes.map((s) => (
@@ -159,10 +215,12 @@ export function CvPhotoUploader({
             </div>
           </div>
 
-          <p className="text-[11px] text-muted-foreground flex items-center gap-1">
-            <Sparkles className="h-3 w-3 text-primary" />
-            Fotografija se obrađuje 100% lokalno u vašem browseru i ne šalje se na server.
-          </p>
+          <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground pt-0.5">
+            <Sparkles className="h-3.5 w-3.5 text-primary shrink-0" />
+            <span>
+              Fotografija se obrađuje 100% lokalno u Vašem pregledniku (maksimalna privatnost).
+            </span>
+          </div>
         </div>
       </div>
     </div>

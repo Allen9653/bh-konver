@@ -97,7 +97,7 @@ export default function ModernEuropassCvGenerator() {
   const isCurrentLangUnlocked = isBosnian || !!unlockedLanguages[currentLang];
 
   const handleLanguageChange = (lang: CvLanguage) => {
-    setCsvData((prev) => ({ ...prev, language: lang }));
+    setCvData((prev) => ({ ...prev, language: lang }));
   };
 
   const handlePaymentSuccess = (txId: string) => {
@@ -112,7 +112,7 @@ export default function ModernEuropassCvGenerator() {
 
   // Helper updates for personal details
   const updatePersonal = (field: keyof CvData["personal"], value: string | PhotoShape) => {
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       personal: {
         ...prev.personal,
@@ -133,14 +133,14 @@ export default function ModernEuropassCvGenerator() {
       isCurrent: false,
       description: "",
     };
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       experiences: [newExp, ...prev.experiences],
     }));
   };
 
   const updateExperience = (id: string, field: keyof WorkExperience, value: any) => {
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       experiences: prev.experiences.map((exp) =>
         exp.id === id ? { ...exp, [field]: value } : exp
@@ -149,7 +149,7 @@ export default function ModernEuropassCvGenerator() {
   };
 
   const removeExperience = (id: string) => {
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       experiences: prev.experiences.filter((exp) => exp.id !== id),
     }));
@@ -166,14 +166,14 @@ export default function ModernEuropassCvGenerator() {
       endDate: "",
       description: "",
     };
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       educations: [newEdu, ...prev.educations],
     }));
   };
 
   const updateEducation = (id: string, field: keyof Education, value: any) => {
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       educations: prev.educations.map((edu) =>
         edu.id === id ? { ...edu, [field]: value } : edu
@@ -182,7 +182,7 @@ export default function ModernEuropassCvGenerator() {
   };
 
   const removeEducation = (id: string) => {
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       educations: prev.educations.filter((edu) => edu.id !== id),
     }));
@@ -195,14 +195,14 @@ export default function ModernEuropassCvGenerator() {
       name: "",
       level: "advanced",
     };
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       skills: [...prev.skills, newSkill],
     }));
   };
 
   const updateSkill = (id: string, field: keyof SkillItem, value: any) => {
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       skills: prev.skills.map((sk) =>
         sk.id === id ? { ...sk, [field]: value } : sk
@@ -211,7 +211,7 @@ export default function ModernEuropassCvGenerator() {
   };
 
   const removeSkill = (id: string) => {
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       skills: prev.skills.filter((sk) => sk.id !== id),
     }));
@@ -224,14 +224,14 @@ export default function ModernEuropassCvGenerator() {
       language: "",
       level: "B2",
     };
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       languages: [...prev.languages, newLang],
     }));
   };
 
   const updateLanguage = (id: string, field: keyof LanguageItem, value: any) => {
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       languages: prev.languages.map((l) =>
         l.id === id ? { ...l, [field]: value } : l
@@ -240,7 +240,7 @@ export default function ModernEuropassCvGenerator() {
   };
 
   const removeLanguage = (id: string) => {
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       languages: prev.languages.filter((l) => l.id !== id),
     }));
@@ -254,14 +254,14 @@ export default function ModernEuropassCvGenerator() {
       issuer: "",
       year: "",
     };
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       certificates: [...prev.certificates, newCert],
     }));
   };
 
   const updateCertificate = (id: string, field: keyof CertificateItem, value: any) => {
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       certificates: prev.certificates.map((c) =>
         c.id === id ? { ...c, [field]: value } : c
@@ -270,7 +270,7 @@ export default function ModernEuropassCvGenerator() {
   };
 
   const removeCertificate = (id: string) => {
-    setCsvData((prev) => ({
+    setCvData((prev) => ({
       ...prev,
       certificates: prev.certificates.filter((c) => c.id !== id),
     }));
@@ -599,7 +599,7 @@ export default function ModernEuropassCvGenerator() {
                     <Label className="text-xs font-semibold">Vozačka dozvola</Label>
                     <Input
                       value={cvData.drivingLicense}
-                      onChange={(e) => setCsvData((prev) => ({ ...prev, drivingLicense: e.target.value }))}
+                      onChange={(e) => setCvData((prev) => ({ ...prev, drivingLicense: e.target.value }))}
                       placeholder="npr. B kategorija"
                       className="text-xs"
                     />
@@ -1183,7 +1183,7 @@ export default function ModernEuropassCvGenerator() {
         onOpenChange={setImportModalOpen}
         currentData={cvData}
         onApplyParsedData={(parsed) => {
-          setCsvData((prev) => ({
+          setCvData((prev) => ({
             ...prev,
             ...parsed,
             personal: {
