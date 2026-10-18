@@ -38,6 +38,7 @@ const toolGroups = [
       {
         title: "Generatori",
         items: [
+          { label: "Europass CV Generator", to: "/category/generatori?tab=cv", icon: FileText },
           { label: "UUID Generator", to: "/category/generatori?tab=uuid", icon: Copy },
           { label: "QR Code Generator", to: "/category/generatori?tab=qr", icon: QrCode },
           { label: "Slug Generator", to: "/category/generatori?tab=slug", icon: Link2 },

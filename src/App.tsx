@@ -170,6 +170,7 @@ const getCategoryPages = (t: (key: string, fallback: string) => string) => ({
     title: t("nav.generators", "Generatori"),
     description: t("categoryLanding.generatorsDesc", "Brzi alati za kreiranje jedinstvenih identifikatora, kodova i tekstualnih oznaka."),
     items: [
+      { label: t("generators.cv", "Europass CV Generator"), description: t("categoryLanding.cvDesc", "Izrada modernog dvojezičnog Europass životopisa u PDF formatu."), to: "/category/generatori?tab=cv" },
       { label: t("generators.uuid", "UUID Generator"), description: t("categoryLanding.uuidDesc", "Kreiranje jedinstvenih UUID identifikatora."), to: "/category/generatori?tab=uuid" },
       { label: t("generators.qr", "QR Code Generator"), description: t("categoryLanding.qrDesc", "Priprema sadržaja za QR kodove."), to: "/category/generatori?tab=qr" },
       { label: t("generators.slug", "Slug Generator"), description: t("categoryLanding.slugDesc", "Pretvaranje naslova u URL-friendly slug."), to: "/category/generatori?tab=slug" },

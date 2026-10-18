@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Calculator, CalendarDays, CaseSensitive, ClipboardCheck, Coins, Crown, Languages, Lock, MoveHorizontal, Ruler, Sparkles, Thermometer, WholeWord } from "lucide-react";
+import { ArrowRight, Calculator, CalendarDays, CaseSensitive, ClipboardCheck, Coins, Crown, Languages, Lock, MoveHorizontal, Ruler, Sparkles, Thermometer, WholeWord, FileText } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TOOL_CATALOG, type ToolCatalogItem } from "@/lib/toolCatalog";
@@ -48,6 +48,7 @@ const freemiumConverters: HomeTool[] = [
 ];
 
 const premiumTools: HomeTool[] = [
+  { id: "cv", title: "Europass CV Generator", description: "Moderni dvojezični Europass životopis (PDF).", category: "GENERATORI", access: "freemium", icon: FileText, href: "/category/generatori?tab=cv" },
   { id: "uuid", title: "UUID Generator", description: "Generišite UUID v4 identifikatore.", category: "GENERATORI", access: "premium", icon: Sparkles, href: "/category/generatori?tab=uuid" },
   { id: "qr", title: "QR Code Generator", description: "QR kodovi za tekst, URL, e-mail i WiFi.", category: "GENERATORI", access: "premium", icon: Sparkles, href: "/category/generatori?tab=qr" },
   { id: "slug", title: "Slug Generator", description: "Naslov pretvorite u SEO URL slug.", category: "GENERATORI", access: "premium", icon: Sparkles, href: "/category/generatori?tab=slug" },

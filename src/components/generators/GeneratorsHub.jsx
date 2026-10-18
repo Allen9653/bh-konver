@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Barcode, Dices, Link2, QrCode, Sparkles, Crown, Zap } from "lucide-react";
+import { Barcode, Dices, Link2, QrCode, Sparkles, Crown, Zap, FileText } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SEO } from "@/components/SEO";
+import ModernEuropassCvGenerator from "@/components/generators/ModernEuropassCvGenerator";
 import UuidGenerator from "@/components/generators/UuidGenerator";
 import QrGenerator from "@/components/generators/QrGenerator";
 import SlugGenerator from "@/components/generators/SlugGenerator";
@@ -15,6 +16,7 @@ import { AmbientCategoryBackdrop } from "@/components/layout/AmbientCategoryBack
 import { ShimmerImage } from "@/components/ui/ShimmerImage";
 
 const generatorConfigs = [
+  { id: "cv", translationKey: "cv", icon: FileText, Component: ModernEuropassCvGenerator, badge: "NOVO · Europass" },
   { id: "uuid", translationKey: "uuid", icon: Dices, Component: UuidGenerator },
   { id: "qr", translationKey: "qr", icon: QrCode, Component: QrGenerator },
   { id: "slug", translationKey: "slug", icon: Link2, Component: SlugGenerator },
@@ -30,13 +32,13 @@ export default function GeneratorsHub() {
   const ActiveGenerator = active.Component;
 
   const selectTab = (tab) => {
-    setSearchParams(tab === "uuid" ? {} : { tab }, { replace: true });
+    setSearchParams(tab === "cv" ? {} : { tab }, { replace: true });
   };
 
-  const pageTitle = t("generators.seoTitle", "UUID, QR kod, Slug i Barcode generatori | BH KONVER");
+  const pageTitle = t("generators.seoTitle", "Moderni Europass CV, UUID, QR kod, Slug i Barcode generatori | BH KONVER");
   const pageDescription = t(
     "generators.seoDesc",
-    "Brzi i besplatni online generatori UUID v4 identifikatora, QR kodova, SEO URL slugova i linijskih barkodova u vašem pregledniku."
+    "Kreirajte profesionalan Europass CV u PDF formatu, generišite UUID v4, QR kodove, SEO slugove i barkodove besplatno na BH KONVER."
   );
 
   return (
@@ -93,12 +95,13 @@ export default function GeneratorsHub() {
 
         {/* Tab switcher */}
         <div
-          className="mb-6 grid grid-cols-2 gap-2 rounded-2xl border border-border bg-card/80 p-2 sm:grid-cols-4 backdrop-blur-md"
+          className="mb-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 rounded-2xl border border-border bg-card/80 p-2 backdrop-blur-md"
           role="tablist"
           aria-label={t("generators.chooseGenerator", "Izaberite generator")}
         >
-          {generatorConfigs.map(({ id, icon: Icon }) => {
+          {generatorConfigs.map(({ id, icon: Icon, badge }) => {
             const labels = {
+              cv: t("generators.cv", "Europass CV"),
               uuid: t("generators.uuid", "UUID Generator"),
               qr: t("generators.qr", "QR Code Generator"),
               slug: t("generators.slug", "Slug Generator"),
@@ -115,7 +118,7 @@ export default function GeneratorsHub() {
                 aria-selected={active.id === id}
                 aria-controls="generator-panel"
                 onClick={() => selectTab(id)}
-                className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-3 text-xs sm:text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                className={`relative inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-3 text-xs sm:text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                   active.id === id
                     ? "bg-primary text-primary-foreground shadow-md"
                     : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
@@ -123,6 +126,17 @@ export default function GeneratorsHub() {
               >
                 <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
                 <span>{label}</span>
+                {badge && (
+                  <span
+                    className={`hidden sm:inline-block text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded-full ${
+                      active.id === id
+                        ? "bg-primary-foreground/20 text-primary-foreground"
+                        : "bg-primary/10 text-primary"
+                    }`}
+                  >
+                    {badge}
+                  </span>
+                )}
               </button>
             );
           })}
