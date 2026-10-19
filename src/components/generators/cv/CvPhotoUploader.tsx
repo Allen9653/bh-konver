@@ -73,10 +73,11 @@ export function CvPhotoUploader({
     }
   };
 
-  const shapes: Array<{ id: PhotoShape; label: string }> = [
-    { id: "circle", label: "Krug (Europass standard)" },
-    { id: "rounded", label: "Zaobljeni kvadrat" },
-    { id: "square", label: "Kvadrat" },
+  const shapes: Array<{ id: PhotoShape; label: string; sub: string }> = [
+    { id: "passport", label: "Pasoš / CV", sub: "35x45 mm" },
+    { id: "circle", label: "Krug", sub: "Europass" },
+    { id: "rounded", label: "Zaobljeno", sub: "Moderan" },
+    { id: "square", label: "Kvadrat", sub: "Klasični" },
   ];
 
   return (
@@ -119,12 +120,14 @@ export function CvPhotoUploader({
           title="Kliknite za odabir fotografije"
         >
           <div
-            className={`h-28 w-28 sm:h-32 sm:w-32 overflow-hidden border-2 border-primary/40 bg-background shadow-md flex items-center justify-center transition-all group-hover:border-primary ${
+            className={`overflow-hidden border-2 border-primary/40 bg-background shadow-md flex items-center justify-center transition-all group-hover:border-primary ${
               photoShape === "circle"
-                ? "rounded-full"
+                ? "h-28 w-28 sm:h-32 sm:w-32 rounded-full"
+                : photoShape === "passport"
+                ? "w-24 sm:w-28 h-32 sm:h-36 rounded-lg aspect-[35/45]"
                 : photoShape === "rounded"
-                ? "rounded-2xl"
-                : "rounded-none"
+                ? "h-28 w-28 sm:h-32 sm:w-32 rounded-2xl"
+                : "h-28 w-28 sm:h-32 sm:w-32 rounded-none"
             }`}
           >
             {photoUrl ? (
@@ -194,22 +197,28 @@ export function CvPhotoUploader({
 
           {/* Shape Selection */}
           <div>
-            <span className="text-xs font-semibold text-muted-foreground block mb-1.5">
-              Oblik okvira fotografije u CV-ju:
-            </span>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-xs font-semibold text-muted-foreground">
+                Oblik i proporcije fotografije:
+              </span>
+              <span className="text-[10px] text-primary font-medium">
+                Standard za pasoš / CV: 35×45 mm
+              </span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {shapes.map((s) => (
                 <button
                   key={s.id}
                   type="button"
                   onClick={() => onShapeChange(s.id)}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-lg border text-center transition-all ${
+                  className={`px-2.5 py-2 text-xs rounded-lg border text-center transition-all flex flex-col items-center justify-center ${
                     photoShape === s.id
-                      ? "border-primary bg-primary/10 text-primary font-bold shadow-xs"
+                      ? "border-primary bg-primary/10 text-primary font-bold shadow-xs ring-1 ring-primary/40"
                       : "border-border/80 bg-background hover:bg-muted/50 text-foreground"
                   }`}
                 >
-                  {s.label}
+                  <span className="leading-tight font-semibold">{s.label}</span>
+                  <span className="text-[10px] opacity-75 font-normal">{s.sub}</span>
                 </button>
               ))}
             </div>

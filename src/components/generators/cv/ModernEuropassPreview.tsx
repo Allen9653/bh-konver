@@ -109,17 +109,19 @@ export const ModernEuropassPreview = forwardRef<HTMLDivElement, ModernEuropassPr
               {data.personal.photoUrl ? (
                 <div className="flex justify-center mb-4">
                   <div
-                    className={`h-36 w-36 overflow-hidden border-3 border-[#003399] shadow-md bg-white ${
+                    className={`overflow-hidden border-2 border-[#003399] shadow-md bg-white ${
                       data.personal.photoShape === "circle"
-                        ? "rounded-full"
+                        ? "h-36 w-36 rounded-full"
+                        : data.personal.photoShape === "passport"
+                        ? "w-32 h-[164px] rounded-md"
                         : data.personal.photoShape === "rounded"
-                        ? "rounded-2xl"
-                        : "rounded-none"
+                        ? "h-36 w-36 rounded-2xl"
+                        : "h-36 w-36 rounded-none"
                     }`}
                   >
                     <img
                       src={data.personal.photoUrl}
-                      alt={data.personal.fullName}
+                      alt={data.personal.fullName || "CV Profil"}
                       className="h-full w-full object-cover object-center"
                     />
                   </div>

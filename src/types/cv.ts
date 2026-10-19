@@ -1,6 +1,6 @@
 export type CvLanguage = "bs" | "bs-Cyrl" | "en" | "de" | "tr";
 
-export type PhotoShape = "circle" | "rounded" | "square";
+export type PhotoShape = "circle" | "rounded" | "square" | "passport";
 export type SkillLevel = "beginner" | "intermediate" | "advanced" | "expert";
 export type LanguageLevel = "native" | "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
 
@@ -82,7 +82,7 @@ export const EMPTY_CV_DATA: CvData = {
     linkedin: "",
     summary: "",
     photoUrl: "",
-    photoShape: "rounded",
+    photoShape: "passport",
   },
   experiences: [
     {
@@ -133,7 +133,7 @@ export const SAMPLE_CV_DATA: CvData = {
     linkedin: "linkedin.com/in/mirzahodzic",
     summary: "Iskusni softverski inženjer sa više od 7 godina rada na razvoju web aplikacija, skalabilnih cloud sistema i vođenju tehničkih timova. Posvećen modernim standardima, čistom kodu i agilnim procesima.",
     photoUrl: "",
-    photoShape: "rounded",
+    photoShape: "passport",
   },
   experiences: [
     {
