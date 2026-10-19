@@ -27,8 +27,8 @@ export const PricingSection = ({ onSelectPlan }: PricingSectionProps) => {
     {
       id: "24h",
       name: t('pricing.day.title'),
-      price: "2.00 BAM",
-      duration: "24h",
+      price: "2.00 €",
+      duration: "24h (~3.91 BAM)",
       description: t('pricing.day.description'),
       features: [
         t('pricing.day.feature1'),
@@ -40,8 +40,8 @@ export const PricingSection = ({ onSelectPlan }: PricingSectionProps) => {
     {
       id: "48h",
       name: t('pricing.twoDay.title'),
-      price: "10.00 BAM",
-      duration: "48h",
+      price: "10.00 €",
+      duration: "48h (~19.56 BAM)",
       description: t('pricing.twoDay.description'),
       features: [
         t('pricing.twoDay.feature1'),
@@ -55,8 +55,8 @@ export const PricingSection = ({ onSelectPlan }: PricingSectionProps) => {
     {
       id: "monthly",
       name: t('pricing.monthly.title'),
-      price: "20.00 BAM",
-      duration: t('pricing.monthly.duration'),
+      price: "20.00 €",
+      duration: "30 dana (~39.12 BAM)",
       description: t('pricing.monthly.description'),
       features: [
         t('pricing.monthly.feature1'),

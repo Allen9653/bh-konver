@@ -43,7 +43,7 @@ export function CvPayPalPayment({
                 Premium licenca je aktivna za {currentLangName}
               </h3>
               <span className="text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-full">
-                Uplata 2.00 BAM Verifikovana
+                Uplata 2.00 € (~3.91 BAM) Verifikovana
               </span>
             </div>
             <p className="text-xs text-muted-foreground mt-0.5">
@@ -63,7 +63,7 @@ export function CvPayPalPayment({
       setIsVerifying(false);
       onPaymentSuccess(tx);
       toast.success("PayPal uplata uspješno potvrđena!", {
-        description: `Iznos: 2.00 BAM na alenjusufovic@yahoo.com (ID: ${tx}). Preuzimanje otključano!`,
+        description: `Iznos: 2.00 € (~3.91 BAM) na alenjusufovic@yahoo.com (ID: ${tx}). Preuzimanje otključano!`,
       });
     }, 700);
   };
@@ -80,22 +80,22 @@ export function CvPayPalPayment({
               <span>PREMIUM OTKLJUČAVANJE STRANOG JEZIKA</span>
             </div>
             <h3 className="text-base sm:text-lg font-bold text-foreground">
-              Jednokratna uplata: 2.00 BAM za {currentLangName}
+              Jednokratna uplata: 2.00 € (~3.91 BAM) za {currentLangName}
             </h3>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Za domaće pismo (Bosanski latinica/ćirilica) CV je 100% besplatan. Za strane jezike (English, Deutsch, Türkçe) jednokratna naknada iznosi samo 2.00 KM.
+              Za domaće pismo (Bosanski latinica/ćirilica) CV je 100% besplatan. Za strane jezike (English, Deutsch, Türkçe) jednokratna naknada iznosi 2.00 € (~3.91 BAM).
             </p>
           </div>
         </div>
 
-        <div className="shrink-0 self-start sm:self-auto bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-xl text-center">
+        <div className="shrink-0 self-start sm:self-auto bg-amber-500/10 border border-amber-500/30 px-3.5 py-1.5 rounded-xl text-center">
           <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 block uppercase">
             Cijena licence
           </span>
           <span className="text-lg font-extrabold text-foreground">
-            2.00 BAM
+            2.00 €
           </span>
-          <span className="text-[10px] text-muted-foreground block">(~1.02 €)</span>
+          <span className="text-[10px] text-muted-foreground block font-medium">(~3.91 BAM / KM)</span>
         </div>
       </div>
 
@@ -124,7 +124,7 @@ export function CvPayPalPayment({
             rel="noopener noreferrer"
             className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0070ba] hover:bg-[#003087] text-white px-4 py-2.5 text-xs font-bold transition-colors shadow-sm"
           >
-            <span>Otvori PayPal (Uplati 2.00 KM / 1.02 EUR)</span>
+            <span>Otvori PayPal (Uplati 2.00 € / ~3.91 BAM)</span>
             <ExternalLink className="h-3.5 w-3.5" />
           </a>
         </div>

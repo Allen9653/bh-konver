@@ -64,10 +64,10 @@ export default function GeneratorsHub() {
         </div>
 
         {/* Hero Section */}
-        <section className="mb-8 rounded-3xl border border-border/80 p-6 sm:p-10 shadow-sm glass-panel relative overflow-hidden">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+        <section className="relative mb-8 overflow-hidden rounded-3xl border border-blue-500/25 bg-gradient-to-br from-blue-950/40 via-card to-card p-6 sm:p-8 backdrop-blur-xl shadow-xl">
+          <div className="relative z-10 flex flex-col-reverse gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="max-w-2xl text-center sm:text-left">
+              <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-400">
                 <Zap className="h-3.5 w-3.5" />
                 <span>{t("generators.badge", "BH KONVER · GENERATORI & ALATI")}</span>
               </div>
@@ -81,12 +81,14 @@ export default function GeneratorsHub() {
                 )}
               </p>
             </div>
-            <div className="shrink-0 flex items-center justify-center p-3 sm:p-4 rounded-3xl bg-slate-900/60 border border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.25)]">
+            <div className="relative shrink-0 self-center sm:self-auto flex items-center justify-center p-4 sm:p-5 rounded-3xl bg-slate-900/80 border border-blue-500/40 shadow-[0_0_35px_rgba(59,130,246,0.3)] backdrop-blur-xl group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/25 via-cyan-500/15 to-transparent rounded-3xl opacity-80 blur-xl pointer-events-none group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-[1px] rounded-[23px] border border-white/10 pointer-events-none" />
               <ShimmerImage
                 src="/categories/generatori.png"
                 alt="Generatori BH KONVER"
-                className="h-20 w-20 sm:h-28 sm:w-28 object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
-                containerClassName="h-20 w-20 sm:h-28 sm:w-28"
+                className="relative z-10 h-28 w-28 sm:h-36 sm:w-36 md:h-40 md:w-40 object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-105"
+                containerClassName="h-28 w-28 sm:h-36 sm:w-36 md:h-40 md:w-40"
                 roundedClassName="rounded-2xl"
               />
             </div>

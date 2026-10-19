@@ -30,7 +30,7 @@ export function CvLanguageSelector({
       flag: "🇬🇧",
       subtext: "Global EU & International",
       tier: "premium" as const,
-      badgeText: isUnlocked ? "Otključano ✓" : "PREMIUM · 2.00 BAM",
+      badgeText: isUnlocked ? "Otključano ✓" : "PREMIUM · 2.00 € (~3.91 BAM)",
     },
     {
       code: "de" as CvLanguage,
@@ -38,7 +38,7 @@ export function CvLanguageSelector({
       flag: "🇩🇪",
       subtext: "Njemačka, Austrija, Švicarska",
       tier: "premium" as const,
-      badgeText: isUnlocked ? "Otključano ✓" : "PREMIUM · 2.00 BAM",
+      badgeText: isUnlocked ? "Otključano ✓" : "PREMIUM · 2.00 € (~3.91 BAM)",
     },
     {
       code: "tr" as CvLanguage,
@@ -46,7 +46,7 @@ export function CvLanguageSelector({
       flag: "🇹🇷",
       subtext: "Turska & međunarodno tržište",
       tier: "premium" as const,
-      badgeText: isUnlocked ? "Otključano ✓" : "PREMIUM · 2.00 BAM",
+      badgeText: isUnlocked ? "Otključano ✓" : "PREMIUM · 2.00 € (~3.91 BAM)",
     },
   ];
 

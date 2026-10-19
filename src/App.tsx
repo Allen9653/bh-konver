@@ -280,17 +280,21 @@ const CategoryLanding = ({
         <div className="mb-6">
           <BackButton label={t("common.backToHome", "← Povratak na početnu")} fallbackTo="/" />
         </div>
-        <header className="mb-8 border-b border-border pb-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div>
-            <p className="text-xs font-semibold uppercase text-primary">BH KONVER · {activeCategory}</p>
-            <h1 className="mt-3 font-display text-3xl font-bold text-foreground sm:text-4xl">{page.title}</h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">{page.description}</p>
+        <header className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-slate-900/80 via-card to-card p-6 sm:p-8 backdrop-blur-xl shadow-xl flex flex-col-reverse sm:flex-row items-center sm:items-center justify-between gap-6 sm:gap-8">
+          <div className="text-center sm:text-left flex-1">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-3">
+              <span>BH KONVER · {activeCategory}</span>
+            </div>
+            <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">{page.title}</h1>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">{page.description}</p>
           </div>
-          <div className="shrink-0 flex items-center justify-center p-3 rounded-2xl bg-slate-900/60 border border-primary/20 shadow-md">
+          <div className="relative shrink-0 flex items-center justify-center p-4 sm:p-5 rounded-3xl bg-slate-900/80 border border-primary/30 shadow-[0_0_35px_rgba(59,130,246,0.3)] backdrop-blur-xl group">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/25 via-accent/15 to-transparent rounded-3xl opacity-80 blur-xl pointer-events-none group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-[1px] rounded-[23px] border border-white/10 pointer-events-none" />
             <img
               src={`/categories/${activeCategory.toLocaleLowerCase("bs")}.png`}
               alt={activeCategory}
-              className="h-16 w-16 sm:h-20 sm:w-20 object-contain drop-shadow"
+              className="relative z-10 h-28 w-28 sm:h-36 sm:w-36 md:h-40 md:w-40 object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-105"
               onError={(e) => {
                 (e.currentTarget as HTMLElement).style.display = "none";
               }}

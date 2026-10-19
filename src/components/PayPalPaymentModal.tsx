@@ -21,9 +21,9 @@ interface PayPalPaymentModalProps {
 }
 
 const PRICING_PLANS = [
-  { id: "24h", label: "24 sata", price: "2.00", duration: "1 dan" },
-  { id: "48h", label: "48 sati", price: "10.00", duration: "2 dana" },
-  { id: "monthly", label: "Mjesečna pretplata", price: "20.00", duration: "30 dana" },
+  { id: "24h", label: "24 sata", priceEur: "2.00", priceBam: "3.91", duration: "1 dan" },
+  { id: "48h", label: "48 sati", priceEur: "10.00", priceBam: "19.56", duration: "2 dana" },
+  { id: "monthly", label: "Mjesečna pretplata", priceEur: "20.00", priceBam: "39.12", duration: "30 dana" },
 ];
 
 export function PayPalPaymentModal({ open, onOpenChange, initialPlanId }: PayPalPaymentModalProps) {
@@ -58,7 +58,7 @@ export function PayPalPaymentModal({ open, onOpenChange, initialPlanId }: PayPal
         body: { 
           email,
           plan: selectedPlan,
-          amount: plan?.price,
+          amount: plan?.priceEur,
           duration: plan?.duration
         },
       });
@@ -114,7 +114,9 @@ export function PayPalPaymentModal({ open, onOpenChange, initialPlanId }: PayPal
                   <Label htmlFor={plan.id} className="flex-1 cursor-pointer">
                     <div className="flex justify-between items-center">
                       <span className="font-medium">{plan.label}</span>
-                      <span className="font-bold text-primary">{plan.price} BAM</span>
+                      <span className="font-bold text-primary">
+                        {plan.priceEur} € <span className="text-xs font-normal text-muted-foreground">(~{plan.priceBam} BAM)</span>
+                      </span>
                     </div>
                   </Label>
                 </div>
@@ -145,7 +147,7 @@ export function PayPalPaymentModal({ open, onOpenChange, initialPlanId }: PayPal
                 Učitavanje...
               </>
             ) : (
-              `Plati ${selectedPlanData?.price} BAM`
+              `Plati ${selectedPlanData?.priceEur} € (~${selectedPlanData?.priceBam} BAM)`
             )}
           </Button>
           

@@ -296,7 +296,7 @@ export default function ModernEuropassCvGenerator() {
   // Download high-res PDF
   const handleDownloadPdf = async () => {
     if (!isCurrentLangUnlocked) {
-      toast.error("Preuzimanje na stranom jeziku zahtijeva jednokratnu uplatu od 2.00 BAM.", {
+      toast.error("Preuzimanje na stranom jeziku zahtijeva jednokratnu uplatu od 2.00 € (~3.91 BAM).", {
         description: "Uplatite putem PayPal dugmeta u nastavku za trenutno otključavanje.",
       });
       return;
@@ -1072,7 +1072,7 @@ export default function ModernEuropassCvGenerator() {
                     : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"
                 }`}
               >
-                {isCurrentLangUnlocked ? "Spremno za preuzimanje ✓" : "Potrebna uplata 2.00 KM"}
+                {isCurrentLangUnlocked ? "Spremno za preuzimanje ✓" : "Potrebna uplata 2.00 € (~3.91 KM)"}
               </span>
             </div>
 
@@ -1088,7 +1088,7 @@ export default function ModernEuropassCvGenerator() {
                 {!isCurrentLangUnlocked ? (
                   <>
                     <Lock className="h-4 w-4" />
-                    <span>Otključaj PDF (2.00 BAM)</span>
+                    <span>Otključaj PDF (2.00 € / ~3.91 BAM)</span>
                   </>
                 ) : isGenerating ? (
                   <>

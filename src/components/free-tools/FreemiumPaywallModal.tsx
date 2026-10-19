@@ -61,9 +61,9 @@ const TIERS: {
 ];
 
 const TIER_PRICES: Record<PlanId, string> = {
-  "24h": "2.00 BAM",
-  "7d": "7.00 BAM",
-  monthly: "20.00 BAM",
+  "24h": "2.00 € (~3.91 BAM)",
+  "7d": "7.00 € (~13.69 BAM)",
+  monthly: "20.00 € (~39.12 BAM)",
 };
 
 export function FreemiumPaywallModal({
@@ -434,7 +434,7 @@ export function FreemiumPaywallModal({
 
                   <div className="p-3 rounded-lg bg-muted/60 border border-border/50">
                     <span className="text-muted-foreground block text-[11px]">Iznos po paketu:</span>
-                    <strong className="text-foreground">24h = 2,00 KM · 7 dana = 7,00 KM · Mjesec = 20,00 KM</strong>
+                    <strong className="text-foreground">24h = 2,00 € (~3,91 KM) · 7 dana = 7,00 € (~13,69 KM) · Mjesec = 20,00 € (~39,12 KM)</strong>
                   </div>
                 </div>
 

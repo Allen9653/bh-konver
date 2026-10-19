@@ -140,11 +140,13 @@ export default function Blog() {
                   <BackButton label={t("blog.backHome", "← Povratak na početnu")} fallbackTo="/" />
                 </div>
 
-                <div className="mx-auto mb-4 flex h-20 w-20 sm:h-24 sm:w-24 items-center justify-center rounded-3xl bg-slate-900/60 border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.25)] p-2">
+                <div className="relative mx-auto mb-6 flex h-28 w-28 sm:h-36 sm:w-36 md:h-40 md:w-40 items-center justify-center rounded-3xl bg-slate-900/80 border border-cyan-500/40 shadow-[0_0_35px_rgba(6,182,212,0.3)] backdrop-blur-xl p-4 group">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/25 via-blue-500/15 to-transparent rounded-3xl opacity-80 blur-xl pointer-events-none group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute inset-[1px] rounded-[23px] border border-white/10 pointer-events-none" />
                   <ShimmerImage
                     src="/categories/blog.png"
                     alt="BH KONVER Blog"
-                    className="h-full w-full object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
+                    className="relative z-10 h-full w-full object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-105"
                     containerClassName="w-full h-full"
                     roundedClassName="rounded-2xl"
                   />

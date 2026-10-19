@@ -43,7 +43,7 @@ const FAQ_ITEMS = [
   {
     question: "Koje su cijene paketa i kako se vrši plaćanje (PayPal i banka)?",
     answer:
-      "Svi osnovni alati dostupni su besplatno u Freemium modelu bez registracije. Za korisnike kojima je potreban neograničeni kapacitet, batch obrada i preuzimanje službenih specifikacija, nudimo povoljne Premium pakete (24h pristup za 2 KM, mjesečni ili godišnji). Plaćanje je omogućeno odmah putem PayPal-a (karticom), kao i direktnom uplatom na račun u banci u BiH (putem mobilnog bankarstva ili uplatnice). Za bankovnu uplatu pošaljite potvrdu na alen.jusufovic@proton.me ili podrska@bh-assistant.ba i pristup se aktivira odmah.",
+      "Svi osnovni alati dostupni su besplatno u Freemium modelu bez registracije. Za korisnike kojima je potreban neograničeni kapacitet, batch obrada i preuzimanje službenih specifikacija, nudimo povoljne Premium pakete (24h pristup za 2 € (~3.91 BAM), mjesečni ili godišnji). Plaćanje je omogućeno odmah putem PayPal-a (karticom), kao i direktnom uplatom na račun u banci u BiH (putem mobilnog bankarstva ili uplatnice). Za bankovnu uplatu pošaljite potvrdu na alen.jusufovic@proton.me ili podrska@bh-assistant.ba i pristup se aktivira odmah.",
   },
   {
     question: "Da li su moji podaci, tekstovi i dokumenti sigurni?",
