@@ -258,49 +258,53 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
           </Link>
         </nav>
 
-        <div className="hidden shrink-0 items-center gap-2.5 xl:flex">
+        {/* Global Search Bar (visible on tablet, laptop and desktop) */}
+        <div className="hidden md:flex flex-1 max-w-xs lg:max-w-sm xl:max-w-md mx-2 lg:mx-4">
           <GlobalSearch />
+        </div>
+
+        {/* Desktop / Tablet Controls */}
+        <div className="hidden shrink-0 items-center gap-2 lg:gap-3 md:flex">
           <LanguageSwitcher />
           {user ? (
             <div className="flex items-center gap-2">
               {isAdmin && (
                 <Link
                   to="/admin"
-                  className="inline-flex items-center gap-1.5 rounded-md bg-amber-500/15 border border-amber-500/30 px-3 py-1.5 text-xs font-bold text-amber-400 hover:bg-amber-500/25 transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-md bg-amber-500/15 border border-amber-500/30 px-2.5 py-1.5 text-xs font-bold text-amber-400 hover:bg-amber-500/25 transition-colors"
                 >
                   <Shield className="h-3.5 w-3.5 text-amber-400" />
-                  Admin Panel
+                  Admin
                 </Link>
               )}
               <Link
-                to="/history"
-                className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-muted transition-colors max-w-[150px] truncate"
-                title={user.email || "Korisnički račun"}
+                to="/dashboard"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-bold text-foreground hover:bg-primary/20 transition-colors max-w-[160px] truncate"
+                title="Korisnički Dashboard i Moje aktivnosti"
               >
                 <User className="h-3.5 w-3.5 text-primary shrink-0" />
-                <span className="truncate">{user.email?.split("@")[0] || "Korisnik"}</span>
+                <span className="truncate">{user.email?.split("@")[0] || "Dashboard"}</span>
               </Link>
               <button
                 type="button"
                 onClick={() => signOut()}
-                className="inline-flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs font-semibold text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-semibold text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
                 title={t("nav.logout", "Odjava")}
               >
                 <LogOut className="h-3.5 w-3.5" />
-                <span>{t("nav.logout", "Odjava")}</span>
               </button>
             </div>
           ) : (
             <div className="flex items-center gap-2">
               <Link
                 to="/auth?tab=login"
-                className="rounded-md px-3 py-2 text-sm font-semibold text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
+                className="rounded-md px-2.5 py-1.5 text-xs font-semibold text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
               >
                 {t("nav.login", "Prijava")}
               </Link>
               <Link
                 to="/auth?tab=signup"
-                className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 {t("nav.signup", "Registracija")}
               </Link>
@@ -308,7 +312,8 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
           )}
         </div>
 
-        <div className="flex items-center gap-2 xl:hidden">
+        {/* Mobile controls (under md) */}
+        <div className="flex items-center gap-1.5 md:hidden">
           <GlobalSearch />
           <LanguageSwitcher />
           <button
@@ -396,12 +401,12 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
                 )}
                 <div className="grid grid-cols-2 gap-2">
                   <Link
-                    to="/history"
+                    to="/dashboard"
                     className="flex items-center justify-center gap-1.5 rounded-md border border-border px-4 py-2.5 text-center text-sm font-semibold text-foreground hover:bg-muted"
                     onClick={closeMenus}
                   >
                     <User className="h-4 w-4 text-primary" />
-                    Historija
+                    Dashboard & Aktivnosti
                   </Link>
                   <button
                     type="button"

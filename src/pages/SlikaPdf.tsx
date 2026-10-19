@@ -22,6 +22,7 @@ import {
   convertPDFToImages,
 } from "@/utils/pdfConverter";
 import { saveHistoryEntry } from "@/utils/conversionHistory";
+import { recordRecentActivity } from "@/utils/recentActivity";
 
 type Direction = "img2pdf" | "pdf2img" | null;
 type Status = "pending" | "processing" | "done" | "error";
@@ -159,6 +160,16 @@ const SlikaPdf = () => {
             outputs: [{ name, type: "application/pdf", size: blob.size, blob }],
             combined: true,
           });
+          recordRecentActivity({
+            type: "conversion",
+            title: `${entries.length} slika → ${name}`,
+            category: "converter",
+            toolName: "Slika u PDF (Spajanje)",
+            sourceFormat: "IMG",
+            targetFormat: "PDF",
+            sizeBytes: blob.size,
+            status: "completed",
+          });
         } catch (e) {
           console.warn("history save failed", e);
         }
@@ -196,6 +207,16 @@ const SlikaPdf = () => {
                     blob: o.blob,
                   })),
                 });
+                recordRecentActivity({
+                  type: "conversion",
+                  title: `${entry.file.name} → ${outExt.toUpperCase()}`,
+                  category: "converter",
+                  toolName: "PDF u Slike",
+                  sourceFormat: "PDF",
+                  targetFormat: outExt.toUpperCase(),
+                  sizeBytes: entry.file.size,
+                  status: "completed",
+                });
               } catch (e) {
                 console.warn("history save failed", e);
               }
@@ -215,6 +236,16 @@ const SlikaPdf = () => {
                   sourceType: entry.file.type,
                   sourceBlob: entry.file,
                   outputs: [{ name: `${base}.pdf`, type: "application/pdf", size: blob.size, blob }],
+                });
+                recordRecentActivity({
+                  type: "conversion",
+                  title: `${entry.file.name} → ${base}.pdf`,
+                  category: "converter",
+                  toolName: "Slika u PDF",
+                  sourceFormat: ext.toUpperCase(),
+                  targetFormat: "PDF",
+                  sizeBytes: blob.size,
+                  status: "completed",
                 });
               } catch (e) {
                 console.warn("history save failed", e);

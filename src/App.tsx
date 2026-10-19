@@ -368,6 +368,8 @@ const AppRoutes = () => {
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
               <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
+              <Route path="/dashboard" element={<ProtectedRoute><History /></ProtectedRoute>} />
+              <Route path="/aktivnosti" element={<ProtectedRoute><History /></ProtectedRoute>} />
 
               <Route path="/success" element={<Success />} />
               <Route path="/payment-success" element={<PaymentSuccess />} />

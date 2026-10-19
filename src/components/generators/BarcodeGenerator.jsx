@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Barcode, Copy, Download } from "lucide-react";
 import JsBarcode from "jsbarcode";
+import { recordRecentActivity } from "@/utils/recentActivity";
 
 export default function BarcodeGenerator() {
   const [value, setValue] = useState("");
@@ -48,9 +49,20 @@ export default function BarcodeGenerator() {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = `bh-konver-barcode-${format.toLowerCase()}.svg`;
+    const filename = `bh-konver-barcode-${format.toLowerCase()}.svg`;
+    anchor.download = filename;
     anchor.click();
     URL.revokeObjectURL(url);
+    try {
+      recordRecentActivity({
+        type: "document",
+        title: `Barkod (${format}): ${value.slice(0, 20)}`,
+        category: "generator",
+        toolName: "Barkod Generator",
+        targetFormat: "SVG",
+        status: "completed",
+      });
+    } catch {}
   };
 
   return (

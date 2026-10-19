@@ -17,6 +17,7 @@ import { CvTextImportModal } from "./cv/CvTextImportModal";
 import { CvPayPalPayment } from "./cv/CvPayPalPayment";
 import { ModernEuropassPreview } from "./cv/ModernEuropassPreview";
 import { generateCvPdf, printCvDocument } from "@/utils/cvPdfGenerator";
+import { recordRecentActivity } from "@/utils/recentActivity";
 import {
   FileText,
   Download,
@@ -316,6 +317,16 @@ export default function ModernEuropassCvGenerator() {
         onProgress: (_prog, status) => {
           setProgressText(status);
         },
+      });
+
+      recordRecentActivity({
+        type: "document",
+        title: fileName,
+        category: "generator",
+        toolName: "Europass CV Generator",
+        targetFormat: "PDF",
+        status: "completed",
+        formattedSize: "A4 PDF",
       });
 
       toast.success("Vaš Europass CV je uspješno preuzet!", {

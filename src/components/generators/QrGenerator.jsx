@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Download, Mail, QrCode, Wifi } from "lucide-react";
 import QRCode from "qrcode";
+import { recordRecentActivity } from "@/utils/recentActivity";
 
 const escapeWifiValue = (value) => value.replace(/[\\;,:\"]/g, "\\$&");
 
@@ -86,7 +87,36 @@ export default function QrGenerator() {
           <p className="text-xs leading-5 text-muted-foreground">Sadržaj QR koda kreira se u vašem pregledniku. Nemojte unositi osjetljive podatke.</p>
         </div>
         <div className="flex min-h-64 flex-col items-center justify-center rounded-md border border-dashed border-border bg-muted/30 p-4 text-center">
-          {dataUrl ? <><img src={dataUrl} alt="Generisani QR kod" className="h-56 w-56 max-w-full rounded bg-white p-2" /><a href={dataUrl} download="bh-konver-qr.png" className="mt-4 inline-flex min-h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"><Download className="h-4 w-4" aria-hidden="true" />Preuzmi PNG</a></> : <div className="max-w-48 text-sm text-muted-foreground"><QrCode className="mx-auto mb-3 h-9 w-9 opacity-50" aria-hidden="true" />Unesite sadržaj da biste napravili QR kod.</div>}
+          {dataUrl ? (
+            <>
+              <img src={dataUrl} alt="Generisani QR kod" className="h-56 w-56 max-w-full rounded bg-white p-2" />
+              <a
+                href={dataUrl}
+                download="bh-konver-qr.png"
+                onClick={() => {
+                  try {
+                    recordRecentActivity({
+                      type: "document",
+                      title: `QR Kod (${kind.toUpperCase()})`,
+                      category: "generator",
+                      toolName: "QR Kod Generator",
+                      targetFormat: "PNG",
+                      status: "completed",
+                    });
+                  } catch {}
+                }}
+                className="mt-4 inline-flex min-h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                <Download className="h-4 w-4" aria-hidden="true" />
+                Preuzmi PNG
+              </a>
+            </>
+          ) : (
+            <div className="max-w-48 text-sm text-muted-foreground">
+              <QrCode className="mx-auto mb-3 h-9 w-9 opacity-50" aria-hidden="true" />
+              Unesite sadržaj da biste napravili QR kod.
+            </div>
+          )}
         </div>
       </div>
     </section>

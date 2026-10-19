@@ -204,6 +204,18 @@ export function GlobalSearch({ variant = "default" }: GlobalSearchProps = {}) {
 
     // --- GENERATORI ---
     {
+      id: "gen-cv",
+      titleKey: "generator.cv",
+      title: t("generator.cv", "Europass CV Generator (A4 PDF)"),
+      description: t("search.cvDesc", "Izradite moderan Europass životopis sa slikom za bh. i inostrano tržište u A4 PDF formatu."),
+      category: "generatori",
+      categoryLabel: t("nav.generators", "GENERATORI"),
+      to: "/category/generatori?tab=cv",
+      icon: FileText,
+      keywords: ["cv", "europass", "biografija", "posao", "zivotopis", "resume", "curriculum", "vitae", "pdf", "rad", "karijera", "slika"],
+      badge: "Preporučeno",
+    },
+    {
       id: "gen-qr",
       titleKey: "generator.qr",
       title: t("generator.qr", "QR Kod Generator"),
@@ -457,16 +469,21 @@ export function GlobalSearch({ variant = "default" }: GlobalSearchProps = {}) {
       ) : (
         <>
           {/* 1. Desktop Trigger Button in Navbar */}
+          {/* 1. Desktop / Tablet Trigger Search Bar in Navbar */}
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="hidden sm:inline-flex items-center gap-2 rounded-lg border border-border/70 bg-card/60 hover:bg-muted/70 px-3 py-1.5 text-xs text-muted-foreground transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary hover:border-primary/40 shadow-sm"
-            aria-label={t("search.openSearch", "Pretraži alate")}
+            className="hidden sm:flex w-full items-center justify-between gap-2.5 rounded-xl border border-border/80 bg-muted/40 hover:bg-muted/70 px-3.5 py-2 text-xs text-muted-foreground transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary hover:border-primary/50 shadow-xs group"
+            aria-label={t("search.openSearch", "Pretraži generatore, konvertore i kalkulatore")}
           >
-            <Search className="h-3.5 w-3.5 text-primary/80" />
-            <span className="font-medium text-foreground/80">{t("search.placeholderShort", "Pretraži alate...")}</span>
-            <kbd className="pointer-events-none hidden md:inline-flex h-5 select-none items-center gap-0.5 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
-              <span className="text-xs">⌘</span>K
+            <div className="flex items-center gap-2.5 min-w-0">
+              <Search className="h-4 w-4 text-primary shrink-0 transition-transform group-hover:scale-110" />
+              <span className="font-medium text-foreground/80 truncate">
+                {t("search.navbarPlaceholder", "Pretraži generatore, konvertore, kalkulatore...")}
+              </span>
+            </div>
+            <kbd className="pointer-events-none hidden lg:inline-flex h-5 select-none items-center gap-0.5 rounded border border-border bg-background px-1.5 font-mono text-[10px] font-semibold text-muted-foreground shadow-xs shrink-0">
+              <span className="text-[11px]">⌘</span>K
             </kbd>
           </button>
 
