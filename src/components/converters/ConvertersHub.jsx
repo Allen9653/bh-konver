@@ -114,31 +114,42 @@ export default function ConvertersHub() {
         </div>
 
         {/* Hero Section */}
-        <section className="relative mb-8 overflow-hidden rounded-3xl border border-cyan-500/25 bg-gradient-to-br from-cyan-950/40 via-card to-card p-6 sm:p-8 backdrop-blur-xl shadow-xl">
+        <section className="relative mb-8 overflow-hidden rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 sm:p-9 shadow-2xl backdrop-blur-xl">
+          {/* Ambient Background Watermark Logo */}
+          <div className="absolute -right-6 top-1/2 -translate-y-1/2 w-80 sm:w-[480px] md:w-[600px] h-full pointer-events-none overflow-hidden select-none opacity-15 sm:opacity-20 flex items-center justify-end">
+            <img
+              src="/categories/konvertori.png"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-auto max-h-[140%] object-contain filter drop-shadow-[0_0_60px_rgba(6,182,212,0.5)] transform translate-x-10 scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+          </div>
+
           <div className="relative z-10 flex flex-col-reverse gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="max-w-3xl text-center sm:text-left">
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3.5 py-1 text-xs font-semibold text-cyan-400">
-                <ArrowLeftRight className="h-3.5 w-3.5" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/15 px-3.5 py-1 text-xs font-bold text-cyan-300 shadow-sm">
+                <ArrowLeftRight className="h-3.5 w-3.5 text-cyan-400" />
                 <span>{t("converters.heroBadge", "BH KONVER · SVE KONVERZIJE NA JEDNOM MJESTU")}</span>
               </div>
-              <h1 className="mt-4 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+              <h1 className="mt-4 font-display text-2xl font-black tracking-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] sm:text-3xl lg:text-4xl">
                 {t("converters.heroTitle", "Brzi, tačni i besplatni online konverteri i premium alati")}
               </h1>
-              <p className="mt-4 text-sm leading-relaxed text-slate-300 sm:text-base">
+              <p className="mt-4 text-sm leading-relaxed text-slate-100 sm:text-base drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
                 {t(
                   "converters.heroDesc",
                   "Tražiš pouzdane i jednostavne alate koji će ti olakšati svakodnevno preračunavanje i obradu podataka? BH Konver nudi širok spektar opcija: od osnovnih mjernih jedinica, valuta i pisma, do preko 50 naprednih PRO konvertora dokumenata (DOCX, XLS, HTML, XPS), PDF alata, videa, slika, audija, arhiva i kompresora. Sve funkcionira direktno u tvom pretraživaču – bez preuzimanja aplikacija i uz strogu zaštitu privatnosti."
                 )}
               </p>
             </div>
-            <div className="relative shrink-0 self-center sm:self-auto flex items-center justify-center p-4 sm:p-5 rounded-3xl bg-slate-900/80 border border-cyan-500/40 shadow-[0_0_35px_rgba(6,182,212,0.3)] backdrop-blur-xl group">
+            <div className="relative shrink-0 self-center sm:self-auto flex items-center justify-center p-4 sm:p-6 rounded-3xl bg-slate-900/60 border border-cyan-500/40 shadow-[0_0_40px_rgba(6,182,212,0.35)] backdrop-blur-xl group">
               <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/25 via-blue-500/15 to-transparent rounded-3xl opacity-80 blur-xl pointer-events-none group-hover:opacity-100 transition-opacity" />
               <div className="absolute inset-[1px] rounded-[23px] border border-white/10 pointer-events-none" />
               <ShimmerImage
                 src="/categories/konvertori.png"
                 alt="Konvertori BH KONVER"
-                className="relative z-10 h-28 w-28 sm:h-36 sm:w-36 md:h-40 md:w-40 object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-105"
-                containerClassName="h-28 w-28 sm:h-36 sm:w-36 md:h-40 md:w-40"
+                className="relative z-10 h-28 w-36 sm:h-36 sm:w-48 md:h-40 md:w-56 object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.7)] transition-transform duration-300 group-hover:scale-105"
+                containerClassName="h-28 w-36 sm:h-36 sm:w-48 md:h-40 md:w-56"
                 roundedClassName="rounded-2xl"
               />
             </div>

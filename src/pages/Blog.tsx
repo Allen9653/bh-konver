@@ -134,8 +134,19 @@ export default function Blog() {
             />
 
             {/* Hero Section */}
-            <section className="relative border-b border-border/70 py-12 sm:py-16 overflow-hidden">
-              <div className="mx-auto max-w-5xl px-4 sm:px-6 text-center">
+            <section className="relative border-b border-border/70 py-12 sm:py-16 overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+              {/* Ambient Background Watermark Logo */}
+              <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-80 sm:w-[500px] md:w-[640px] h-full pointer-events-none overflow-hidden select-none opacity-15 sm:opacity-20 flex items-center justify-end">
+                <img
+                  src="/categories/blog.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-auto max-h-[140%] object-contain filter drop-shadow-[0_0_60px_rgba(6,182,212,0.5)] transform translate-x-10 scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+              </div>
+
+              <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 text-center">
                 <div className="mb-6 flex justify-start">
                   <BackButton label={t("blog.backHome", "← Povratak na početnu")} fallbackTo="/" />
                 </div>
@@ -152,19 +163,19 @@ export default function Blog() {
                   />
                 </div>
 
-                <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary">
-                  <Sparkles className="h-3.5 w-3.5" />
+                <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/15 px-3.5 py-1 text-xs font-bold text-cyan-300 shadow-sm">
+                  <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
                   <span>{t("blog.heroBadge", "Znanje, vodiči i digitalna pismenost")}</span>
                 </div>
 
-                <h1 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+                <h1 className="mt-4 font-display text-3xl font-black tracking-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] sm:text-5xl lg:text-6xl">
                   BH KONVER{" "}
-                  <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-300 bg-clip-text text-transparent drop-shadow-sm">
                     {t("blog.title", "Blog")}
                   </span>
                 </h1>
 
-                <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg leading-relaxed">
+                <p className="mx-auto mt-4 max-w-2xl text-base text-slate-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)] sm:text-lg leading-relaxed font-normal">
                   {t(
                     "blog.heroDesc",
                     "Praktična uputstva i objašnjenja koja vam pomažu da razumijete video i dokument formate (MP4, DOCX, HEIC, HTML), savladate poreze i maksimalno iskoristite besplatne alate."

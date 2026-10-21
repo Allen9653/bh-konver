@@ -280,15 +280,29 @@ const CategoryLanding = ({
         <div className="mb-6">
           <BackButton label={t("common.backToHome", "← Povratak na početnu")} fallbackTo="/" />
         </div>
-        <header className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-slate-900/80 via-card to-card p-6 sm:p-8 backdrop-blur-xl shadow-xl flex flex-col-reverse sm:flex-row items-center sm:items-center justify-between gap-6 sm:gap-8">
-          <div className="text-center sm:text-left flex-1">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-3">
+        <header className="relative mb-8 overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 sm:p-9 shadow-2xl backdrop-blur-xl flex flex-col-reverse sm:flex-row items-center sm:items-center justify-between gap-6 sm:gap-8">
+          {/* Ambient Background Watermark Logo */}
+          <div className="absolute -right-6 top-1/2 -translate-y-1/2 w-80 sm:w-[480px] md:w-[600px] h-full pointer-events-none overflow-hidden select-none opacity-15 sm:opacity-20 flex items-center justify-end">
+            <img
+              src={`/categories/${activeCategory.toLocaleLowerCase("bs")}.png`}
+              alt=""
+              aria-hidden="true"
+              className="w-full h-auto max-h-[140%] object-contain filter drop-shadow-[0_0_60px_rgba(59,130,246,0.5)] transform translate-x-10 scale-110"
+              onError={(e) => {
+                (e.currentTarget as HTMLElement).style.display = "none";
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+          </div>
+
+          <div className="relative z-10 text-center sm:text-left flex-1">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-bold text-primary-foreground mb-3 shadow-sm">
               <span>BH KONVER · {activeCategory}</span>
             </div>
-            <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">{page.title}</h1>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">{page.description}</p>
+            <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-tight">{page.title}</h1>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)] sm:text-base">{page.description}</p>
           </div>
-          <div className="relative shrink-0 flex items-center justify-center p-4 sm:p-5 rounded-3xl bg-slate-900/80 border border-primary/30 shadow-[0_0_35px_rgba(59,130,246,0.3)] backdrop-blur-xl group">
+          <div className="relative z-10 shrink-0 flex items-center justify-center p-4 sm:p-5 rounded-3xl bg-slate-900/80 border border-primary/30 shadow-[0_0_35px_rgba(59,130,246,0.3)] backdrop-blur-xl group">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/25 via-accent/15 to-transparent rounded-3xl opacity-80 blur-xl pointer-events-none group-hover:opacity-100 transition-opacity" />
             <div className="absolute inset-[1px] rounded-[23px] border border-white/10 pointer-events-none" />
             <img
