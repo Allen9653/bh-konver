@@ -129,8 +129,17 @@ export const Footer = ({ activeCategory, onNavigate }) => {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 border-t border-primary-foreground/15 pt-5 text-xs text-primary-foreground/50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-3 border-t border-primary-foreground/15 pt-5 text-xs text-primary-foreground/50 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} BH KONVER. {t("footer.rights", "Sva prava zadržana.")}</p>
+          <div className="flex items-center gap-2.5">
+            <Link to="/?lang=en" className="inline-flex items-center gap-1 text-primary-foreground/80 hover:text-primary-foreground underline font-semibold transition-colors">
+              🌐 English (Direct Access)
+            </Link>
+            <span className="opacity-40">·</span>
+            <Link to="/?lang=bs" className="inline-flex items-center gap-1 text-primary-foreground/80 hover:text-primary-foreground underline font-semibold transition-colors">
+              Bosanski
+            </Link>
+          </div>
           <a
             href="https://www.bh-konver.com"
             target="_blank"

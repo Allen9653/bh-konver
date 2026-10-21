@@ -1,8 +1,21 @@
-# Welcome to your Lovable project
+# BH KONVER (www.bh-konver.com)
+
+> Comprehensive online toolkit: Converters (Units, Currencies, Documents, Audio, Video), Calculators, Generators (Europass CV, QR, Barcode, UUID), Knowledge Tests, and Guides.
+
+## 🌐 Note for Reviewers & Moderators / Napomena za moderatore
+
+- **Full English Localization:** BH KONVER supports **100% full English localization** across all modules, tools, forms, legal notices, and generators.
+- **Direct English Links:**
+  - `https://www.bh-konver.com/?lang=en`
+  - `https://www.bh-konver.com/en/`
+- **Automatic Language Detection:** All visitors and evaluators browsing from outside the Bosnian/Croatian/Serbian region are automatically served the complete English version upon first visit.
+- **Detailed Evaluation Guide:** See [`MODERATOR_NOTES.md`](./MODERATOR_NOTES.md) for full review documentation.
+
+---
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/2bb502b3-f541-4731-a607-bafa037ec71a
+**URL**: https://www.bh-konver.com (Lovable: https://lovable.dev/projects/2bb502b3-f541-4731-a607-bafa037ec71a)
 
 ## How can I edit this code?
 

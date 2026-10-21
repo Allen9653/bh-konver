@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/hooks/useLanguage";
 import AppInitializer from "@/components/AppInitializer";
 import AnalyticsRouteTracker from "@/components/AnalyticsRouteTracker";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -334,6 +335,21 @@ const CategoryLanding = ({
   return content;
 };
 
+const EnglishRouteHandler = () => {
+  const { setLanguage } = useLanguage();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setLanguage("en");
+    // Strip "/en" prefix and navigate to the target route, preserving query params
+    const stripped = location.pathname.replace(/^\/en(\/|$)/, "/") || "/";
+    navigate({ pathname: stripped, search: location.search }, { replace: true });
+  }, [location.pathname, location.search, navigate, setLanguage]);
+
+  return <CategoryLandingSkeleton category="BH KONVER" />;
+};
+
 const AppRoutes = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -358,6 +374,10 @@ const AppRoutes = () => {
         <main className="relative z-10 flex-1 flex flex-col min-h-screen">
           <Suspense fallback={<CategoryLandingSkeleton category="BH KONVER" />}>
             <Routes>
+              {/* Direct English entry routes */}
+              <Route path="/en" element={<EnglishRouteHandler />} />
+              <Route path="/en/*" element={<EnglishRouteHandler />} />
+
               <Route path="/" element={<Index />} />
               <Route path="/category/generatori" element={<GeneratorsHub />} />
               <Route path="/category/konvertori" element={<ConvertersHub />} />

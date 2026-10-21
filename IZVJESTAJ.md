@@ -33,6 +33,11 @@ Iz korijena projekta (folder bh-konver-docs-main):  `patch -p1 < bh-konver-updat
 - NIJE provjereno u pravom pregledniku (nema Playwright okruženja): toast, kopiranje, izgled na mobitelu i interakcije su pregledane kroz kod, ne vizuelno. Testiraj bar jednom na telefonu.
 - Ispravka mojih ranijih SEO tekstova: pisalo je "besplatna dnevna kvota", a kod daje 2 besplatne probne konverzije ukupno (localStorage), pa je tekst promijenjen.
 
+## Stavka 4: Automatska detekcija jezika, direktni linkovi za engleski i napomena za moderatore
+- **Automatska detekcija:** Korisnicima i moderatorima van našeg govornog područja (svi osim `bs`, `hr`, `sr`, `cnr`) pretraživač automatski servira engleski jezik (`en`) pri prvom ulasku na sajt.
+- **Direktan link:** Implementirana podrška za `https://www.bh-konver.com/?lang=en` (preko URL parametara) i rutu `/en` / `/en/*` sa automatskim preusmjeravanjem i perzistencijom u `localStorage`.
+- **Napomena za moderatore:** Kreiran fajl `MODERATOR_NOTES.md`, dopunjeni `README.md` i `index.html` (komentar i hreflang meta tagovi), te dodati direktni linkovi u footeru za brzi pristup.
+
 ## Napomene
 - `vite build` regeneriše `supabase/functions/mcp/index.ts` (Lovable plugin). To nije dio ovog paketa; ako ti se pojavi kao izmjena u gitu, nije moja.
 - AdSense blokatori iz prvog izvještaja (ID, ads.txt, COEP, CMP) i backend CORS/redirect nalazi ostaju otvoreni.

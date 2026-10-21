@@ -47,6 +47,10 @@ export const Footer = () => {
             <Link to="/support" className="hover:opacity-80 transition-opacity">
               {t("footer.support", "Podrška")}
             </Link>
+            <span className="opacity-60">|</span>
+            <Link to="/?lang=en" className="hover:opacity-80 transition-opacity font-semibold">
+              🌐 English (?lang=en)
+            </Link>
           </nav>
           <div className="pt-2 text-xs opacity-75">
             <a

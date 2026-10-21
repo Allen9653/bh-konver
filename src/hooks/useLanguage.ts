@@ -80,65 +80,42 @@ export const normalizeLanguageCode = (code?: string | null): string => {
   return trimmed;
 };
 
+import {
+  detectInitialLanguage,
+  getUrlLanguageParam,
+  isBalkanRegionLanguage,
+  persistLanguage as configPersistLanguage,
+} from "@/i18n/config";
+
+export { detectInitialLanguage, getUrlLanguageParam, isBalkanRegionLanguage };
+
 /**
- * Safely retrieve the stored user language preference from localStorage
+ * Safely retrieve the stored user language preference from localStorage or auto-detection
  */
 export const getStoredLanguage = (): string => {
-  if (typeof window === "undefined") return "bs";
-  try {
-    const candidate =
-      localStorage.getItem(STORAGE_KEYS.LANGUAGE) ||
-      localStorage.getItem(STORAGE_KEYS.BH_KONVER_LANG) ||
-      localStorage.getItem(STORAGE_KEYS.I18NEXT_LNG);
-
-    if (candidate) {
-      return normalizeLanguageCode(candidate);
-    }
-  } catch {
-    // Storage access may be restricted in sandbox/private mode
-  }
-  return "bs";
+  return detectInitialLanguage();
 };
 
 /**
  * Persist the selected language to localStorage across all lookup keys
  */
 export const persistLanguage = (code: string): void => {
-  if (typeof window === "undefined") return;
-  const normalized = normalizeLanguageCode(code);
-  try {
-    localStorage.setItem(STORAGE_KEYS.LANGUAGE, normalized);
-    localStorage.setItem(STORAGE_KEYS.BH_KONVER_LANG, normalized);
-    localStorage.setItem(STORAGE_KEYS.I18NEXT_LNG, normalized);
-
-    if (normalized === "bs-Cyrl") {
-      localStorage.setItem(STORAGE_KEYS.SCRIPT, "cyrillic");
-    } else if (normalized === "bs") {
-      localStorage.setItem(STORAGE_KEYS.SCRIPT, "latin");
-    }
-
-    if (document?.documentElement) {
-      document.documentElement.lang = normalized === "bs-Cyrl" ? "bs" : normalized;
-      document.documentElement.setAttribute("data-language", normalized);
-    }
-  } catch {
-    // Ignore private browsing storage quota issues
-  }
+  configPersistLanguage(code);
 };
 
 /**
  * Custom React hook for language state management.
  * - Stores language preference in localStorage
- * - Automatically retrieves and synchronizes language on reload and cross-tab storage changes
+ * - Automatically retrieves and synchronizes language on reload, direct URL links (?lang=en, /en/), and cross-tab storage changes
  * - Guarantees consistent UI language state across the entire application
  */
 export const useLanguage = () => {
   const { t, i18n } = useTranslation();
 
-  // Internal reactive state initialized from storage or active i18n
+  // Internal reactive state initialized from URL param, storage or auto-detection
   const [language, setLanguageState] = useState<string>(() => {
-    const stored = getStoredLanguage();
-    const current = normalizeLanguageCode(i18n.language || stored);
+    const detected = detectInitialLanguage();
+    const current = normalizeLanguageCode(i18n.language || detected);
     return current;
   });
 
@@ -161,16 +138,17 @@ export const useLanguage = () => {
     [i18n]
   );
 
-  // Sync with i18n events and retrieve stored language on application reload
+  // Sync with i18n events and retrieve stored/URL language on application reload & navigation
   useEffect(() => {
-    // 1. Check stored language on mount & reconcile with i18n
-    const stored = getStoredLanguage();
+    // 1. Check direct URL parameter first (?lang=en) or detected language
+    const urlParam = getUrlLanguageParam();
+    const targetLang = urlParam || detectInitialLanguage();
     const active = normalizeLanguageCode(i18n.language);
 
-    if (stored && stored !== active) {
-      setLanguageState((prev) => (prev !== stored ? stored : prev));
-      i18n.changeLanguage(stored);
-      persistLanguage(stored);
+    if (targetLang && targetLang !== active) {
+      setLanguageState(targetLang);
+      i18n.changeLanguage(targetLang);
+      persistLanguage(targetLang);
     } else if (active) {
       setLanguageState((prev) => (prev !== active ? active : prev));
       persistLanguage(active);

@@ -46,6 +46,10 @@ export const PremiumFooter = () => {
           <Link to="/support" className="hover:text-primary transition-colors">
             {t("footerLinks.contact", "Kontakt & Podrška")}
           </Link>
+          <span className="text-border">·</span>
+          <Link to="/?lang=en" className="hover:text-primary transition-colors font-semibold">
+            🌐 English (?lang=en)
+          </Link>
         </nav>
         <SocialLinks className="flex items-center justify-center gap-2" />
         <p className="text-[11px] text-muted-foreground/60">
