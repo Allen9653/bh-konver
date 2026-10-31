@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useCallback, useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Navbar } from "@/components/layout/Navbar";
@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SEO } from "@/components/SEO";
 import { BackButton } from "@/components/common/BackButton";
 import { CategoryLandingSkeleton } from "@/components/skeletons/BrandedSkeletons";
+import { QuizProgressBar } from "@/components/testovi/QuizProgressBar";
 
 const MathLogicQuiz = lazy(() =>
   import("@/components/testovi/quizzes/MathLogicQuiz").then((m) => ({ default: m.MathLogicQuiz }))
@@ -64,6 +65,42 @@ export default function QuizRunnerPage() {
   const { slug } = useParams<{ slug: string }>();
   const { t } = useTranslation();
 
+  const [progress, setProgress] = useState<{ current: number; total: number | null }>(() => {
+    const defaultTotals: Record<string, number | null> = {
+      lateral: 5,
+      fraud: 6,
+      pattern: 5,
+      idioms: 10,
+      script: 10,
+      flags: 50,
+      "math-logic": null,
+    };
+    return {
+      current: 0,
+      total: slug && slug in defaultTotals ? defaultTotals[slug] : null,
+    };
+  });
+
+  useEffect(() => {
+    const defaultTotals: Record<string, number | null> = {
+      lateral: 5,
+      fraud: 6,
+      pattern: 5,
+      idioms: 10,
+      script: 10,
+      flags: 50,
+      "math-logic": null,
+    };
+    setProgress({
+      current: 0,
+      total: slug && slug in defaultTotals ? defaultTotals[slug] : null,
+    });
+  }, [slug]);
+
+  const handleProgress = useCallback((current: number, total: number | null) => {
+    setProgress({ current, total });
+  }, []);
+
   if (!slug || !QUIZ_SEO_CONFIG[slug]) {
     return <Navigate to="/testovi" replace />;
   }
@@ -103,14 +140,23 @@ export default function QuizRunnerPage() {
           <BackButton label={t("common.backToTests", "← Svi testovi")} fallbackTo="/testovi" />
         </div>
 
+        {/* Visual Progress Bar Tracking Questions Answered */}
+        <div className="mb-6">
+          <QuizProgressBar
+            current={progress.current}
+            total={progress.total}
+            quizSlug={slug}
+          />
+        </div>
+
         <Suspense fallback={<CategoryLandingSkeleton category="BH KONVER" />}>
-          {slug === "math-logic" && <MathLogicQuiz />}
-          {slug === "flags" && <FlagsQuiz />}
-          {slug === "lateral" && <LateralQuiz />}
-          {slug === "fraud" && <FraudQuiz />}
-          {slug === "pattern" && <PatternQuiz />}
-          {slug === "script" && <ScriptQuiz />}
-          {slug === "idioms" && <IdiomsQuiz />}
+          {slug === "math-logic" && <MathLogicQuiz onProgress={handleProgress} />}
+          {slug === "flags" && <FlagsQuiz onProgress={handleProgress} />}
+          {slug === "lateral" && <LateralQuiz onProgress={handleProgress} />}
+          {slug === "fraud" && <FraudQuiz onProgress={handleProgress} />}
+          {slug === "pattern" && <PatternQuiz onProgress={handleProgress} />}
+          {slug === "script" && <ScriptQuiz onProgress={handleProgress} />}
+          {slug === "idioms" && <IdiomsQuiz onProgress={handleProgress} />}
         </Suspense>
       </main>
 

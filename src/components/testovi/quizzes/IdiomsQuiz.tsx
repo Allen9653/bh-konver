@@ -1,10 +1,14 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Languages, Check, X, ArrowRight, Quote } from "lucide-react";
 import { IDIOMS_DATA, type IdiomItem } from "@/data/idioms";
 import { QuizEndScreen } from "@/components/testovi/QuizEndScreen";
 
-export function IdiomsQuiz() {
+export interface IdiomsQuizProps {
+  onProgress?: (current: number, total: number | null) => void;
+}
+
+export function IdiomsQuiz({ onProgress }: IdiomsQuizProps = {}) {
   const { t, i18n } = useTranslation();
   const activeLang = (i18n.language || "bs") as "bs" | "bs-Cyrl" | "en" | "de" | "tr";
 
@@ -20,6 +24,16 @@ export function IdiomsQuiz() {
   const [startTime] = useState<number>(() => Date.now());
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [totalDuration, setTotalDuration] = useState<number>(0);
+
+  useEffect(() => {
+    onProgress?.(currentIndex + (showExplanation ? 1 : 0), sessionIdioms.length);
+  }, [currentIndex, showExplanation, sessionIdioms.length, onProgress]);
+
+  useEffect(() => {
+    if (isFinished) {
+      onProgress?.(sessionIdioms.length, sessionIdioms.length);
+    }
+  }, [isFinished, sessionIdioms.length, onProgress]);
 
   const currentIdiom = sessionIdioms[currentIndex];
 

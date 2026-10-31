@@ -44,7 +44,11 @@ function generateNewRound(usedCodes: Set<string>): FlagRound | null {
   return { target, options };
 }
 
-export function FlagsQuiz() {
+export interface FlagsQuizProps {
+  onProgress?: (current: number, total: number | null) => void;
+}
+
+export function FlagsQuiz({ onProgress }: FlagsQuizProps = {}) {
   const { t, i18n } = useTranslation();
   const { user } = useAdminAuth();
   const activeLang = i18n.language || "bs";
@@ -60,6 +64,10 @@ export function FlagsQuiz() {
   const [selectedOptionCode, setSelectedOptionCode] = useState<string | null>(null);
   const [isAnswerChecking, setIsAnswerChecking] = useState<boolean>(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
+
+  useEffect(() => {
+    onProgress?.(totalAnswered, FLAG_KING_THRESHOLD);
+  }, [totalAnswered, onProgress]);
 
   // Flag King 2027 cumulative tracking
   const [cumulativeCorrect, setCumulativeCorrect] = useState<number>(() => getLocalFlagTotalCorrect());

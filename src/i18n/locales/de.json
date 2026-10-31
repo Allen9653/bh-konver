@@ -1106,7 +1106,37 @@
     "patternEyebrow": "MUSTERANALYSE",
     "sentenceNumber": "Satz",
     "idiomsEyebrow": "SPRACHLICHES QUIZ",
-    "whatDoesIdiomMean": "Was bedeutet diese Redewendung wirklich?"
+    "whatDoesIdiomMean": "Was bedeutet diese Redewendung wirklich?",
+    "categories": {
+      "all": "Alle Tests",
+      "logic": "Logik & Rätsel",
+      "math": "Mathe & Tempo",
+      "linguistics": "Linguistik & Sprachen",
+      "general": "Allgemeinwissen & Flaggen"
+    },
+    "topScorersTitle": "Top-Scorer Bestenliste",
+    "liveBadge": "Live-Aktualisierung",
+    "allQuizzesTab": "Gesamt (Top)",
+    "noQuizzesFound": "Keine Tests in dieser Kategorie gefunden.",
+    "resetFilter": "Alle Tests anzeigen",
+    "filterSubtitle": "Herausforderungen nach kognitiven oder thematischen Kategorien filtern",
+    "difficulty": {
+      "all": "Alle Schwierigkeiten",
+      "beginner": "Anfänger",
+      "intermediate": "Mittelstufe",
+      "advanced": "Fortgeschritten",
+      "label": "Schwierigkeitsgrad:"
+    },
+    "difficultyBadges": {
+      "beginner": "Anfänger",
+      "intermediate": "Mittelstufe",
+      "advanced": "Fortgeschritten"
+    },
+    "progressAria": "Fragenfortschritt",
+    "progressLabel": "Quiz-Fortschritt",
+    "questionProgress": "Frage {{current}} von {{total}}",
+    "answeredCounter": "Beantwortet: {{count}} Fragen",
+    "speedRun": "Speed Run"
   },
   "categoryLanding": {
     "generatorsDesc": "Schnelle Tools zur Erstellung eindeutiger Bezeichner, Codes und Tags.",

@@ -1106,7 +1106,37 @@
     "patternEyebrow": "ANALIZA OBRAZACA",
     "sentenceNumber": "Rečenica",
     "idiomsEyebrow": "LINGVISTIČKI KVIZ",
-    "whatDoesIdiomMean": "Šta zapravo znači ova izreka?"
+    "whatDoesIdiomMean": "Šta zapravo znači ova izreka?",
+    "categories": {
+      "all": "Svi kvizovi",
+      "logic": "Logika & Mozgalice",
+      "math": "Matematika & Brzina",
+      "linguistics": "Lingvistika & Jezici",
+      "general": "Opšte znanje & Zastave"
+    },
+    "topScorersTitle": "Top Scorers Rang Lista",
+    "liveBadge": "Uživo ažuriranje",
+    "allQuizzesTab": "Sveukupno (Top)",
+    "noQuizzesFound": "Nema kvizova u odabranoj kategoriji.",
+    "resetFilter": "Prikaži sve kvizove",
+    "filterSubtitle": "Filtrirajte izazove po kognitivnoj ili tematskoj kategoriji",
+    "difficulty": {
+      "all": "Sve težine",
+      "beginner": "Početni",
+      "intermediate": "Srednji",
+      "advanced": "Napredni",
+      "label": "Nivo težine:"
+    },
+    "difficultyBadges": {
+      "beginner": "Početni nivo",
+      "intermediate": "Srednji nivo",
+      "advanced": "Napredni nivo"
+    },
+    "progressAria": "Napredak kroz pitanja",
+    "progressLabel": "Napredak kviza",
+    "questionProgress": "Pitanje {{current}} od {{total}}",
+    "answeredCounter": "Odgovoreno: {{count}} pitanja",
+    "speedRun": "Speed Run"
   },
   "categoryLanding": {
     "generatorsDesc": "Brzi alati za kreiranje jedinstvenih identifikatora, kodova i tekstualnih oznaka.",

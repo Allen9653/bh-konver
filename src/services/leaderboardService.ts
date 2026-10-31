@@ -52,12 +52,17 @@ export async function getLeaderboard(
   limit: number = 5
 ): Promise<{ data: QuizScoreRow[]; error: Error | null }> {
   try {
-    const { data, error } = await (supabase
+    let query = supabase
       .from("quiz_scores" as any)
       .select("quiz_id, nickname, score, duration_sec, created_at")
-      .eq("quiz_id", quizId)
       .order("score", { ascending: false })
-      .limit(limit) as any);
+      .limit(limit);
+
+    if (quizId && quizId !== "all") {
+      query = (query as any).eq("quiz_id", quizId);
+    }
+
+    const { data, error } = await (query as any);
 
     if (error) {
       return { data: [], error: new Error(error.message) };

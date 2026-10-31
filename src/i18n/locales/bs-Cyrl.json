@@ -1106,7 +1106,37 @@
     "patternEyebrow": "АНАЛИЗА ОБРАЗАЦА",
     "sentenceNumber": "Реченица",
     "idiomsEyebrow": "ЛИНГВИСТИЧКИ КВИЗ",
-    "whatDoesIdiomMean": "Шта заправо значи ова изрека?"
+    "whatDoesIdiomMean": "Шта заправо значи ова изрека?",
+    "categories": {
+      "all": "Сви квизови",
+      "logic": "Логика и мозгалице",
+      "math": "Математика и брзина",
+      "linguistics": "Лингвистика и језици",
+      "general": "Опште знање и заставе"
+    },
+    "topScorersTitle": "Топ Сцорерс Ранг Листа",
+    "liveBadge": "Уживо ажурирање",
+    "allQuizzesTab": "Свеукупно (Топ)",
+    "noQuizzesFound": "Нема квизова у одабраној категорији.",
+    "resetFilter": "Прикажи све квизове",
+    "filterSubtitle": "Филтрирајте изазове по когнитивној или тематској категорији",
+    "difficulty": {
+      "all": "Све тежине",
+      "beginner": "Почетни",
+      "intermediate": "Средњи",
+      "advanced": "Напредни",
+      "label": "Ниво тежине:"
+    },
+    "difficultyBadges": {
+      "beginner": "Почетни ниво",
+      "intermediate": "Средњи ниво",
+      "advanced": "Напредни ниво"
+    },
+    "progressAria": "Напредак кроз питања",
+    "progressLabel": "Напредак квиза",
+    "questionProgress": "Питање {{current}} од {{total}}",
+    "answeredCounter": "Одговорено: {{count}} питања",
+    "speedRun": "Speed Run"
   },
   "categoryLanding": {
     "generatorsDesc": "Брзи алати за креирање јединствених идентификатора, кодова и текстуалних ознака.",

@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { HelpCircle, Check, X, ArrowRight, Lightbulb } from "lucide-react";
 import { LATERAL_QUESTIONS } from "@/data/lateralQuestions";
 import { QuizEndScreen } from "@/components/testovi/QuizEndScreen";
 
-export function LateralQuiz() {
+export interface LateralQuizProps {
+  onProgress?: (current: number, total: number | null) => void;
+}
+
+export function LateralQuiz({ onProgress }: LateralQuizProps = {}) {
   const { t, i18n } = useTranslation();
   const activeLang = (i18n.language || "bs") as "bs" | "bs-Cyrl" | "en" | "de" | "tr";
 
@@ -15,6 +19,16 @@ export function LateralQuiz() {
   const [startTime] = useState<number>(() => Date.now());
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [totalDuration, setTotalDuration] = useState<number>(0);
+
+  useEffect(() => {
+    onProgress?.(currentIndex + (showExplanation ? 1 : 0), LATERAL_QUESTIONS.length);
+  }, [currentIndex, showExplanation, onProgress]);
+
+  useEffect(() => {
+    if (isFinished) {
+      onProgress?.(LATERAL_QUESTIONS.length, LATERAL_QUESTIONS.length);
+    }
+  }, [isFinished, onProgress]);
 
   const currentQ = LATERAL_QUESTIONS[currentIndex];
 

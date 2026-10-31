@@ -30,7 +30,11 @@ const SAMPLE_SENTENCES: ScriptSentence[] = [
 // Special characters helper bar for users without physical Cyrillic keyboard layout
 const CYRILLIC_SPECIAL_CHARS = ["џ", "љ", "њ", "ђ", "ћ", "ж", "ч", "ш", "Џ", "Љ", "Њ", "Ђ", "Ћ", "Ж", "Ч", "Ш"];
 
-export function ScriptQuiz() {
+export interface ScriptQuizProps {
+  onProgress?: (current: number, total: number | null) => void;
+}
+
+export function ScriptQuiz({ onProgress }: ScriptQuizProps = {}) {
   const { t } = useTranslation();
   const [direction, setDirection] = useState<"latin-to-cyrillic" | "cyrillic-to-latin">("latin-to-cyrillic");
   const [sentenceIndex, setSentenceIndex] = useState<number>(0);
@@ -39,6 +43,16 @@ export function ScriptQuiz() {
   const [totalTypedChars, setTotalTypedChars] = useState<number>(0);
   const [correctTypedChars, setCorrectTypedChars] = useState<number>(0);
   const [isFinished, setIsFinished] = useState<boolean>(false);
+
+  useEffect(() => {
+    onProgress?.(sentenceIndex, SAMPLE_SENTENCES.length);
+  }, [sentenceIndex, onProgress]);
+
+  useEffect(() => {
+    if (isFinished) {
+      onProgress?.(Math.min(sentenceIndex, SAMPLE_SENTENCES.length), SAMPLE_SENTENCES.length);
+    }
+  }, [isFinished, sentenceIndex, onProgress]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 

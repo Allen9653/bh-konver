@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Cpu, Check, X, ArrowRight, Lightbulb } from "lucide-react";
 import { PATTERN_QUESTIONS } from "@/data/patternQuestions";
 import { QuizEndScreen } from "@/components/testovi/QuizEndScreen";
 
-export function PatternQuiz() {
+export interface PatternQuizProps {
+  onProgress?: (current: number, total: number | null) => void;
+}
+
+export function PatternQuiz({ onProgress }: PatternQuizProps = {}) {
   const { t, i18n } = useTranslation();
   const activeLang = (i18n.language || "bs") as "bs" | "bs-Cyrl" | "en" | "de" | "tr";
 
@@ -15,6 +19,16 @@ export function PatternQuiz() {
   const [startTime] = useState<number>(() => Date.now());
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [totalDuration, setTotalDuration] = useState<number>(0);
+
+  useEffect(() => {
+    onProgress?.(currentIndex + (showExplanation ? 1 : 0), PATTERN_QUESTIONS.length);
+  }, [currentIndex, showExplanation, onProgress]);
+
+  useEffect(() => {
+    if (isFinished) {
+      onProgress?.(PATTERN_QUESTIONS.length, PATTERN_QUESTIONS.length);
+    }
+  }, [isFinished, onProgress]);
 
   const currentPuzzle = PATTERN_QUESTIONS[currentIndex];
 

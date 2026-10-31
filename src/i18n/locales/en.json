@@ -1106,7 +1106,37 @@
     "patternEyebrow": "PATTERN ANALYSIS",
     "sentenceNumber": "Sentence",
     "idiomsEyebrow": "LINGUISTIC QUIZ",
-    "whatDoesIdiomMean": "What does this phrase really mean?"
+    "whatDoesIdiomMean": "What does this phrase really mean?",
+    "categories": {
+      "all": "All Quizzes",
+      "logic": "Logic & Puzzles",
+      "math": "Math & Speed",
+      "linguistics": "Linguistics & Languages",
+      "general": "General Knowledge & Flags"
+    },
+    "topScorersTitle": "Top Scorers Leaderboard",
+    "liveBadge": "Live Updates",
+    "allQuizzesTab": "Overall (Top)",
+    "noQuizzesFound": "No quizzes found in selected category.",
+    "resetFilter": "Show all quizzes",
+    "filterSubtitle": "Filter challenges by cognitive or topic category",
+    "difficulty": {
+      "all": "All Difficulties",
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "label": "Difficulty level:"
+    },
+    "difficultyBadges": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "progressAria": "Question progress",
+    "progressLabel": "Quiz Progress",
+    "questionProgress": "Question {{current}} of {{total}}",
+    "answeredCounter": "Answered: {{count}} questions",
+    "speedRun": "Speed Run"
   },
   "categoryLanding": {
     "generatorsDesc": "Fast tools for creating unique identifiers, codes, and text tags.",

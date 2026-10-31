@@ -1106,7 +1106,37 @@
     "patternEyebrow": "DESEN ANALİZİ",
     "sentenceNumber": "Cümle",
     "idiomsEyebrow": "DİL TESTİ",
-    "whatDoesIdiomMean": "Bu deyim gerçekte ne anlama gelir?"
+    "whatDoesIdiomMean": "Bu deyim gerçekte ne anlama gelir?",
+    "categories": {
+      "all": "Tüm Sınavlar",
+      "logic": "Mantık & Bulmaca",
+      "math": "Matematik & Hız",
+      "linguistics": "Dilbilim & Diller",
+      "general": "Genel Kültür & Bayraklar"
+    },
+    "topScorersTitle": "En Yüksek Skorlar Tablosu",
+    "liveBadge": "Canlı Güncelleme",
+    "allQuizzesTab": "Genel (En İyi)",
+    "noQuizzesFound": "Seçilen kategoride sınav bulunamadı.",
+    "resetFilter": "Tüm sınavları göster",
+    "filterSubtitle": "Zorlukları bilişsel veya tematik kategoriye göre filtreleyin",
+    "difficulty": {
+      "all": "Tüm Zorluklar",
+      "beginner": "Başlangıç",
+      "intermediate": "Orta",
+      "advanced": "İleri",
+      "label": "Zorluk seviyesi:"
+    },
+    "difficultyBadges": {
+      "beginner": "Başlangıç",
+      "intermediate": "Orta",
+      "advanced": "İleri"
+    },
+    "progressAria": "Soru ilerlemesi",
+    "progressLabel": "Sınav İlerlemesi",
+    "questionProgress": "Soru {{current}} / {{total}}",
+    "answeredCounter": "Cevaplanan: {{count}} soru",
+    "speedRun": "Speed Run"
   },
   "categoryLanding": {
     "generatorsDesc": "Benzersiz tanımlayıcılar ve kodlar oluşturmak için hızlı araçlar.",

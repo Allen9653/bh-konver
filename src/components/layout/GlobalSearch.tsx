@@ -503,36 +503,23 @@ export function GlobalSearch({ variant = "default" }: GlobalSearchProps = {}) {
           </kbd>
         </button>
       ) : (
-        <>
-          {/* 1. Desktop Trigger Button in Navbar */}
-          {/* 1. Desktop / Tablet Trigger Search Bar in Navbar */}
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className="hidden sm:flex w-full items-center justify-between gap-2.5 rounded-xl border border-border/80 bg-muted/40 hover:bg-muted/70 px-3.5 py-2 text-xs text-muted-foreground transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary hover:border-primary/50 shadow-xs group"
-            aria-label={t("search.openSearch", "Pretraži generatore, konvertore i kalkulatore")}
-          >
-            <div className="flex items-center gap-2.5 min-w-0">
-              <Search className="h-4 w-4 text-primary shrink-0 transition-transform group-hover:scale-110" />
-              <span className="font-medium text-foreground/80 truncate">
-                {t("search.navbarPlaceholder", "Pretraži generatore, konvertore, kalkulatore...")}
-              </span>
-            </div>
-            <kbd className="pointer-events-none hidden lg:inline-flex h-5 select-none items-center gap-0.5 rounded border border-border bg-background px-1.5 font-mono text-[10px] font-semibold text-muted-foreground shadow-xs shrink-0">
-              <span className="text-[11px]">⌘</span>K
-            </kbd>
-          </button>
-
-          {/* 2. Mobile Trigger Icon Button in Navbar */}
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className="inline-flex sm:hidden items-center justify-center h-9 w-9 rounded-md border border-border/60 bg-card/60 text-foreground hover:bg-muted transition-colors"
-            aria-label={t("search.openSearch", "Pretraži alate")}
-          >
-            <Search className="h-4 w-4 text-primary" />
-          </button>
-        </>
+        /* Single Unified Responsive Search Trigger (never stacked or duplicated across breakpoints) */
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="flex items-center justify-between w-auto sm:w-full gap-2 sm:gap-2.5 rounded-xl border border-border/80 bg-muted/40 hover:bg-muted/70 px-2.5 sm:px-3.5 py-2 text-xs text-muted-foreground transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary hover:border-primary/50 shadow-xs group"
+          aria-label={t("search.openSearch", "Pretraži generatore, konvertore i kalkulatore")}
+        >
+          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+            <Search className="h-4 w-4 text-primary shrink-0 transition-transform group-hover:scale-110" />
+            <span className="hidden sm:inline font-medium text-foreground/80 truncate max-w-[140px] md:max-w-[200px] lg:max-w-xs">
+              {t("search.navbarPlaceholder", "Pretraži generatore, konvertore, kalkulatore...")}
+            </span>
+          </div>
+          <kbd className="pointer-events-none hidden lg:inline-flex h-5 select-none items-center gap-0.5 rounded border border-border bg-background px-1.5 font-mono text-[10px] font-semibold text-muted-foreground shadow-xs shrink-0">
+            <span className="text-[11px]">⌘</span>K
+          </kbd>
+        </button>
       )}
 
       {/* 3. Global Search Dialog */}

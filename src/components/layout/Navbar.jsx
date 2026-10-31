@@ -332,9 +332,6 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
       {mobileOpen && (
         <nav id="mobile-navigation" className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-border/70 bg-background px-4 py-3 shadow-lg xl:hidden" aria-label="Mobilna navigacija">
           <div className="mx-auto flex max-w-3xl flex-col">
-            <div className="mb-3 pt-1">
-              <GlobalSearch variant="full" />
-            </div>
             {toolGroups.map((group) => {
               const Icon = group.icon;
               const isOpen = openMenu === group.label;

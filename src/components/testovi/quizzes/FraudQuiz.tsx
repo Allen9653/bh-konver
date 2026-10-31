@@ -147,7 +147,11 @@ const FRAUD_ROUNDS: FraudScene[] = [
   },
 ];
 
-export function FraudQuiz() {
+export interface FraudQuizProps {
+  onProgress?: (current: number, total: number | null) => void;
+}
+
+export function FraudQuiz({ onProgress }: FraudQuizProps = {}) {
   const { t } = useTranslation();
   const [currentRoundIdx, setCurrentRoundIdx] = useState<number>(0);
   const [correctRounds, setCorrectRounds] = useState<number>(0);
@@ -155,6 +159,16 @@ export function FraudQuiz() {
   const [roundFeedback, setRoundFeedback] = useState<"correct" | "wrong" | "timeout" | null>(null);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [roundStartTime] = useState<number>(() => Date.now());
+
+  useEffect(() => {
+    onProgress?.(currentRoundIdx + (roundFeedback ? 1 : 0), FRAUD_ROUNDS.length);
+  }, [currentRoundIdx, roundFeedback, onProgress]);
+
+  useEffect(() => {
+    if (isFinished) {
+      onProgress?.(FRAUD_ROUNDS.length, FRAUD_ROUNDS.length);
+    }
+  }, [isFinished, onProgress]);
 
   const currentScene = FRAUD_ROUNDS[currentRoundIdx];
 

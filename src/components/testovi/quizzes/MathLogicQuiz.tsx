@@ -78,7 +78,11 @@ function generateQuestion(streak: number): QuestionItem {
   }
 }
 
-export function MathLogicQuiz() {
+export interface MathLogicQuizProps {
+  onProgress?: (current: number, total: number | null) => void;
+}
+
+export function MathLogicQuiz({ onProgress }: MathLogicQuizProps = {}) {
   const { t } = useTranslation();
   const [streak, setStreak] = useState<number>(0);
   const [maxStreak, setMaxStreak] = useState<number>(0);
@@ -88,6 +92,10 @@ export function MathLogicQuiz() {
   const [userInput, setUserInput] = useState<string>("");
   const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
   const [isFinished, setIsFinished] = useState<boolean>(false);
+
+  useEffect(() => {
+    onProgress?.(totalAttempts, null);
+  }, [totalAttempts, onProgress]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
