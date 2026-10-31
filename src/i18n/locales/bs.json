@@ -1016,6 +1016,43 @@
     "availableQuizzes": "Dostupni Kvizovi i Izazovi (7)",
     "allFreeNote": "Svi testovi su besplatni za sve posjetioce",
     "startBtn": "Započni test",
+    "quizzes": {
+      "mathLogic": {
+        "title": "Math & Logic Speed Test",
+        "desc": "60 sekundi intenzivnog računanja i logičkih nizova. Težina se progresivno povećava sa svakim uzastopnim tačnim odgovorom.",
+        "tag": "60s Speed Run"
+      },
+      "flags": {
+        "title": "Guess the Flag (Zastave Svijeta)",
+        "desc": "Baza od preko 160 svjetskih zastava. Osvojite 50 tačnih odgovora i otključajte počasni certifikat 'FLAG KING 2027'.",
+        "tag": "Geografija & Flag King"
+      },
+      "lateral": {
+        "title": "Lateral Thinking Challenge",
+        "desc": "5 zamki za logiku. Koliko ih možeš izbjeći? Klasične misaone zagonetke sa detaljnim objašnjenjima psiholoških zamki.",
+        "tag": "5 Zagonetki"
+      },
+      "fraud": {
+        "title": "Spot the Fraud (Detektor Uljeza)",
+        "desc": "Brze runde od po 10 sekundi. Prepoznajte suptilno izmijenjenu geometrijsku komponentu među identičnim elementima.",
+        "tag": "10s Rapid Fire"
+      },
+      "pattern": {
+        "title": "Pattern Recognition Gauntlet",
+        "desc": "Slomi šifru: niz zagonetki sve težih obrazaca. Numeričke serije, prostorne rotacije i 3x3 matrice bez lažnih tvrdnji.",
+        "tag": "Gauntlet Obrazaca"
+      },
+      "script": {
+        "title": "Script-Switching / Speed-Typing",
+        "desc": "Transliteracija i brzo kucanje na vrijeme. Prekucajte tekst iz latinice u ćirilicu (i obrnuto) uz mjerenje tačnosti i WPM brzine.",
+        "tag": "Latinica ↔ Ćirilica"
+      },
+      "idioms": {
+        "title": "Lost in Translation — Kviz Idioma",
+        "desc": "Prepoznajte pravo značenje narodnih izreka i idioma kroz 5 jezika: bosanski (latinica & ćirilica), engleski, njemački i turski.",
+        "tag": "5 Jezika"
+      }
+    },
     "completedBadge": "Test Završen",
     "finalScore": "Rezultat",
     "timeSpent": "Vrijeme",

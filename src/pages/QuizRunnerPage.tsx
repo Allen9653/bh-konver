@@ -69,17 +69,29 @@ export default function QuizRunnerPage() {
   }
 
   const seoInfo = QUIZ_SEO_CONFIG[slug];
+  const translationKeyMap: Record<string, string> = {
+    "math-logic": "mathLogic",
+    flags: "flags",
+    lateral: "lateral",
+    fraud: "fraud",
+    pattern: "pattern",
+    script: "script",
+    idioms: "idioms",
+  };
+  const key = translationKeyMap[slug];
+  const quizTitle = t(`testovi.quizzes.${key}.title`, seoInfo.title);
+  const quizDesc = t(`testovi.quizzes.${key}.desc`, seoInfo.description);
 
   return (
     <div className="flex min-h-screen flex-col bg-[#0A1628] text-foreground">
       <SEO
-        title={seoInfo.title}
-        description={seoInfo.description}
+        title={`${quizTitle} | BH KONVER`}
+        description={quizDesc}
         path={`/testovi/${slug}`}
         jsonLd={{
           "@type": "Quiz",
-          name: seoInfo.title,
-          description: seoInfo.description,
+          name: quizTitle,
+          description: quizDesc,
           url: `https://www.bh-konver.com/testovi/${slug}`,
         }}
       />

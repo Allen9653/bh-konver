@@ -261,32 +261,33 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
           </Link>
         </nav>
 
-        {/* Global Search Bar (visible on tablet, laptop and desktop) */}
-        <div className="hidden md:flex flex-1 max-w-xs lg:max-w-sm xl:max-w-md mx-2 lg:mx-4">
+        {/* Central Search Bar (exactly ONE instance in header) */}
+        <div className="flex flex-1 items-center justify-end md:justify-center max-w-xs lg:max-w-sm xl:max-w-md mx-1 sm:mx-2 lg:mx-4 min-w-0">
           <GlobalSearch />
         </div>
 
-        {/* Desktop / Tablet Controls */}
-        <div className="hidden shrink-0 items-center gap-2 lg:gap-3 md:flex">
+        {/* Right Controls: Exactly ONE Language Switcher + Auth + Mobile Menu Toggle */}
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <LanguageSwitcher />
+
           {user ? (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {isAdmin && (
                 <Link
                   to="/admin"
                   className="inline-flex items-center gap-1.5 rounded-md bg-amber-500/15 border border-amber-500/30 px-2.5 py-1.5 text-xs font-bold text-amber-400 hover:bg-amber-500/25 transition-colors"
                 >
                   <Shield className="h-3.5 w-3.5 text-amber-400" />
-                  Admin
+                  <span className="hidden sm:inline">Admin</span>
                 </Link>
               )}
               <Link
                 to="/dashboard"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-bold text-foreground hover:bg-primary/20 transition-colors max-w-[160px] truncate"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-foreground hover:bg-primary/20 transition-colors max-w-[120px] sm:max-w-[160px] truncate"
                 title="Korisnički Dashboard i Moje aktivnosti"
               >
                 <User className="h-3.5 w-3.5 text-primary shrink-0" />
-                <span className="truncate">{user.email?.split("@")[0] || "Dashboard"}</span>
+                <span className="hidden sm:inline truncate">{user.email?.split("@")[0] || "Dashboard"}</span>
               </Link>
               <button
                 type="button"
@@ -298,7 +299,7 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
               </button>
             </div>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <Link
                 to="/auth?tab=login"
                 className="rounded-md px-2.5 py-1.5 text-xs font-semibold text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
@@ -307,21 +308,17 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
               </Link>
               <Link
                 to="/auth?tab=signup"
-                className="rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="hidden sm:inline-flex rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 {t("nav.signup", "Registracija")}
               </Link>
             </div>
           )}
-        </div>
 
-        {/* Mobile controls (under md) */}
-        <div className="flex items-center gap-1.5 md:hidden">
-          <GlobalSearch />
-          <LanguageSwitcher />
+          {/* Mobile drawer toggle (only visible below xl where horizontal nav is collapsed) */}
           <button
             type="button"
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring xl:hidden"
             aria-label={mobileOpen ? t("nav.closeNav", "Zatvori navigaciju") : t("nav.openNav", "Otvori navigaciju")}
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation"

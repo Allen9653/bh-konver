@@ -1016,6 +1016,43 @@
     "availableQuizzes": "Mevcut Testler ve Meydan Okumalar (7)",
     "allFreeNote": "Tüm testler tüm ziyaretçiler için ücretsizdir",
     "startBtn": "Testi başlat",
+    "quizzes": {
+      "mathLogic": {
+        "title": "Matematik ve Mantık Hız Testi",
+        "desc": "60 saniyelik yoğun aritmetik ve sayı dizileri. Zorluk seviyesi her ardışık doğru cevapla kademeli olarak artar.",
+        "tag": "60s Hız Turu"
+      },
+      "flags": {
+        "title": "Bayrağı Tahmin Et (Dünya Bayrakları)",
+        "desc": "160'tan fazla dünya bayrağı. 50 doğru cevaba ulaşın ve 'FLAG KING 2027' onur sertifikasını açın.",
+        "tag": "Coğrafya & Flag King"
+      },
+      "lateral": {
+        "title": "Yanal Düşünme Meydan Okuması",
+        "desc": "5 mantık tuzağı. Kaç tanesinden kaçınabilirsiniz? Psikolojik açıklamalarıyla klasik düşünce bilmeceleri.",
+        "tag": "5 Bilmece"
+      },
+      "fraud": {
+        "title": "Sahtekarlık Dedektörü (Farklı Olanı Bul)",
+        "desc": "10 saniyelik hızlı turlar. Özdeş öğeler arasındaki ince şekilde değiştirilmiş geometrik bileşeni tanıyın.",
+        "tag": "10s Hızlı Tur"
+      },
+      "pattern": {
+        "title": "Desen Tanıma Parkuru",
+        "desc": "Şifreyi kırın: giderek zorlaşan desen dizileri. Sayı serileri, uzamsal döndürmeler ve 3x3 matrisler.",
+        "tag": "Desen Parkuru"
+      },
+      "script": {
+        "title": "Alfabe Değiştirme / Hızlı Yazma",
+        "desc": "Zamana karşı transliterasyon ve hızlı yazma. Metni Latin'den Kiril'e doğruluk ve WPM ölçümüyle çevirin.",
+        "tag": "Latin ↔ Kiril"
+      },
+      "idioms": {
+        "title": "Lost in Translation — Deyimler Yarışması",
+        "desc": "5 dilde halk deyimlerinin gerçek anlamını keşfedin: Boşnakça (Latin ve Kiril), İngilizce, Almanca ve Türkçe.",
+        "tag": "5 Dil"
+      }
+    },
     "completedBadge": "Test Tamamlandı",
     "finalScore": "Puan",
     "timeSpent": "Süre",

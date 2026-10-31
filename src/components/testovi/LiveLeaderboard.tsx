@@ -85,20 +85,34 @@ export function LiveLeaderboard({
 
       {/* Quiz Filter Tabs */}
       <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-4 scrollbar-thin">
-        {VALID_QUIZ_IDS.map((qid) => (
-          <button
-            key={qid}
-            type="button"
-            onClick={() => setSelectedQuiz(qid)}
-            className={`shrink-0 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all ${
-              selectedQuiz === qid
-                ? "bg-[#00C9A7] text-slate-950 shadow-[0_0_15px_rgba(0,201,167,0.3)]"
-                : "bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 hover:border-slate-700"
-            }`}
-          >
-            {QUIZ_NAMES[qid]}
-          </button>
-        ))}
+        {VALID_QUIZ_IDS.map((qid) => {
+          const translationKeyMap: Record<ValidQuizId, string> = {
+            "math-logic": "mathLogic",
+            flags: "flags",
+            lateral: "lateral",
+            fraud: "fraud",
+            pattern: "pattern",
+            script: "script",
+            idioms: "idioms",
+          };
+          const key = translationKeyMap[qid];
+          const label = t(`testovi.quizzes.${key}.title`, QUIZ_NAMES[qid]);
+
+          return (
+            <button
+              key={qid}
+              type="button"
+              onClick={() => setSelectedQuiz(qid)}
+              className={`shrink-0 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all ${
+                selectedQuiz === qid
+                  ? "bg-[#00C9A7] text-slate-950 shadow-[0_0_15px_rgba(0,201,167,0.3)]"
+                  : "bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 hover:border-slate-700"
+              }`}
+            >
+              {label}
+            </button>
+          );
+        })}
       </div>
 
       {/* Table Content */}

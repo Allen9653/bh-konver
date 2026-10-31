@@ -4,16 +4,6 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 
-import bijeljina from "@/assets/cities/bijeljina.png.asset.json";
-import brcko from "@/assets/cities/brcko.png.asset.json";
-import smetovi from "@/assets/cities/smetovi.png.asset.json";
-import sarajevo from "@/assets/cities/sarajevo.png.asset.json";
-import trebinje from "@/assets/cities/trebinje.png.asset.json";
-import tuzla from "@/assets/cities/tuzla.png.asset.json";
-import zenica from "@/assets/cities/zenica.png.asset.json";
-import banjaLuka from "@/assets/cities/banja-luka.png.asset.json";
-import bihac from "@/assets/cities/bihac.jpg";
-
 type CityLabelTone = "dark" | "yellow";
 
 type CitySlide = {
@@ -22,17 +12,17 @@ type CitySlide = {
   labelTone: CityLabelTone;
 };
 
-const slides = [
-  { src: sarajevo.url, city: "Sarajevo", labelTone: "dark" },
-  { src: banjaLuka.url, city: "Banja Luka", labelTone: "yellow" },
-  { src: tuzla.url, city: "Tuzla", labelTone: "dark" },
-  { src: zenica.url, city: "Zenica", labelTone: "dark" },
-  { src: bihac, city: "Bihać", labelTone: "dark" },
-  { src: bijeljina.url, city: "Bijeljina", labelTone: "dark" },
-  { src: brcko.url, city: "Brčko", labelTone: "dark" },
-  { src: trebinje.url, city: "Trebinje", labelTone: "dark" },
-  { src: smetovi.url, city: "Smetovi", labelTone: "dark" },
-] satisfies CitySlide[];
+const slides: CitySlide[] = [
+  { src: "/placeholder.svg", city: "Sarajevo", labelTone: "dark" },
+  { src: "/placeholder.svg", city: "Banja Luka", labelTone: "yellow" },
+  { src: "/placeholder.svg", city: "Tuzla", labelTone: "dark" },
+  { src: "/placeholder.svg", city: "Zenica", labelTone: "dark" },
+  { src: "/placeholder.svg", city: "Bihać", labelTone: "dark" },
+  { src: "/placeholder.svg", city: "Bijeljina", labelTone: "dark" },
+  { src: "/placeholder.svg", city: "Brčko", labelTone: "dark" },
+  { src: "/placeholder.svg", city: "Trebinje", labelTone: "dark" },
+  { src: "/placeholder.svg", city: "Smetovi", labelTone: "dark" },
+];
 
 type HeroCarouselProps = {
   className?: string;

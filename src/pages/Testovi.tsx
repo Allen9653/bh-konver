@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -18,6 +19,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SEO } from "@/components/SEO";
 import { BackButton } from "@/components/common/BackButton";
 import { LiveLeaderboard } from "@/components/testovi/LiveLeaderboard";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface QuizCardItem {
   slug: string;
@@ -29,74 +31,75 @@ interface QuizCardItem {
   color: string;
 }
 
-const QUIZZES_LIST: QuizCardItem[] = [
-  {
-    slug: "math-logic",
-    title: "Math & Logic Speed Test",
-    description: "60 sekundi intenzivnog računanja i logičkih nizova. Težina se progresivno povećava sa svakim uzastopnim tačnim odgovorom.",
-    icon: Calculator,
-    tag: "60s Speed Run",
-    badge: "100% Besplatno",
-    color: "from-cyan-500/20 to-teal-500/5",
-  },
-  {
-    slug: "flags",
-    title: "Guess the Flag (Zastave Svijeta)",
-    description: "Baza od preko 160 svjetskih zastava. Osvojite 50 tačnih odgovora i otključajte počasni certifikat 'FLAG KING 2027'.",
-    icon: Flag,
-    tag: "Geografija & Flag King",
-    badge: "100% Besplatno",
-    color: "from-amber-500/20 to-yellow-500/5",
-  },
-  {
-    slug: "lateral",
-    title: "Lateral Thinking Challenge",
-    description: "5 zamki za logiku. Koliko ih možeš izbjeći? Klasične misaone zagonetke sa detaljnim objašnjenjima psiholoških zamki.",
-    icon: HelpCircle,
-    tag: "5 Zagonetki",
-    badge: "100% Besplatno",
-    color: "from-emerald-500/20 to-teal-500/5",
-  },
-  {
-    slug: "fraud",
-    title: "Spot the Fraud (Detektor Uljeza)",
-    description: "Brze runde od po 10 sekundi. Prepoznajte suptilno izmijenjenu geometrijsku komponentu među identičnim elementima.",
-    icon: Eye,
-    tag: "10s Rapid Fire",
-    badge: "100% Besplatno",
-    color: "from-rose-500/20 to-pink-500/5",
-  },
-  {
-    slug: "pattern",
-    title: "Pattern Recognition Gauntlet",
-    description: "Slomi šifru: niz zagonetki sve težih obrazaca. Numeričke serije, prostorne rotacije i 3x3 matrice bez lažnih tvrdnji.",
-    icon: Cpu,
-    tag: "Gauntlet Obrazaca",
-    badge: "100% Besplatno",
-    color: "from-purple-500/20 to-indigo-500/5",
-  },
-  {
-    slug: "script",
-    title: "Script-Switching / Speed-Typing",
-    description: "Transliteracija i brzo kucanje na vrijeme. Prekucajte tekst iz latinice u ćirilicu (i obrnuto) uz mjerenje tačnosti i WPM brzine.",
-    icon: Keyboard,
-    tag: "Latinica ↔ Ćirilica",
-    badge: "100% Besplatno",
-    color: "from-blue-500/20 to-cyan-500/5",
-  },
-  {
-    slug: "idioms",
-    title: "Lost in Translation — Kviz Idioma",
-    description: "Prepoznajte pravo značenje narodnih izreka i idioma kroz 5 jezika: bosanski (latinica & ćirilica), engleski, njemački i turski.",
-    icon: Languages,
-    tag: "5 Jezika",
-    badge: "100% Besplatno",
-    color: "from-teal-500/20 to-emerald-500/5",
-  },
-];
-
 export default function Testovi() {
   const { t } = useTranslation();
+  const { language } = useLanguage();
+
+  const quizzes = useMemo<QuizCardItem[]>(() => [
+    {
+      slug: "math-logic",
+      title: t("testovi.quizzes.mathLogic.title", "Math & Logic Speed Test"),
+      description: t("testovi.quizzes.mathLogic.desc", "60 sekundi intenzivnog računanja i logičkih nizova. Težina se progresivno povećava sa svakim uzastopnim tačnim odgovorom."),
+      icon: Calculator,
+      tag: t("testovi.quizzes.mathLogic.tag", "60s Speed Run"),
+      badge: t("testovi.freeBadge", "100% Besplatno"),
+      color: "from-cyan-500/20 to-teal-500/5",
+    },
+    {
+      slug: "flags",
+      title: t("testovi.quizzes.flags.title", "Guess the Flag (Zastave Svijeta)"),
+      description: t("testovi.quizzes.flags.desc", "Baza od preko 160 svjetskih zastava. Osvojite 50 tačnih odgovora i otključajte počasni certifikat 'FLAG KING 2027'."),
+      icon: Flag,
+      tag: t("testovi.quizzes.flags.tag", "Geografija & Flag King"),
+      badge: t("testovi.freeBadge", "100% Besplatno"),
+      color: "from-amber-500/20 to-yellow-500/5",
+    },
+    {
+      slug: "lateral",
+      title: t("testovi.quizzes.lateral.title", "Lateral Thinking Challenge"),
+      description: t("testovi.quizzes.lateral.desc", "5 zamki za logiku. Koliko ih možeš izbjeći? Klasične misaone zagonetke sa detaljnim objašnjenjima psiholoških zamki."),
+      icon: HelpCircle,
+      tag: t("testovi.quizzes.lateral.tag", "5 Zagonetki"),
+      badge: t("testovi.freeBadge", "100% Besplatno"),
+      color: "from-emerald-500/20 to-teal-500/5",
+    },
+    {
+      slug: "fraud",
+      title: t("testovi.quizzes.fraud.title", "Spot the Fraud (Detektor Uljeza)"),
+      description: t("testovi.quizzes.fraud.desc", "Brze runde od po 10 sekundi. Prepoznajte suptilno izmijenjenu geometrijsku komponentu među identičnim elementima."),
+      icon: Eye,
+      tag: t("testovi.quizzes.fraud.tag", "10s Rapid Fire"),
+      badge: t("testovi.freeBadge", "100% Besplatno"),
+      color: "from-rose-500/20 to-pink-500/5",
+    },
+    {
+      slug: "pattern",
+      title: t("testovi.quizzes.pattern.title", "Pattern Recognition Gauntlet"),
+      description: t("testovi.quizzes.pattern.desc", "Slomi šifru: niz zagonetki sve težih obrazaca. Numeričke serije, prostorne rotacije i 3x3 matrice bez lažnih tvrdnji."),
+      icon: Cpu,
+      tag: t("testovi.quizzes.pattern.tag", "Gauntlet Obrazaca"),
+      badge: t("testovi.freeBadge", "100% Besplatno"),
+      color: "from-purple-500/20 to-indigo-500/5",
+    },
+    {
+      slug: "script",
+      title: t("testovi.quizzes.script.title", "Script-Switching / Speed-Typing"),
+      description: t("testovi.quizzes.script.desc", "Transliteracija i brzo kucanje na vrijeme. Prekucajte tekst iz latinice u ćirilicu (i obrnuto) uz mjerenje tačnosti i WPM brzine."),
+      icon: Keyboard,
+      tag: t("testovi.quizzes.script.tag", "Latinica ↔ Ćirilica"),
+      badge: t("testovi.freeBadge", "100% Besplatno"),
+      color: "from-blue-500/20 to-cyan-500/5",
+    },
+    {
+      slug: "idioms",
+      title: t("testovi.quizzes.idioms.title", "Lost in Translation — Kviz Idioma"),
+      description: t("testovi.quizzes.idioms.desc", "Prepoznajte pravo značenje narodnih izreka i idioma kroz 5 jezika: bosanski (latinica & ćirilica), engleski, njemački i turski."),
+      icon: Languages,
+      tag: t("testovi.quizzes.idioms.tag", "5 Jezika"),
+      badge: t("testovi.freeBadge", "100% Besplatno"),
+      color: "from-teal-500/20 to-emerald-500/5",
+    },
+  ], [t]);
 
   const pageTitle = t("testovi.seoTitle", "Digitalni testovi uma i kvizovi znanja | BH KONVER");
   const pageDescription = t(
@@ -144,23 +147,26 @@ export default function Testovi() {
           <div className="relative z-10 text-center sm:text-left flex-1">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#00C9A7]/40 bg-[#00C9A7]/15 px-3.5 py-1 text-xs font-bold text-[#00C9A7] mb-3 shadow-sm">
               <Sparkles className="h-3.5 w-3.5" />
-              <span>BH KONVER · DIGITALNI TESTOVI</span>
+              <span>{t("testovi.heroEyebrow", "BH KONVER · DIGITALNI TESTOVI")}</span>
             </div>
 
             <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-tight">
-              Testiraj um. Podijeli rezultat.
+              {t("testovi.heroTitle", "Testiraj um. Podijeli rezultat.")}
             </h1>
 
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-200 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)] sm:text-base">
-              7 modernih kognitivnih izazova i lingvističkih provjera. Besplatno za sve posjetioce, s praćenjem rezultata, preuzimanjem infografika i zvaničnom rang listom.
+              {t(
+                "testovi.heroDesc",
+                "7 modernih kognitivnih izazova i lingvističkih provjera. Besplatno za sve posjetioce, s praćenjem rezultata, preuzimanjem infografika i zvaničnom rang listom."
+              )}
             </p>
 
             <div className="mt-6 flex flex-wrap items-center justify-center sm:justify-start gap-3">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-900/80 border border-slate-700 text-xs font-semibold text-slate-300">
-                <Zap className="h-3.5 w-3.5 text-[#00C9A7]" /> 100% Besplatno igranje
+                <Zap className="h-3.5 w-3.5 text-[#00C9A7]" /> {t("testovi.freeBadge", "100% Besplatno igranje")}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-900/80 border border-slate-700 text-xs font-semibold text-slate-300">
-                <Trophy className="h-3.5 w-3.5 text-[#C9A84C]" /> Zvanična rang lista
+                <Trophy className="h-3.5 w-3.5 text-[#C9A84C]" /> {t("testovi.leaderboardBadge", "Zvanična rang lista")}
               </span>
             </div>
           </div>
@@ -187,12 +193,12 @@ export default function Testovi() {
               {t("testovi.availableQuizzes", "Dostupni Kvizovi i Izazovi (7)")}
             </h2>
             <span className="text-xs text-muted-foreground hidden sm:block">
-              Svi testovi su besplatni
+              {t("testovi.allFreeNote", "Svi testovi su besplatni")}
             </span>
           </div>
 
           <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {QUIZZES_LIST.map((quiz) => {
+            {quizzes.map((quiz) => {
               const Icon = quiz.icon;
               return (
                 <div

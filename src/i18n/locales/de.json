@@ -1016,6 +1016,43 @@
     "availableQuizzes": "Verfügbare Quizze & Herausforderungen (7)",
     "allFreeNote": "Alle Tests sind für alle Besucher kostenlos",
     "startBtn": "Test starten",
+    "quizzes": {
+      "mathLogic": {
+        "title": "Mathe & Logik Geschwindigkeitstest",
+        "desc": "60 Sekunden schnelles Rechnen und Zahlenreihen. Der Schwierigkeitsgrad steigt mit jeder richtigen Antwort.",
+        "tag": "60s Speed Run"
+      },
+      "flags": {
+        "title": "Errate die Flagge (Weltflaggen)",
+        "desc": "Datenbank mit über 160 Nationalflaggen. Erreichen Sie 50 richtige Antworten und schalten Sie das 'FLAG KING 2027'-Zertifikat frei.",
+        "tag": "Geografie & Flag King"
+      },
+      "lateral": {
+        "title": "Querdenker-Herausforderung",
+        "desc": "5 Denkrätsel voller Fallen. Wie viele können Sie lösen? Klassische Denkaufgaben mit detaillierten psychologischen Erklärungen.",
+        "tag": "5 Rätsel"
+      },
+      "fraud": {
+        "title": "Finde den Fehler (Betrugsdetektor)",
+        "desc": "Schnelle 10-Sekunden-Runden. Erkennen Sie die subtil veränderte geometrische Komponente unter identischen Elementen.",
+        "tag": "10s Schnellrunde"
+      },
+      "pattern": {
+        "title": "Mustererkennungs-Gauntlet",
+        "desc": "Knacken Sie den Code: Reihen immer anspruchsvollerer Muster. Numerische Reihen, räumliche Drehungen und 3x3-Matrizen.",
+        "tag": "Muster-Gauntlet"
+      },
+      "script": {
+        "title": "Schriftwechsel / Schnellschreibtest",
+        "desc": "Transliteration und schnelles Tippen gegen die Uhr. Übertragen Sie Text zwischen Lateinisch und Kyrillisch mit WPM-Messung.",
+        "tag": "Lateinisch ↔ Kyrillisch"
+      },
+      "idioms": {
+        "title": "Lost in Translation — Redewendungs-Quiz",
+        "desc": "Entschlüsseln Sie die wahre Bedeutung von Redewendungen in 5 Sprachen: Bosnisch, Englisch, Deutsch und Türkisch.",
+        "tag": "5 Sprachen"
+      }
+    },
     "completedBadge": "Test Abgeschlossen",
     "finalScore": "Ergebnis",
     "timeSpent": "Zeit",

@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import etnoFuturaBg from "@/assets/etno-futura.jpg";
 
 interface FloatingCube {
   id: number;
@@ -36,15 +35,78 @@ export const EthnoFuturaBackground: React.FC = () => {
       className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0"
       aria-hidden="true"
     >
-      {/* 1. Underlying Stećak Ethno-Futura Image */}
-      <div className="absolute inset-0 w-full h-full">
-        <img
-          src={etnoFuturaBg}
-          alt=""
-          role="presentation"
-          className="w-full h-full object-cover object-center opacity-30 mix-blend-screen scale-105 transition-transform duration-1000 ease-out"
-          loading="eager"
-        />
+      {/* 1. Underlying Stećak Ethno-Futura Architectural Motif */}
+      <div className="absolute inset-0 w-full h-full flex items-center justify-center opacity-30 mix-blend-screen pointer-events-none">
+        <svg
+          viewBox="0 0 1200 800"
+          className="w-full h-full max-w-7xl object-cover scale-105"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="steckGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#00C9A7" stopOpacity="0.4" />
+              <stop offset="50%" stopColor="#06B6D4" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="#C9A84C" stopOpacity="0.35" />
+            </linearGradient>
+            <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#00C9A7" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#020617" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+
+          {/* Central Monolithic Stećak Silhouette with Circuit Engravings */}
+          <g opacity="0.85">
+            {/* Pedestal & Monolith Outline */}
+            <path
+              d="M 400 680 L 800 680 L 830 730 L 370 730 Z"
+              stroke="url(#steckGrad)"
+              strokeWidth="1.5"
+              strokeDasharray="4 4"
+            />
+            <path
+              d="M 430 260 L 770 260 L 800 680 L 400 680 Z"
+              stroke="url(#steckGrad)"
+              strokeWidth="2"
+            />
+            {/* Stećak Gabled Crest */}
+            <path
+              d="M 430 260 L 600 180 L 770 260"
+              stroke="url(#steckGrad)"
+              strokeWidth="2.5"
+            />
+
+            {/* Ethno Spirals and Rosettes (Radimlja motif inspiration) */}
+            <circle cx="600" cy="380" r="70" stroke="#00C9A7" strokeWidth="1.5" strokeDasharray="3 3" />
+            <circle cx="600" cy="380" r="45" stroke="#C9A84C" strokeWidth="1.5" />
+            <circle cx="600" cy="380" r="18" fill="#00C9A7" fillOpacity="0.2" stroke="#00C9A7" strokeWidth="2" />
+            <path
+              d="M 600 310 L 600 450 M 530 380 L 670 380"
+              stroke="#06B6D4"
+              strokeWidth="1"
+              strokeOpacity="0.6"
+            />
+
+            {/* Medieval Bosnian Lilium / Stylized Fleur Motif */}
+            <path
+              d="M 600 480 C 585 520, 560 550, 530 560 C 565 570, 595 550, 600 620 C 605 550, 635 570, 670 560 C 640 550, 615 520, 600 480 Z"
+              stroke="url(#steckGrad)"
+              strokeWidth="1.75"
+              fill="rgba(201, 168, 76, 0.05)"
+            />
+
+            {/* Cyber Circuit Lines radiating from Stećak */}
+            <path d="M 430 300 L 250 300 L 200 350 L 80 350" stroke="#06B6D4" strokeWidth="1" strokeDasharray="6 4" opacity="0.4" />
+            <path d="M 770 300 L 950 300 L 1000 350 L 1120 350" stroke="#06B6D4" strokeWidth="1" strokeDasharray="6 4" opacity="0.4" />
+            <path d="M 415 480 L 280 480 L 220 540 L 120 540" stroke="#00C9A7" strokeWidth="1" strokeDasharray="4 4" opacity="0.35" />
+            <path d="M 785 480 L 920 480 L 980 540 L 1080 540" stroke="#00C9A7" strokeWidth="1" strokeDasharray="4 4" opacity="0.35" />
+
+            <circle cx="80" cy="350" r="3" fill="#00C9A7" />
+            <circle cx="1120" cy="350" r="3" fill="#C9A84C" />
+            <circle cx="120" cy="540" r="3" fill="#06B6D4" />
+            <circle cx="1080" cy="540" r="3" fill="#00C9A7" />
+          </g>
+        </svg>
       </div>
 
       {/* 2. Cybernetic Gradient Overlays for High Contrast & Text Legibility */}

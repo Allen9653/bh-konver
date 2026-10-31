@@ -1016,6 +1016,43 @@
     "availableQuizzes": "Available Quizzes & Challenges (7)",
     "allFreeNote": "All tests are free for all visitors",
     "startBtn": "Start test",
+    "quizzes": {
+      "mathLogic": {
+        "title": "Math & Logic Speed Test",
+        "desc": "60 seconds of fast-paced arithmetic and numerical sequences. Difficulty scales progressively with every correct answer.",
+        "tag": "60s Speed Run"
+      },
+      "flags": {
+        "title": "Guess the Flag (World Flags)",
+        "desc": "Database of 160+ world flags. Score 50 correct answers to unlock the honorary 'FLAG KING 2027' verified certificate.",
+        "tag": "Geography & Flag King"
+      },
+      "lateral": {
+        "title": "Lateral Thinking Challenge",
+        "desc": "5 tricky logic puzzles. How many can you solve? Classic thought riddles with psychological reasoning explanations.",
+        "tag": "5 Riddles"
+      },
+      "fraud": {
+        "title": "Spot the Fraud (Odd One Out)",
+        "desc": "Fast 10-second visual rounds. Spot the subtly altered geometric component among seemingly identical elements.",
+        "tag": "10s Rapid Fire"
+      },
+      "pattern": {
+        "title": "Pattern Recognition Gauntlet",
+        "desc": "Break the code: sequence of increasingly complex puzzle patterns. Numerical series, spatial rotations, and 3x3 matrices.",
+        "tag": "Pattern Gauntlet"
+      },
+      "script": {
+        "title": "Script-Switching / Speed-Typing",
+        "desc": "Timed transliteration and speed typing. Convert text between Latin and Cyrillic with real-time WPM and accuracy metrics.",
+        "tag": "Latin ↔ Cyrillic"
+      },
+      "idioms": {
+        "title": "Lost in Translation — Idioms Quiz",
+        "desc": "Uncover the true cultural meaning of popular folk sayings across 5 languages: Bosnian (Latin & Cyrillic), English, German, and Turkish.",
+        "tag": "5 Languages"
+      }
+    },
     "completedBadge": "Test Completed",
     "finalScore": "Score",
     "timeSpent": "Time",
