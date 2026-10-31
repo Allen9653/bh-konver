@@ -47,7 +47,7 @@ export const FileUpload = ({ onFilesSelected, acceptedFormats }: FileUploadProps
 
       onFilesSelected(validFiles);
     },
-    [acceptedFormats, onFilesSelected, toast]
+    [acceptedFormats, onFilesSelected, toast, t]
   );
 
   const handleFileInput = useCallback(

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -26,7 +26,7 @@ export function CurrencyConverter() {
   const [loading, setLoading] = useState<boolean>(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
 
-  const fetchRates = async (forceRefresh = false) => {
+  const fetchRates = useCallback(async (forceRefresh = false) => {
     setLoading(true);
     try {
       // Check cache first
@@ -83,11 +83,11 @@ export function CurrencyConverter() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [t]);
 
   useEffect(() => {
     fetchRates();
-  }, []);
+  }, [fetchRates]);
 
   const convertAmount = (): string => {
     const numAmount = parseFloat(amount);

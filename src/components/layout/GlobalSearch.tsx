@@ -416,7 +416,7 @@ export function GlobalSearch({ variant = "default" }: GlobalSearchProps = {}) {
       icon: BookOpen,
       keywords: ["blog", "clanci", "vodici", "uputstva", "mp4", "docx", "heic", "savjeti"],
     },
-  ], [t, currentLang]);
+  ], [t]);
 
   // Global hotkey listener: Ctrl+K or Cmd+K or / to open search
   useEffect(() => {
