@@ -71,7 +71,6 @@ const ModulePage = () => {
         description={t(`toolSeo.${moduleSlug}.description`, { defaultValue: t(config.descriptionKey) })}
         path={`/modul/${moduleSlug}`}
       />
-      <PremiumHeader user={user} isAdmin={isAdmin} isPremium={isPremium} expiresAt={expiresAt} onSignOut={signOut} loading={loading} />
       <main className="flex-1">
         <section className="border-b border-border bg-primary py-10 text-primary-foreground">
           <div className="container mx-auto max-w-5xl px-4">
