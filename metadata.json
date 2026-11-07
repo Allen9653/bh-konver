@@ -1,0 +1,7 @@
+{
+  "name": "BH KONVER",
+  "description": "Besplatni konverteri jedinica, valuta, teksta i datuma dostupni bez prijave. BH KONVER nudi i Premium generatore, kalkulatore i kvizove.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

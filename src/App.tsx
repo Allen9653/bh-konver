@@ -1,0 +1,446 @@
+import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/hooks/useLanguage";
+import AppInitializer from "@/components/AppInitializer";
+import AnalyticsRouteTracker from "@/components/AnalyticsRouteTracker";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { FreemiumPaywallModal } from "@/components/free-tools/FreemiumPaywallModal";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { useSubscription } from "@/hooks/useSubscription";
+import { Crown, LockKeyhole } from "lucide-react";
+import { SEO } from "@/components/SEO";
+import { FluidTechBackground } from "@/components/layout/FluidTechBackground";
+import { BackButton } from "@/components/common/BackButton";
+import { PremiumGateSkeleton, CategoryLandingSkeleton } from "@/components/skeletons/BrandedSkeletons";
+import ScrollToTop from "@/components/common/ScrollToTop";
+import Index from "./pages/Index";
+
+const Auth = lazy(() => import("./pages/Auth"));
+const Admin = lazy(() => import("./pages/Admin"));
+const History = lazy(() => import("./pages/History"));
+const Success = lazy(() => import("./pages/Success"));
+const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
+const PaymentCanceled = lazy(() => import("./pages/PaymentCanceled"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const LegalNotice = lazy(() => import("./pages/LegalNotice"));
+const SecurityPage = lazy(() => import("./pages/Security"));
+const CookiesPage = lazy(() => import("./pages/Cookies"));
+const Support = lazy(() => import("./pages/Support"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const Alati = lazy(() => import("./pages/Alati"));
+const SlikaPdf = lazy(() => import("./pages/SlikaPdf"));
+const SlikaPdfHistory = lazy(() => import("./pages/SlikaPdfHistory"));
+const Connect = lazy(() => import("./pages/Connect"));
+const OAuthConsent = lazy(() => import("./pages/OAuthConsent"));
+const ModulePage = lazy(() => import("./pages/ModulePage"));
+const GorivoKalkulator = lazy(() => import("@/components/calculators/GorivoKalkulator"));
+const PdvKalkulator = lazy(() => import("@/components/calculators/PdvKalkulator"));
+const StazKalkulator = lazy(() => import("@/components/calculators/StazKalkulator"));
+const StrujaKalkulator = lazy(() => import("@/components/calculators/StrujaKalkulator"));
+const Testovi = lazy(() => import("./pages/Testovi"));
+const QuizRunnerPage = lazy(() => import("./pages/QuizRunnerPage"));
+const GeneratorsHub = lazy(() => import("@/components/generators/GeneratorsHub"));
+const ConvertersHub = lazy(() => import("@/components/converters/ConvertersHub"));
+const CalculatorsHub = lazy(() => import("@/components/calculators/CalculatorsHub"));
+const Blog = lazy(() => import("./pages/Blog"));
+
+const queryClient = new QueryClient();
+
+const CATEGORY_PATHS: Record<string, string> = {
+  Home: "/",
+  GENERATORI: "/category/generatori",
+  KONVERTORI: "/category/konvertori",
+  KALKULATORI: "/category/kalkulatori",
+  TESTOVI: "/category/testovi",
+  BLOG: "/blog",
+  "Privacy Policy": "/privatnost",
+  Terms: "/uslovi-koristenja",
+  Security: "/sigurnost",
+  Cookies: "/kolacici",
+  Legal: "/pravne-napomene",
+  Contact: "/support",
+};
+
+const CATEGORY_SLUGS: Record<string, string> = {
+  generatori: "GENERATORI",
+  konvertori: "KONVERTORI",
+  kalkulatori: "KALKULATORI",
+  testovi: "TESTOVI",
+};
+
+const CALCULATORS = {
+  gorivo: GorivoKalkulator,
+  pdv: PdvKalkulator,
+  staz: StazKalkulator,
+  struja: StrujaKalkulator,
+};
+
+const PREMIUM_PAGE_SEO: Record<string, { title: string; description: string }> = {
+  "/category/generatori": { title: "Premium generatori online | BH KONVER", description: "UUID v4, QR kod, SEO slug i CODE128/EAN barcode generatori za aktivne Premium korisnike BH KONVER-a." },
+  "/category/generatori?tab=uuid": { title: "UUID v4 generator | BH KONVER Premium", description: "Generišite više UUID v4 identifikatora, izaberite velika ili mala slova i kopirajte rezultat." },
+  "/category/generatori?tab=qr": { title: "QR Code generator | BH KONVER Premium", description: "Kreirajte QR kodove za tekst, URL, e-mail i WiFi te ih preuzmite kao PNG." },
+  "/category/generatori?tab=slug": { title: "SEO slug generator | BH KONVER Premium", description: "Pretvorite naslov u čitljiv SEO URL slug uz podršku za bosanska slova." },
+  "/category/generatori?tab=barcode": { title: "CODE128 i EAN barcode generator | BH KONVER Premium", description: "Napravite CODE128, EAN-13 i EAN-8 barkodove i izvezite ih kao SVG." },
+  "/category/kalkulatori": { title: "Premium kalkulatori: gorivo, PDV, staž i struja | BH KONVER", description: "Kalkulator goriva, PDV-a, radnog staža i potrošnje električne energije za aktivne Premium korisnike." },
+  "/kalkulatori/gorivo": { title: "Kalkulator goriva i putnih troškova | BH KONVER", description: "Izračunajte kilometražu, potrošnju goriva i procijenjeni trošak putovanja u KM." },
+  "/kalkulatori/pdv": { title: "PDV kalkulator BiH 17% | BH KONVER", description: "Dodajte PDV na osnovicu ili izdvojite PDV iz ukupnog iznosa uz standardnu stopu od 17%." },
+  "/kalkulatori/staz": { title: "Kalkulator radnog staža | BH KONVER", description: "Izračunajte kalendarsko trajanje radnog staža u godinama, mjesecima i danima." },
+  "/kalkulatori/struja": { title: "Kalkulator potrošnje struje | BH KONVER", description: "Procijenite dnevnu i mjesečnu potrošnju električne energije i trošak aparata u KM." },
+};
+
+const PremiumAccessGate = ({
+  category,
+  redirectPath,
+  children,
+}: {
+  category: string;
+  redirectPath: string;
+  children: ReactNode;
+}) => {
+  const { user, loading: authLoading } = useAdminAuth();
+  const { hasActiveSubscription, loading: subscriptionLoading } = useSubscription(user?.id);
+  const [paywallOpen, setPaywallOpen] = useState(false);
+  const loading = authLoading || subscriptionLoading;
+  const hasPaidAccess = Boolean(user && hasActiveSubscription);
+
+  useEffect(() => {
+    if (!loading && !hasPaidAccess) setPaywallOpen(true);
+  }, [loading, hasPaidAccess]);
+
+  if (loading) {
+    return <PremiumGateSkeleton category={category} />;
+  }
+
+  if (hasPaidAccess) return children;
+
+  const label = category.replace(/^./, (letter) => letter.toLocaleUpperCase());
+  const canonicalPath = redirectPath.split("?")[0];
+  const metadata = PREMIUM_PAGE_SEO[redirectPath] ?? PREMIUM_PAGE_SEO[canonicalPath] ?? {
+    title: `${label} uz Premium | BH KONVER`,
+    description: `Pregledajte ${label.toLocaleLowerCase("bs")} alate BH KONVER-a. Za korištenje je potrebna aktivna plaćena Premium pretplata.`,
+  };
+
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <SEO title={metadata.title} description={metadata.description} path={canonicalPath} />
+      <Navbar activeCategory={category} />
+      <main className="mx-auto flex w-full max-w-4xl flex-1 items-center justify-center px-4 py-12 sm:px-6">
+        <section className="w-full max-w-xl border-y border-border py-10 text-center sm:py-14">
+          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-lg bg-primary/10 text-primary"><LockKeyhole className="h-6 w-6" aria-hidden="true" /></span>
+          <p className="mt-5 text-xs font-semibold uppercase text-primary">BH KONVER · {label}</p>
+          <h1 className="mt-2 font-display text-2xl font-bold text-foreground sm:text-3xl">Dostupno uz Premium</h1>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-muted-foreground">
+            Generatori, kalkulatori i testovi dostupni su korisnicima s aktivnom plaćenom Premium pretplatom.
+          </p>
+          <button type="button" onClick={() => setPaywallOpen(true)} className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+            <Crown className="h-4 w-4" aria-hidden="true" />Pogledaj Premium ponudu
+          </button>
+        </section>
+      </main>
+      <Footer activeCategory={category} />
+      <FreemiumPaywallModal
+        open={paywallOpen}
+        onOpenChange={setPaywallOpen}
+        title="Premium pristup"
+        description="Nadogradite račun na Premium da biste koristili generatore, kalkulatore i testove."
+        redirectPath={redirectPath}
+      />
+    </div>
+  );
+};
+
+const getCategoryPages = (t: (key: string, fallback: string) => string) => ({
+  GENERATORI: {
+    title: t("nav.generators", "Generatori"),
+    description: t("categoryLanding.generatorsDesc", "Brzi alati za kreiranje jedinstvenih identifikatora, kodova i tekstualnih oznaka."),
+    items: [
+      { label: t("generators.cv", "Europass CV Generator"), description: t("categoryLanding.cvDesc", "Izrada modernog dvojezičnog Europass životopisa u PDF formatu."), to: "/category/generatori?tab=cv" },
+      { label: t("generators.uuid", "UUID Generator"), description: t("categoryLanding.uuidDesc", "Kreiranje jedinstvenih UUID identifikatora."), to: "/category/generatori?tab=uuid" },
+      { label: t("generators.qr", "QR Code Generator"), description: t("categoryLanding.qrDesc", "Priprema sadržaja za QR kodove."), to: "/category/generatori?tab=qr" },
+      { label: t("generators.slug", "Slug Generator"), description: t("categoryLanding.slugDesc", "Pretvaranje naslova u URL-friendly slug."), to: "/category/generatori?tab=slug" },
+      { label: t("generators.barcode", "Barcode Generator"), description: t("categoryLanding.barcodeDesc", "Alati za rad s barkodovima."), to: "/category/generatori?tab=barcode" },
+    ],
+  },
+  KONVERTORI: {
+    title: t("nav.converters", "Konvertori"),
+    description: t("categoryLanding.convertersDesc", "Pretvarajte jedinice, tekst, slike, dokumente i multimedijalne datoteke."),
+    items: [
+      { label: t("converters.unitsAndCurrencies", "Jedinice i valute"), description: t("categoryLanding.unitsDesc", "Konverzija mjernih jedinica i valuta."), to: "/category/konvertori?tab=unit" },
+      { label: t("converters.script", "Ćirilica / Latinica"), description: t("categoryLanding.scriptDesc", "Konverzija pisma između ćirilice i latinice."), to: "/category/konvertori?tab=script" },
+      { label: t("converters.audio", "Audio"), description: t("categoryLanding.audioDesc", "Alati za audio konverziju."), to: "/modul/audio" },
+      { label: t("converters.video", "Video"), description: t("categoryLanding.videoDesc", "Alati za video konverziju."), to: "/modul/video" },
+      { label: t("converters.imageToPdf", "Slika u PDF"), description: t("categoryLanding.imageToPdfDesc", "Pretvorite slike u PDF dokument."), to: "/slika-pdf" },
+      { label: t("converters.pdfTools", "PDF alati"), description: t("categoryLanding.pdfToolsDesc", "Otvorite PDF i dokument konvertore."), to: "/alati" },
+    ],
+  },
+  KALKULATORI: {
+    title: t("nav.calculators", "Kalkulatori"),
+    description: t("categoryLanding.calculatorsDesc", "Praktični kalkulatori za svakodnevne i finansijske proračune."),
+    items: [
+      { label: t("calculators.fuel", "Gorivo"), description: t("categoryLanding.fuelDesc", "Alati za proračun troškova goriva."), to: "/kalkulatori/gorivo" },
+      { label: t("calculators.pdv", "PDV"), description: t("categoryLanding.pdvDesc", "Proračun iznosa PDV-a."), to: "/kalkulatori/pdv" },
+      { label: t("calculators.staz", "Radni staž"), description: t("categoryLanding.stazDesc", "Informativni proračun radnog staža."), to: "/kalkulatori/staz" },
+      { label: t("calculators.electricity", "Struja"), description: t("categoryLanding.electricityDesc", "Procjena potrošnje i troškova električne energije."), to: "/kalkulatori/struja" },
+    ],
+  },
+  TESTOVI: {
+    title: t("nav.tests", "Testovi"),
+    description: t("testovi.heroDesc", "7 modernih kognitivnih izazova i lingvističkih provjera."),
+    items: [
+      { label: "Math & Logic Speed Test", description: "60s test brzog računanja i logičkih nizova.", to: "/testovi/math-logic" },
+      { label: "Guess the Flag (Zastave)", description: "Baza od 160+ zastava i Flag King 2027 titula.", to: "/testovi/flags" },
+      { label: "Lateral Thinking Challenge", description: "5 zamki za logiku. Koliko ih možeš izbjeći?", to: "/testovi/lateral" },
+      { label: "Spot the Fraud", description: "Brze 10-sekundne vizuelne runde detekcije uljeza.", to: "/testovi/fraud" },
+      { label: "Pattern Recognition Gauntlet", description: "Slomi šifru: niz zagonetki sve težih obrazaca.", to: "/testovi/pattern" },
+      { label: "Script-Switching / Typing", description: "Transliteracija i brzo kucanje: Latinica ↔ Ćirilica.", to: "/testovi/script" },
+      { label: "Lost in Translation (Idiomi)", description: "Kviz narodnih izreka i idioma kroz 5 jezika.", to: "/testovi/idioms" },
+    ],
+  },
+});
+
+const getCategoryFromLocation = (pathname: string, hash: string) => {
+  const categorySlug = pathname.match(/^\/category\/([^/]+)/)?.[1];
+  if (categorySlug && CATEGORY_SLUGS[categorySlug]) return CATEGORY_SLUGS[categorySlug];
+  if (pathname === "/privatnost" || pathname === "/privacy") {
+    if (hash === "#security") return "Security";
+    if (hash === "#cookies") return "Cookies";
+    return "Privacy Policy";
+  }
+  if (pathname === "/sigurnost" || pathname === "/security") return "Security";
+  if (pathname === "/kolacici" || pathname === "/cookies") return "Cookies";
+  if (pathname === "/pravne-napomene" || pathname === "/legal") return "Legal";
+  if (pathname === "/uslovi-koristenja" || pathname === "/terms") return hash === "#legal-notice" ? "Legal" : "Terms";
+  if (pathname === "/support") return "Contact";
+  if (pathname === "/blog" || pathname.startsWith("/blog/")) return "BLOG";
+  if (pathname.startsWith("/testovi")) return "TESTOVI";
+  if (pathname.startsWith("/kalkulatori")) return "KALKULATORI";
+  if (pathname.startsWith("/alati") || pathname.startsWith("/modul/") || pathname.startsWith("/slika-pdf")) {
+    return "KONVERTORI";
+  }
+  return "Home";
+};
+
+const CalculatorPage = () => {
+  const { t } = useTranslation();
+  const { calculatorId = "" } = useParams();
+  const Calculator = CALCULATORS[calculatorId as keyof typeof CALCULATORS];
+
+  if (!Calculator) return <NotFound />;
+
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <SEO
+        title={PREMIUM_PAGE_SEO[`/kalkulatori/${calculatorId}`]?.title ?? "Premium kalkulator | BH KONVER"}
+        description={PREMIUM_PAGE_SEO[`/kalkulatori/${calculatorId}`]?.description ?? "Informativni online kalkulator BH KONVER-a."}
+        path={`/kalkulatori/${calculatorId}`}
+      />
+      <Navbar activeCategory="KALKULATORI" />
+      <main className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col items-start justify-center px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+        <div className="mb-6">
+          <BackButton label={t("common.backToCalculators", "← Povratak na kalkulatore")} fallbackTo="/category/kalkulatori" />
+        </div>
+        <div className="w-full">
+          <Calculator />
+        </div>
+      </main>
+      <Footer activeCategory="KALKULATORI" />
+    </div>
+  );
+};
+
+const CategoryLanding = ({
+  activeCategory,
+  onNavigate,
+}: {
+  activeCategory: string;
+  onNavigate: (category: string) => void;
+}) => {
+  const { t } = useTranslation();
+  const categoryPages = getCategoryPages(t);
+  const page = categoryPages[activeCategory as keyof typeof categoryPages] ?? categoryPages.GENERATORI;
+
+  const content = (
+    <div className="relative flex min-h-screen flex-col bg-background">
+      <SEO title={`${page.title} online | BH KONVER`} description={`${page.description} Pregledajte dostupne BH KONVER alate i njihove mogućnosti.`} path={`/category/${activeCategory.toLocaleLowerCase("bs")}`} />
+      <Navbar activeCategory={activeCategory} onCategoryChange={onNavigate} />
+      <main className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+        <div className="mb-6">
+          <BackButton label={t("common.backToHome", "← Povratak na početnu")} fallbackTo="/" />
+        </div>
+        <header className="relative mb-8 overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 sm:p-9 shadow-2xl backdrop-blur-xl flex flex-col-reverse sm:flex-row items-center sm:items-center justify-between gap-6 sm:gap-8">
+          {/* Ambient Background Watermark Logo */}
+          <div className="absolute -right-6 top-1/2 -translate-y-1/2 w-80 sm:w-[480px] md:w-[600px] h-full pointer-events-none overflow-hidden select-none opacity-15 sm:opacity-20 flex items-center justify-end">
+            <img
+              src={`/categories/${activeCategory.toLocaleLowerCase("bs")}.png`}
+              alt=""
+              aria-hidden="true"
+              className="w-full h-auto max-h-[140%] object-contain filter drop-shadow-[0_0_60px_rgba(59,130,246,0.5)] transform translate-x-10 scale-110"
+              onError={(e) => {
+                (e.currentTarget as HTMLElement).style.display = "none";
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+          </div>
+
+          <div className="relative z-10 text-center sm:text-left flex-1">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-bold text-primary-foreground mb-3 shadow-sm">
+              <span>BH KONVER · {activeCategory}</span>
+            </div>
+            <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-tight">{page.title}</h1>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)] sm:text-base">{page.description}</p>
+          </div>
+          <div className="relative z-10 shrink-0 flex items-center justify-center p-4 sm:p-5 rounded-3xl bg-slate-900/80 border border-primary/30 shadow-[0_0_35px_rgba(59,130,246,0.3)] backdrop-blur-xl group">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/25 via-accent/15 to-transparent rounded-3xl opacity-80 blur-xl pointer-events-none group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-[1px] rounded-[23px] border border-white/10 pointer-events-none" />
+            <img
+              src={`/categories/${activeCategory.toLocaleLowerCase("bs")}.png`}
+              alt={activeCategory}
+              className="relative z-10 h-28 w-28 sm:h-36 sm:w-36 md:h-40 md:w-40 object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-105"
+              onError={(e) => {
+                (e.currentTarget as HTMLElement).style.display = "none";
+              }}
+            />
+          </div>
+        </header>
+        <section aria-label={`${page.title} alati`} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {page.items.map((item) => (
+            <Link key={item.label} to={item.to} className="group rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary/40 hover:bg-primary/[0.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              <h2 className="font-semibold text-foreground transition-colors group-hover:text-primary">{item.label}</h2>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p>
+            </Link>
+          ))}
+        </section>
+      </main>
+      <Footer activeCategory={activeCategory} onNavigate={onNavigate} />
+    </div>
+  );
+
+  if (activeCategory === "KALKULATORI") {
+    return <PremiumAccessGate category={activeCategory} redirectPath={CATEGORY_PATHS[activeCategory]}>{content}</PremiumAccessGate>;
+  }
+  return content;
+};
+
+const EnglishRouteHandler = () => {
+  const { setLanguage } = useLanguage();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setLanguage("en");
+    // Strip "/en" prefix and navigate to the target route, preserving query params
+    const stripped = location.pathname.replace(/^\/en(\/|$)/, "/") || "/";
+    navigate({ pathname: stripped, search: location.search }, { replace: true });
+  }, [location.pathname, location.search, navigate, setLanguage]);
+
+  return <CategoryLandingSkeleton category="BH KONVER" />;
+};
+
+const AppRoutes = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [activeCategory, setActiveCategory] = useState(() => getCategoryFromLocation(location.pathname, location.hash));
+
+  useEffect(() => {
+    setActiveCategory(getCategoryFromLocation(location.pathname, location.hash));
+  }, [location.pathname, location.hash]);
+
+  const navigateToCategory = (category: string) => {
+    setActiveCategory(category);
+    navigate(CATEGORY_PATHS[category] ?? "/");
+  };
+
+  return (
+    <>
+      <ScrollToTop />
+      <AnalyticsRouteTracker />
+      <AppInitializer>
+        {/* IT-inspired fluid animated background on subpages, excluding admin dashboard */}
+        {location.pathname !== "/" && !location.pathname.startsWith("/admin") && <FluidTechBackground />}
+        <main className="relative z-10 flex-1 flex flex-col min-h-screen">
+          <Suspense fallback={<CategoryLandingSkeleton category="BH KONVER" />}>
+            <Routes>
+              {/* Direct English entry routes */}
+              <Route path="/en" element={<EnglishRouteHandler />} />
+              <Route path="/en/*" element={<EnglishRouteHandler />} />
+
+              <Route path="/" element={<Index />} />
+              <Route path="/category/generatori" element={<GeneratorsHub />} />
+              <Route path="/category/konvertori" element={<ConvertersHub />} />
+              <Route path="/category/kalkulatori" element={<CalculatorsHub />} />
+              <Route path="/category/testovi" element={<Testovi />} />
+              <Route path="/category/:category" element={<CategoryLanding activeCategory={activeCategory} onNavigate={navigateToCategory} />} />
+              <Route path="/kalkulatori/:calculatorId" element={<CalculatorPage />} />
+              <Route path="/testovi" element={<Testovi />} />
+              <Route path="/testovi/:slug" element={<QuizRunnerPage />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<Blog />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/login" element={<Auth />} />
+              <Route path="/prijava" element={<Auth />} />
+              <Route path="/signin" element={<Auth />} />
+              <Route path="/signup" element={<Auth />} />
+              <Route path="/registracija" element={<Auth />} />
+              <Route path="/register" element={<Auth />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+              <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
+              <Route path="/dashboard" element={<ProtectedRoute><History /></ProtectedRoute>} />
+              <Route path="/aktivnosti" element={<ProtectedRoute><History /></ProtectedRoute>} />
+
+              <Route path="/success" element={<Success />} />
+              <Route path="/payment-success" element={<PaymentSuccess />} />
+              <Route path="/payment-canceled" element={<PaymentCanceled />} />
+
+              {/* Legal, Security, Cookies, Privacy & Terms routes (both Bosnian & English aliases) */}
+              <Route path="/uslovi-koristenja" element={<Terms />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privatnost" element={<Privacy />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/pravne-napomene" element={<LegalNotice />} />
+              <Route path="/legal" element={<LegalNotice />} />
+              <Route path="/sigurnost" element={<SecurityPage />} />
+              <Route path="/security" element={<SecurityPage />} />
+              <Route path="/kolacici" element={<CookiesPage />} />
+              <Route path="/cookies" element={<CookiesPage />} />
+
+              <Route path="/support" element={<Support />} />
+              <Route path="/alati" element={<Alati />} />
+              <Route path="/alati/:toolSlug" element={<Alati />} />
+              <Route path="/modul/:moduleSlug" element={<ModulePage />} />
+              <Route path="/slika-pdf" element={<SlikaPdf />} />
+              <Route path="/slika-pdf/istorija" element={<SlikaPdfHistory />} />
+              <Route path="/connect" element={<Connect />} />
+              <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </main>
+      </AppInitializer>
+    </>
+  );
+};
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
+
+export default App;
