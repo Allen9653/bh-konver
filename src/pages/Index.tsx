@@ -2,7 +2,6 @@ import { lazy, Suspense, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  CircleHelp,
   ArrowRight,
   Sparkles,
   Crown,
@@ -12,12 +11,10 @@ import {
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { PremiumFooter } from "@/components/PremiumFooter";
 import { CompactHeroConverter } from "@/components/home/CompactHeroConverter";
-import { UniversalToolHub } from "@/components/home/UniversalToolHub";
 import { TrustSignalsBar } from "@/components/common/TrustSignalsBar";
 import { EthnoFuturaBackground } from "@/components/home/EthnoFuturaBackground";
 import { SEO, SITE_URL } from "@/components/SEO";
 import { AdSenseSlot } from "@/components/AdSenseSlot";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { FreemiumPaywallModal } from "@/components/free-tools/FreemiumPaywallModal";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
@@ -25,34 +22,6 @@ import { useSubscription } from "@/hooks/useSubscription";
 const PayPalPaymentModal = lazy(() =>
   import("@/components/PayPalPaymentModal").then((module) => ({ default: module.PayPalPaymentModal }))
 );
-
-const FAQ_ITEMS = [
-  {
-    question: "Koje sve tačno opcije i alate nudi BH KONVER?",
-    answer:
-      "BH KONVER objedinjuje četiri ključne grupe modernih digitalnih alata: 1) Konvertori: valute (KM, EUR, USD, CHF, GBP itd.), mjerne jedinice (dužina, masa, površina, zapremina, temperatura), ćirilica/latinica, te brzi PDF alati i konverzija slika; 2) Generatori: QR kodovi za Wi-Fi, tekst i linkove, UUID v4 ključevi, SEO slugovi i linijski barkodovi (CODE128 i EAN); 3) Kalkulatori: potrošnja goriva i putni troškovi, PDV stopa 17% u BiH, kalkulator radnog staža i procjena troškova struje aparata; 4) Testovi: kviz o BiH, saobraćajni propisi za vozače, IQ logički zadaci i test ličnosti.",
-  },
-  {
-    question: "Koje su cijene paketa i kako se vrši plaćanje (PayPal i banka)?",
-    answer:
-      "Svi osnovni alati dostupni su besplatno u Freemium modelu bez registracije. Za korisnike kojima je potreban neograničeni kapacitet, batch obrada i preuzimanje službenih specifikacija, nudimo povoljne Premium pakete (24h pristup za 2 € (~3.91 BAM), mjesečni ili godišnji). Plaćanje je omogućeno odmah putem PayPal-a (karticom), kao i direktnom uplatom na račun u banci u BiH (putem mobilnog bankarstva ili uplatnice). Za bankovnu uplatu pošaljite potvrdu na alen.jusufovic@proton.me ili podrska@bh-assistant.ba i pristup se aktivira odmah.",
-  },
-  {
-    question: "Da li su moji podaci, tekstovi i dokumenti sigurni?",
-    answer:
-      "Apsolutno. Osnovne konverzije valuta, mjernih jedinica i teksta obrađuju se 100% lokalno unutar vašeg internet pretraživača – vaši podaci ne napuštaju vaš računar ili telefon. Dokumenti koji zahtijevaju serversku obradu prolaze kroz šifrovane kanale i automatski se trajno brišu u dnevnom ciklusu čišćenja.",
-  },
-  {
-    question: "Kako funkcioniše Freemium pristup testovima i kalkulatorima?",
-    answer:
-      "Svi testovi i kalkulatori su u Freemium režimu. Možete odmah riješiti bilo koji test, dobiti bodove i vidjeti tačne odgovore, ili izračunati troškove goriva i PDV bez ikakve naplate. Premium pretplata je namijenjena onima koji žele napredni izvoz rezultata u PDF certifikat ili poslovne Excel specifikacije.",
-  },
-  {
-    question: "Kako mogu kontaktirati podršku ili zatražiti novi alat?",
-    answer:
-      "Za sva pitanja, podršku pri uplati ili prijedloge novih alata, stojimo vam na raspolaganju putem e-maila: podrska@bh-assistant.ba, info@bh-assistant.ba, kao i direktno na e-mail osnivača: alen.jusufovic@proton.me. Možete nas kontaktirati i telefonom/Viberom na broj +387 62 580 207.",
-  },
-];
 
 export default function Index() {
   const { t } = useTranslation();
@@ -84,14 +53,6 @@ export default function Index() {
             operatingSystem: "Any",
             description:
               "Besplatni online konverteri valuta prema KM, mjernih jedinica, pisma i formata uz kalkulatore i testove.",
-          },
-          {
-            "@type": "FAQPage",
-            mainEntity: FAQ_ITEMS.map(({ question, answer }) => ({
-              "@type": "Question",
-              name: question,
-              acceptedAnswer: { "@type": "Answer", text: answer },
-            })),
           },
         ]}
       />
@@ -154,13 +115,6 @@ export default function Index() {
             <TrustSignalsBar variant="full" />
           </div>
         </section>
-
-        {/* ========================================================
-            UNIVERSAL TOOL HUB:
-            Centralna sekcija sa pretragom "Šta želite konvertovati ili izračunati?",
-            kategorijama i konzistentnim karticama formata.
-        ======================================================== */}
-        <UniversalToolHub />
 
         {/* ========================================================
             ODVOJENI EDUKATIVNI SADRŽAJ (VODIČI & DIGITALNA PISMENOST)
@@ -324,42 +278,6 @@ export default function Index() {
         <div className="relative z-10 mx-auto max-w-5xl px-4 py-3">
           <AdSenseSlot slotId="home-after-tools" />
         </div>
-
-        {/* ========================================================
-            MALI SEO BLOK (ACCORDION FAQ)
-            Pitanja koja detaljno informišu o opcijama, cijenama,
-            načinu plaćanja i privatnosti.
-        ======================================================== */}
-        <section className="relative z-10 px-4 py-10 sm:py-14 border-t border-border/60" aria-labelledby="faq-heading">
-          <div className="mx-auto max-w-4xl">
-            <div className="mb-6 flex items-center gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <CircleHelp className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <div>
-                <p className="text-xs font-semibold uppercase text-primary">
-                  {t("home.faq.eyebrow", "INFORMACIJE & FAQ")}
-                </p>
-                <h2 id="faq-heading" className="font-display text-2xl font-bold text-foreground sm:text-3xl">
-                  {t("home.faq.title", "Najčešća pitanja posjetilaca")}
-                </h2>
-              </div>
-            </div>
-
-            <Accordion type="single" collapsible className="glass-panel rounded-2xl px-4 sm:px-6 divide-y divide-border/60">
-              {FAQ_ITEMS.map(({ question, answer }, index) => (
-                <AccordionItem key={question} value={`faq-${index + 1}`} className="border-none py-1">
-                  <AccordionTrigger className="gap-4 text-left text-sm font-semibold text-foreground hover:no-underline sm:text-base py-4">
-                    {question}
-                  </AccordionTrigger>
-                  <AccordionContent className="max-w-3xl text-sm leading-6 text-muted-foreground pb-4">
-                    {answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
 
         {/* Blog link teaser section */}
         <section className="relative z-10 px-4 pb-12">

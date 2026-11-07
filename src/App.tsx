@@ -40,6 +40,7 @@ const Alati = lazy(() => import("./pages/Alati"));
 const SlikaPdf = lazy(() => import("./pages/SlikaPdf"));
 const SlikaPdfHistory = lazy(() => import("./pages/SlikaPdfHistory"));
 const Connect = lazy(() => import("./pages/Connect"));
+const ScenaMagazin = lazy(() => import("./pages/ScenaMagazin"));
 const OAuthConsent = lazy(() => import("./pages/OAuthConsent"));
 const ModulePage = lazy(() => import("./pages/ModulePage"));
 const GorivoKalkulator = lazy(() => import("@/components/calculators/GorivoKalkulator"));
@@ -420,6 +421,7 @@ const AppRoutes = () => {
               <Route path="/slika-pdf" element={<SlikaPdf />} />
               <Route path="/slika-pdf/istorija" element={<SlikaPdfHistory />} />
               <Route path="/connect" element={<Connect />} />
+              <Route path="/scena-magazin" element={<ScenaMagazin />} />
               <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
