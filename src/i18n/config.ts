@@ -8,6 +8,7 @@ import bsCyrl from './locales/bs-Cyrl.json';
 import en from './locales/en.json';
 import de from './locales/de.json';
 import tr from './locales/tr.json';
+import nl from './locales/nl.json';
 
 const resources = {
   bs: { translation: bs },
@@ -18,6 +19,7 @@ const resources = {
   en: { translation: en },
   de: { translation: de },
   tr: { translation: tr },
+  nl: { translation: nl },
 };
 
 /** Normalize language codes to supported values */
@@ -40,6 +42,7 @@ export const normalizeLanguageCode = (code?: string | null): string => {
   if (lower.startsWith('en')) return 'en';
   if (lower.startsWith('de')) return 'de';
   if (lower.startsWith('tr')) return 'tr';
+  if (lower.startsWith('nl')) return 'nl';
   if (lower.startsWith('bs')) return 'bs';
   return trimmed;
 };
@@ -79,6 +82,9 @@ export const getUrlLanguageParam = (): string | null => {
     const pathname = window.location.pathname.toLowerCase();
     if (pathname === '/en' || pathname === '/en/' || pathname.startsWith('/en/')) {
       return 'en';
+    }
+    if (pathname === '/nl' || pathname === '/nl/' || pathname.startsWith('/nl/')) {
+      return 'nl';
     }
   } catch {
     // Ignore URL parse errors
@@ -189,6 +195,10 @@ export const detectInitialLanguage = (): string => {
       if (lower.startsWith('tr')) {
         persistLanguage('tr');
         return 'tr';
+      }
+      if (lower.startsWith('nl') || lower.includes('-nl')) {
+        persistLanguage('nl');
+        return 'nl';
       }
 
       // Any visitor from anywhere else outside our language area:

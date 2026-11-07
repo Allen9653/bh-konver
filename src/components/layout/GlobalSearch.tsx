@@ -63,7 +63,9 @@ export function GlobalSearch({ variant = "default" }: GlobalSearchProps = {}) {
   const listRef = useRef<HTMLDivElement>(null);
 
   // All searchable tools and modules in BH KONVER
-  const allTools: SearchToolItem[] = useMemo(() => [
+  const allTools: SearchToolItem[] = useMemo(() => {
+    void currentLang;
+    return [
     // --- KONVERTORI ---
     {
       id: "conv-currency",
@@ -325,83 +327,83 @@ export function GlobalSearch({ variant = "default" }: GlobalSearchProps = {}) {
     {
       id: "test-math-logic",
       titleKey: "testovi.mathLogic",
-      title: "Math & Logic Speed Test",
-      description: "60 sekundi intenzivnog računanja i logičkih nizova sa praćenjem niza.",
+      title: t("testovi.quizzes.mathLogic.title", "Math & Logic Speed Test"),
+      description: t("testovi.quizzes.mathLogic.desc", "60 sekundi intenzivnog računanja i logičkih nizova sa praćenjem niza."),
       category: "testovi",
       categoryLabel: t("nav.tests", "TESTOVI"),
       to: "/testovi/math-logic",
       icon: ClipboardCheck,
-      keywords: ["matematika", "logika", "racunanje", "speed", "test", "math"],
+      keywords: ["matematika", "logika", "racunanje", "speed", "test", "math", "wiskunde", "snelheid"],
       badge: "60s",
     },
     {
       id: "test-flags",
       titleKey: "testovi.flags",
-      title: "Guess the Flag (Zastave Svijeta)",
-      description: "Prepoznajte preko 160 svjetskih zastava i osvojite FLAG KING 2027 titulu.",
+      title: t("testovi.quizzes.flags.title", "Guess the Flag (Zastave Svijeta)"),
+      description: t("testovi.quizzes.flags.desc", "Prepoznajte preko 160 svjetskih zastava i osvojite FLAG KING 2027 titulu."),
       category: "testovi",
       categoryLabel: t("nav.tests", "TESTOVI"),
       to: "/testovi/flags",
       icon: ClipboardCheck,
-      keywords: ["zastave", "geografija", "drzave", "flags", "svijet", "king"],
+      keywords: ["zastave", "geografija", "drzave", "flags", "svijet", "king", "vlaggen", "landen"],
       badge: "Flag King",
     },
     {
       id: "test-lateral",
       titleKey: "testovi.lateral",
-      title: "Lateral Thinking Challenge",
-      description: "5 zamki za logiku. Koliko ih možeš izbjeći?",
+      title: t("testovi.quizzes.lateral.title", "Lateral Thinking Challenge"),
+      description: t("testovi.quizzes.lateral.desc", "5 zamki za logiku. Koliko ih možeš izbjeći?"),
       category: "testovi",
       categoryLabel: t("nav.tests", "TESTOVI"),
       to: "/testovi/lateral",
       icon: ClipboardCheck,
-      keywords: ["zamke", "logika", "zagonetke", "riddles", "lateral"],
+      keywords: ["zamke", "logika", "zagonetke", "riddles", "lateral", "puzzels", "denkuitdaging"],
     },
     {
       id: "test-fraud",
       titleKey: "testovi.fraud",
-      title: "Spot the Fraud (Detektor Uljeza)",
-      description: "10-sekundne brze vizuelne runde. Prepoznajte uljeza među geometrijskim uzorcima.",
+      title: t("testovi.quizzes.fraud.title", "Spot the Fraud (Detektor Uljeza)"),
+      description: t("testovi.quizzes.fraud.desc", "10-sekundne brze vizuelne runde. Prepoznajte uljeza među geometrijskim uzorcima."),
       category: "testovi",
       categoryLabel: t("nav.tests", "TESTOVI"),
       to: "/testovi/fraud",
       icon: ClipboardCheck,
-      keywords: ["uljez", "opazanje", "vid", "fraud", "detektor"],
+      keywords: ["uljez", "opazanje", "vid", "fraud", "detektor", "afwijking", "patroon"],
       badge: "10s",
     },
     {
       id: "test-pattern",
       titleKey: "testovi.pattern",
-      title: "Pattern Recognition Gauntlet",
-      description: "Slomi šifru: niz zagonetki sve težih obrazaca i matrica.",
+      title: t("testovi.quizzes.pattern.title", "Pattern Recognition Gauntlet"),
+      description: t("testovi.quizzes.pattern.desc", "Slomi šifru: niz zagonetki sve težih obrazaca i matrica."),
       category: "testovi",
       categoryLabel: t("nav.tests", "TESTOVI"),
       to: "/testovi/pattern",
       icon: ClipboardCheck,
-      keywords: ["obrasci", "serije", "matrice", "pattern", "sifra"],
+      keywords: ["obrasci", "serije", "matrice", "pattern", "sifra", "patronen", "matrix"],
     },
     {
       id: "test-script",
       titleKey: "testovi.script",
-      title: "Script-Switching / Speed-Typing",
-      description: "Transliteracija i brzo kucanje na vrijeme: Latinica ↔ Ćirilica.",
+      title: t("testovi.quizzes.script.title", "Script-Switching / Speed-Typing"),
+      description: t("testovi.quizzes.script.desc", "Transliteracija i brzo kucanje na vrijeme: Latinica ↔ Ćirilica."),
       category: "testovi",
       categoryLabel: t("nav.tests", "TESTOVI"),
       to: "/testovi/script",
       icon: ClipboardCheck,
-      keywords: ["kucanje", "latinica", "cirilica", "transliteracija", "wpm"],
+      keywords: ["kucanje", "latinica", "cirilica", "transliteracija", "wpm", "typen", "schrijven"],
       badge: "WPM",
     },
     {
       id: "test-idioms",
       titleKey: "testovi.idioms",
-      title: "Lost in Translation — Kviz Idioma",
-      description: "Prepoznajte pravo značenje narodnih izreka i idioma kroz 5 jezika.",
+      title: t("testovi.quizzes.idioms.title", "Lost in Translation — Kviz Idioma"),
+      description: t("testovi.quizzes.idioms.desc", "Prepoznajte pravo značenje narodnih izreka i idioma kroz 5 jezika."),
       category: "testovi",
       categoryLabel: t("nav.tests", "TESTOVI"),
       to: "/testovi/idioms",
       icon: ClipboardCheck,
-      keywords: ["idiomi", "izreke", "jezici", "fraze", "znacenje"],
+      keywords: ["idiomi", "izreke", "jezici", "fraze", "znacenje", "uitdrukkingen", "zegswijzen"],
     },
 
     // --- BLOG & VODIČI ---
@@ -414,9 +416,10 @@ export function GlobalSearch({ variant = "default" }: GlobalSearchProps = {}) {
       categoryLabel: t("nav.blog", "BLOG"),
       to: "/blog",
       icon: BookOpen,
-      keywords: ["blog", "clanci", "vodici", "uputstva", "mp4", "docx", "heic", "savjeti"],
+      keywords: ["blog", "clanci", "vodici", "uputstva", "mp4", "docx", "heic", "savjeti", "handleidingen", "artikelen"],
     },
-  ], [t]);
+  ];
+}, [t, currentLang]);
 
   // Global hotkey listener: Ctrl+K or Cmd+K or / to open search
   useEffect(() => {

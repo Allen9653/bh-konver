@@ -45,6 +45,12 @@ export const SUPPORTED_LANGUAGES: LanguageOption[] = [
     nativeName: "Türkçe",
     short: "TR",
   },
+  {
+    code: "nl",
+    name: "Nederlands (Dutch)",
+    nativeName: "Nederlands",
+    short: "NL",
+  },
 ];
 
 export const STORAGE_KEYS = {
@@ -76,6 +82,7 @@ export const normalizeLanguageCode = (code?: string | null): string => {
   if (lower.startsWith("en")) return "en";
   if (lower.startsWith("de")) return "de";
   if (lower.startsWith("tr")) return "tr";
+  if (lower.startsWith("nl")) return "nl";
   if (lower.startsWith("bs")) return "bs";
   return trimmed;
 };
