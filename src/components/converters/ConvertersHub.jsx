@@ -87,7 +87,7 @@ export default function ConvertersHub() {
   );
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-background">
+    <div className="relative flex min-h-screen flex-col bg-transparent">
       {/* Moving Illuminated Category Background */}
       <AmbientCategoryBackdrop category="konvertori" />
 
@@ -114,7 +114,7 @@ export default function ConvertersHub() {
         </div>
 
         {/* Hero Section */}
-        <section className="relative mb-8 overflow-hidden rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 sm:p-9 shadow-2xl backdrop-blur-xl">
+        <section className="relative mb-8 overflow-hidden rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-slate-950/75 via-slate-900/70 to-slate-950/75 p-6 sm:p-9 shadow-2xl backdrop-blur-xl">
           {/* Ambient Background Watermark Logo */}
           <div className="absolute -right-6 top-1/2 -translate-y-1/2 w-80 sm:w-[480px] md:w-[600px] h-full pointer-events-none overflow-hidden select-none opacity-15 sm:opacity-20 flex items-center justify-end">
             <img

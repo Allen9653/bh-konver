@@ -7,7 +7,7 @@ const PaymentCanceled = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4">
+    <div className="min-h-screen bg-transparent flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center space-y-6">
         <img src={logo} alt="BH Konver" width={320} height={320} className="mx-auto max-w-xs w-full h-auto" />
         

@@ -265,7 +265,7 @@ export default function Testovi() {
   );
 
   return (
-    <div key={activeLang} className="flex min-h-screen flex-col bg-[#0A1628] text-foreground">
+    <div key={activeLang} className="flex min-h-screen flex-col bg-transparent text-foreground">
       <SEO
         title={pageTitle}
         description={pageDescription}
@@ -286,7 +286,7 @@ export default function Testovi() {
         </div>
 
         {/* Hero Section */}
-        <header className="relative mb-10 overflow-hidden rounded-3xl border border-[#00C9A7]/30 bg-gradient-to-br from-[#0A1628] via-[#0d1d33] to-[#0A1628] p-6 sm:p-10 shadow-2xl backdrop-blur-xl flex flex-col-reverse sm:flex-row items-center justify-between gap-6 sm:gap-8">
+        <header className="relative mb-10 overflow-hidden rounded-3xl border border-[#00C9A7]/30 bg-gradient-to-br from-[#0A1628]/75 via-[#0d1d33]/70 to-[#0A1628]/75 p-6 sm:p-10 shadow-2xl backdrop-blur-xl flex flex-col-reverse sm:flex-row items-center justify-between gap-6 sm:gap-8">
           {/* Ambient Background Watermark Logo */}
           <div className="absolute -right-6 top-1/2 -translate-y-1/2 w-80 sm:w-[480px] md:w-[600px] h-full pointer-events-none overflow-hidden select-none opacity-15 sm:opacity-20 flex items-center justify-end">
             <img

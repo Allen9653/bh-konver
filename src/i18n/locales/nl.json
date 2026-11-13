@@ -1247,5 +1247,25 @@
     "navigate": "navigeren",
     "open": "openen",
     "close": "sluiten"
+  },
+  "deviceAdaptation": {
+    "title": "iOS / Android-aanpassing",
+    "shortLabel": "Apparaat",
+    "detectedPrefix": "Gedetecteerd",
+    "activePrefix": "Actief",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "platformDesktop": "Desktop",
+    "modeAuto": "Auto",
+    "modeSelect": "Apparaatweergavemodus",
+    "toggleAria": "Automatische aanpassing voor iOS- en Android-apparaten",
+    "videoBgLabel": "Video-achtergrond",
+    "videoBgDesc": "Ambient YouTube-video",
+    "videoBgToggleAria": "Video-achtergrond in- of uitschakelen",
+    "mobileNavLabel": "Mobiele snelle navigatie",
+    "tabConverters": "Converters",
+    "tabGenerators": "Generatoren",
+    "tabCalculators": "Calculators",
+    "tabTests": "Testen"
   }
 }

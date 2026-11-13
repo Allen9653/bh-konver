@@ -371,7 +371,7 @@ const History = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <RefreshCw className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
@@ -380,7 +380,7 @@ const History = () => {
   const username = user?.email?.split("@")[0] || "Korisnik";
 
   return (
-    <div className="min-h-screen bg-background relative z-10 flex flex-col">
+    <div className="min-h-screen bg-transparent relative z-10 flex flex-col">
       <Navbar />
 
       <main className="container mx-auto px-4 py-8 max-w-6xl flex-1 space-y-8">

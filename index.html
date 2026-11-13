@@ -2,13 +2,13 @@
 <html lang="bs">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
     <meta name="google-site-verification" content="0A6sgKOhf-VkHAnkrPmtAiMe3maqUPHjJn45_xKd82s" />
     <meta name='impact-site-verification' value='83caec9d-d1b2-4633-80cc-50c9d99d3ea6'>
     <title>BH KONVER | Besplatni online konverteri i Premium alati</title>
     <meta name="description" content="Besplatni konverteri jedinica, valuta, teksta i datuma dostupni bez prijave. BH KONVER nudi i Premium generatore, kalkulatore i kvizove." />
     <meta name="author" content="B&H Assistant d.o.o." />
-    <meta name="theme-color" content="#1E3A8A" />
+    <meta name="theme-color" content="#020617" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -35,7 +35,7 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="BH Konver" />
     <meta name="mobile-web-app-capable" content="yes" />
     
@@ -99,11 +99,16 @@
   <body>
     <div id="root"></div>
     <script>
-      // Load coi-serviceworker only when running top-level (not inside an iframe/preview)
-      if (window.self === window.top) {
-        var s = document.createElement("script");
-        s.src = "/coi-serviceworker.js";
-        document.body.appendChild(s);
+      // Ensure any legacy coi-serviceworker is unregistered so YouTube embeds are never blocked by COEP
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+          registrations.forEach(function (reg) {
+            var sw = reg.active || reg.waiting || reg.installing;
+            if (sw && sw.scriptURL && sw.scriptURL.indexOf("coi-serviceworker") !== -1) {
+              reg.unregister();
+            }
+          });
+        });
       }
     </script>
     <script type="module" src="/src/main.tsx"></script>

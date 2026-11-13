@@ -11,7 +11,7 @@ export default function Terms() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col">
       <SEO
         title="Uvjeti korištenja — BH KONVER"
         description="Pravila i uvjeti korištenja BH KONVER platforme, uključujući opseg usluga, odgovornost i intelektualno vlasništvo."

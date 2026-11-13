@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowUpRight, Facebook, Instagram, Mail, Music2, Youtube } from "lucide-react";
+import { DeviceAdaptationControl } from "@/components/common/DeviceAdaptationControl";
 import logo from "@/assets/bh-konver-logo.png";
 
 const socialLinks = [
@@ -11,7 +12,7 @@ const socialLinks = [
 ];
 
 const footerLinkClass =
-  "w-fit text-sm text-primary-foreground/70 transition-colors hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+  "w-fit text-sm text-slate-300/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 export const SocialLinks = ({ className = "mt-5 flex items-center gap-2" }) => (
   <nav className={className} aria-label="BH KONVER na društvenim mrežama">
@@ -72,7 +73,7 @@ export const Footer = ({ activeCategory, onNavigate }) => {
   ];
 
   return (
-    <footer className="bg-foreground text-primary-foreground">
+    <footer className="border-t border-white/10 bg-slate-950/80 backdrop-blur-xl text-slate-100">
       <div className="mx-auto max-w-[90rem] px-4 py-12 sm:px-6 lg:px-8 lg:py-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,minmax(0,1fr))] lg:gap-8">
           <div>
@@ -86,7 +87,7 @@ export const Footer = ({ activeCategory, onNavigate }) => {
                 BH <span className="text-emerald-400">KONVER</span>
               </span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-6 text-primary-foreground/65">
+            <p className="mt-4 max-w-xs text-sm leading-6 text-slate-300/75">
               {t(
                 "footer.description",
                 "BH KONVER donosi praktične online alate za svakodnevne konverzije, proračune i provjere."
@@ -110,13 +111,13 @@ export const Footer = ({ activeCategory, onNavigate }) => {
 
           {footerColumns.map((column) => (
             <div key={column.title}>
-              <h2 className="text-xs font-semibold uppercase text-primary-foreground/50">{column.title}</h2>
+              <h2 className="text-xs font-semibold uppercase text-slate-400">{column.title}</h2>
               <div className="mt-4 flex flex-col items-start gap-3">
                 {column.links.map((item) => (
                   <Link
                     key={`${item.label}-${item.to}`}
                     to={item.to}
-                    className={`${footerLinkClass} ${activeCategory === item.category ? "text-primary-foreground font-medium" : ""}`}
+                    className={`${footerLinkClass} ${activeCategory === item.category ? "text-white font-medium" : ""}`}
                     onClick={() => {
                       onNavigate?.(item.category);
                     }}
@@ -129,14 +130,18 @@ export const Footer = ({ activeCategory, onNavigate }) => {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-primary-foreground/15 pt-5 text-xs text-primary-foreground/50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 max-w-md">
+          <DeviceAdaptationControl variant="panel" />
+        </div>
+
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/15 pt-5 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} BH KONVER. {t("footer.rights", "Sva prava zadržana.")}</p>
           <div className="flex items-center gap-2.5">
-            <Link to="/?lang=en" className="inline-flex items-center gap-1 text-primary-foreground/80 hover:text-primary-foreground underline font-semibold transition-colors">
+            <Link to="/?lang=en" className="inline-flex items-center gap-1 text-slate-200 hover:text-white underline font-semibold transition-colors">
               🌐 English (Direct Access)
             </Link>
             <span className="opacity-40">·</span>
-            <Link to="/?lang=bs" className="inline-flex items-center gap-1 text-primary-foreground/80 hover:text-primary-foreground underline font-semibold transition-colors">
+            <Link to="/?lang=bs" className="inline-flex items-center gap-1 text-slate-200 hover:text-white underline font-semibold transition-colors">
               Bosanski
             </Link>
           </div>
@@ -144,7 +149,7 @@ export const Footer = ({ activeCategory, onNavigate }) => {
             href="https://www.bh-konver.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex w-fit items-center gap-1 transition-colors hover:text-primary-foreground"
+            className="inline-flex w-fit items-center gap-1 transition-colors hover:text-white"
           >
             www.bh-konver.com <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
           </a>

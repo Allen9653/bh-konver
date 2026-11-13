@@ -60,7 +60,7 @@ const ContactLink = ({ icon: Icon, label, href, external = false }) => {
 
 export default function PrivacyPolicy() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <SEO
         title="Politika privatnosti — BH KONVER"
         description="Saznajte koje podatke BH KONVER obrađuje, kako funkcioniše obrada datoteka i kako možete ostvariti svoja prava."

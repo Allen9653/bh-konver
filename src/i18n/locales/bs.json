@@ -1240,5 +1240,25 @@
     "navigate": "kretanje",
     "open": "otvori",
     "close": "zatvori"
+  },
+  "deviceAdaptation": {
+    "title": "Prilagodba za iOS / Android",
+    "shortLabel": "Uređaj",
+    "detectedPrefix": "Detektovano",
+    "activePrefix": "Aktivno",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "platformDesktop": "Desktop",
+    "modeAuto": "Auto",
+    "modeSelect": "Način prikaza uređaja",
+    "toggleAria": "Automatska prilagodba za iOS i Android uređaje",
+    "videoBgLabel": "Video pozadina",
+    "videoBgDesc": "Ambijentalni YouTube video",
+    "videoBgToggleAria": "Uključi ili isključi video pozadinu",
+    "mobileNavLabel": "Mobilna brza navigacija",
+    "tabConverters": "Konvertori",
+    "tabGenerators": "Generatori",
+    "tabCalculators": "Kalkulatori",
+    "tabTests": "Testovi"
   }
 }

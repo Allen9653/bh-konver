@@ -1,4 +1,5 @@
 import React from "react";
+import { useDeviceAdaptation } from "@/contexts/DeviceAdaptationContext";
 
 export type CategoryTheme = "blog" | "konvertori" | "generatori" | "kalkulatori" | "testovi";
 
@@ -58,6 +59,9 @@ export const AmbientCategoryBackdrop: React.FC<AmbientCategoryBackdropProps> = (
   category,
   className = "",
 }) => {
+  const { videoBgEnabled } = useDeviceAdaptation();
+  if (videoBgEnabled) return null;
+
   const config = CATEGORY_CONFIG[category] ?? CATEGORY_CONFIG.blog;
   const isBlog = category === "blog";
 

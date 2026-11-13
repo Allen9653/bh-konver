@@ -286,7 +286,7 @@ const SlikaPdf = () => {
   const allDone = entries.length > 0 && entries.every((e) => e.status === "done" || e.status === "error");
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col">
       <SEO
         title={t("slikaPdf.seoTitle")}
         description={t("slikaPdf.seoDescription")}

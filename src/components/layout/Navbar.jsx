@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { BackButton } from "@/components/common/BackButton";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { GlobalSearch } from "@/components/layout/GlobalSearch";
+import { DeviceAdaptationControl } from "@/components/common/DeviceAdaptationControl";
 import {
   ArrowRight,
   Barcode,
@@ -166,8 +167,11 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
   const location = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/95 backdrop-blur-xl">
-      <div className="mx-auto flex min-h-[4.5rem] max-w-[90rem] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+    <header
+      className="sticky top-0 z-50 border-b border-border/70 bg-slate-950/75 backdrop-blur-xl"
+      style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+    >
+      <div className="mx-auto flex min-h-[4.25rem] max-w-[90rem] items-center justify-between gap-3 px-3 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <Link
             to="/"
@@ -266,8 +270,9 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
           <GlobalSearch />
         </div>
 
-        {/* Right Controls: Exactly ONE Language Switcher + Auth + Mobile Menu Toggle */}
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        {/* Right Controls: Device Adaptation + Language Switcher + Auth + Mobile Menu Toggle */}
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2.5">
+          <DeviceAdaptationControl variant="compact" />
           <LanguageSwitcher />
 
           {user ? (
@@ -330,10 +335,11 @@ export const Navbar = ({ activeCategory, onCategoryChange }) => {
       </div>
 
       {mobileOpen && (
-        <nav id="mobile-navigation" className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-border/70 bg-background px-4 py-3 shadow-lg xl:hidden" aria-label="Mobilna navigacija">
+        <nav id="mobile-navigation" className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-border/70 bg-slate-950/95 backdrop-blur-xl px-4 py-3 shadow-lg xl:hidden" aria-label="Mobilna navigacija">
           <div className="mx-auto flex max-w-3xl flex-col">
-            <div className="pb-3 mb-2 border-b border-border/70">
+            <div className="pb-3 mb-2 border-b border-border/70 space-y-3">
               <GlobalSearch variant="full" />
+              <DeviceAdaptationControl variant="panel" />
             </div>
             {toolGroups.map((group) => {
               const Icon = group.icon;

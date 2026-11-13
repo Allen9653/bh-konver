@@ -436,14 +436,14 @@ export default function Admin() {
 
   if (loading || !isAdmin) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col relative z-10">
+    <div className="min-h-screen bg-transparent flex flex-col relative z-10">
       <Navbar />
       <div className="gradient-hero text-white py-6 px-4 mb-0">
         <div className="container mx-auto max-w-7xl flex items-center justify-between">

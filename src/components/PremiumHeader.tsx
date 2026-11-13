@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { GlobalSearch } from "@/components/layout/GlobalSearch";
+import { DeviceAdaptationControl } from "@/components/common/DeviceAdaptationControl";
 import { BackButton } from "@/components/common/BackButton";
 import { LogIn, LogOut, History, Shield, Crown } from "lucide-react";
 import logo from "@/assets/bh-konver-logo.png";
@@ -40,8 +41,11 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut, 
   const location = useLocation();
 
   return (
-    <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
-      <div className="mx-auto flex min-h-16 max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-2 sm:px-6 lg:px-8">
+    <header
+      className="border-b border-border/70 bg-slate-950/75 backdrop-blur-xl sticky top-0 z-50"
+      style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+    >
+      <div className="mx-auto flex min-h-16 max-w-7xl flex-wrap items-center justify-between gap-2.5 px-3 py-2 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <Link to="/" className="flex shrink-0 items-center gap-3 transition-opacity hover:opacity-95" aria-label="BH KONVER početna">
             <div className="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center border border-cyan-500/30 overflow-hidden shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all duration-300">
@@ -86,8 +90,9 @@ export const PremiumHeader = ({ user, isAdmin, isPremium, expiresAt, onSignOut, 
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2 sm:ml-0">
+        <div className="ml-auto flex items-center gap-1.5 sm:gap-2 sm:ml-0">
           <GlobalSearch />
+          <DeviceAdaptationControl variant="compact" />
           <LanguageSwitcher />
           {loading ? (
             // Placeholder while the session rehydrates — prevents a flash of

@@ -44,7 +44,7 @@ export default function Support() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col">
       <SEO
         title="Podrška — BH Konver"
         description="Korisnička podrška za BH Konver. Kontakt e-mail, radno vrijeme i odgovori na česta pitanja."

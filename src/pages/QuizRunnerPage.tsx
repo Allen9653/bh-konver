@@ -120,7 +120,7 @@ export default function QuizRunnerPage() {
   const quizDesc = t(`testovi.quizzes.${key}.desc`, seoInfo.description);
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#0A1628] text-foreground">
+    <div className="flex min-h-screen flex-col bg-transparent text-foreground">
       <SEO
         title={`${quizTitle} | BH KONVER`}
         description={quizDesc}

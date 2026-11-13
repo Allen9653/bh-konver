@@ -32,7 +32,7 @@ export default function ScenaMagazin() {
   ];
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-background selection:bg-primary/20 selection:text-primary">
+    <div className="relative flex min-h-screen flex-col bg-transparent selection:bg-primary/20 selection:text-primary">
       <SEO
         title="SCENA+ Magazin | Digitalna pismenost i kulturna scena BH"
         description="SCENA+ magazin – digitalna pismenost, kultura i kreativna industrija. Pregledajte vodiče, članne i alate BH KONVER-a."

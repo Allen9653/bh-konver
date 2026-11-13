@@ -101,7 +101,7 @@ export default function Blog() {
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-background selection:bg-primary/20 selection:text-primary">
+    <div className="relative flex min-h-screen flex-col bg-transparent selection:bg-primary/20 selection:text-primary">
       {/* Animated & Illuminated Moving Bulb Background (BH KONVER Logo) */}
       <AmbientCategoryBackdrop category="blog" />
 
@@ -134,7 +134,7 @@ export default function Blog() {
             />
 
             {/* Hero Section */}
-            <section className="relative border-b border-border/70 py-12 sm:py-16 overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+            <section className="relative border-b border-border/70 py-12 sm:py-16 overflow-hidden bg-gradient-to-br from-slate-950/75 via-slate-900/70 to-slate-950/75 backdrop-blur-md">
               {/* Ambient Background Watermark Logo */}
               <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-80 sm:w-[500px] md:w-[640px] h-full pointer-events-none overflow-hidden select-none opacity-15 sm:opacity-20 flex items-center justify-end">
                 <img

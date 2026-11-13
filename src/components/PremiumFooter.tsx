@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { SocialLinks } from "@/components/layout/Footer";
+import { DeviceAdaptationControl } from "@/components/common/DeviceAdaptationControl";
 
 export const PremiumFooter = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="border-t border-border mt-24 py-8 bg-card/50">
-      <div className="container mx-auto px-4 max-w-5xl text-center space-y-3">
+    <footer className="border-t border-border/70 mt-16 py-8 bg-slate-950/75 backdrop-blur-xl">
+      <div className="container mx-auto px-4 max-w-5xl text-center space-y-4">
+        <div className="mx-auto max-w-sm">
+          <DeviceAdaptationControl variant="panel" />
+        </div>
         <p className="text-xs text-muted-foreground tracking-wide uppercase">
           {t("footer.copyright", "© 2026 BH KONVER")} · {t("footerLinks.tagline", "Sigurna i privatna konverzija datoteka")}
         </p>

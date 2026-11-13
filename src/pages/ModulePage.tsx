@@ -65,7 +65,7 @@ const ModulePage = () => {
   ];
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <SEO
         title={t(`toolSeo.${moduleSlug}.title`, { defaultValue: `${title} | BH Konver` })}
         description={t(`toolSeo.${moduleSlug}.description`, { defaultValue: t(config.descriptionKey) })}

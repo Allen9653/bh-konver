@@ -1240,5 +1240,25 @@
     "navigate": "kretanje",
     "open": "otvori",
     "close": "zatvori"
+  },
+  "deviceAdaptation": {
+    "title": "Прилагодба за iOS / Android",
+    "shortLabel": "Уређај",
+    "detectedPrefix": "Детектовано",
+    "activePrefix": "Активно",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "platformDesktop": "Desktop",
+    "modeAuto": "Ауто",
+    "modeSelect": "Начин приказа уређаја",
+    "toggleAria": "Аутоматска прилагодба за iOS и Android уређаје",
+    "videoBgLabel": "Видео позадина",
+    "videoBgDesc": "Амбијентални YouTube видео",
+    "videoBgToggleAria": "Укључи или искључи видео позадину",
+    "mobileNavLabel": "Мобилна брза навигација",
+    "tabConverters": "Конвертори",
+    "tabGenerators": "Генератори",
+    "tabCalculators": "Калкулатори",
+    "tabTests": "Тестови"
   }
 }

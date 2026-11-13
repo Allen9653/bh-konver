@@ -6,7 +6,7 @@ import { LegalLanguageNotice } from "@/components/common/LegalLanguageNotice";
 
 export default function LegalNotice() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <SEO
         title="Pravne napomene (Impressum) — BH KONVER"
         description="Službeni pravni podaci o pružatelju usluge BH KONVER, registraciji, operateru B&H Assistant d.o.o. i kontaktu."

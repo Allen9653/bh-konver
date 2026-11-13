@@ -1240,5 +1240,25 @@
     "navigate": "navigate",
     "open": "open",
     "close": "close"
+  },
+  "deviceAdaptation": {
+    "title": "iOS / Android-Anpassung",
+    "shortLabel": "Gerät",
+    "detectedPrefix": "Erkannt",
+    "activePrefix": "Aktiv",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "platformDesktop": "Desktop",
+    "modeAuto": "Auto",
+    "modeSelect": "Geräteansichtsmodus",
+    "toggleAria": "Automatische Anpassung für iOS- und Android-Geräte",
+    "videoBgLabel": "Video-Hintergrund",
+    "videoBgDesc": "Ambient YouTube-Hintergrund",
+    "videoBgToggleAria": "Video-Hintergrund umschalten",
+    "mobileNavLabel": "Mobile Schnellnavigation",
+    "tabConverters": "Konverter",
+    "tabGenerators": "Generatoren",
+    "tabCalculators": "Rechner",
+    "tabTests": "Tests"
   }
 }

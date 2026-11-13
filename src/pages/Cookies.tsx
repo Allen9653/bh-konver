@@ -30,7 +30,7 @@ export default function CookiesPage() {
   ];
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <SEO
         title="Politika kolačića (Cookies) — BH KONVER"
         description="Informacije o vrstama kolačića koje koristi BH KONVER, njihovoj svrsi i načinima upravljanja u vašem pregledniku."

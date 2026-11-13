@@ -18,6 +18,7 @@ import { AdSenseSlot } from "@/components/AdSenseSlot";
 import { FreemiumPaywallModal } from "@/components/free-tools/FreemiumPaywallModal";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useSubscription } from "@/hooks/useSubscription";
+import { useDeviceAdaptation } from "@/contexts/DeviceAdaptationContext";
 
 const PayPalPaymentModal = lazy(() =>
   import("@/components/PayPalPaymentModal").then((module) => ({ default: module.PayPalPaymentModal }))
@@ -28,6 +29,7 @@ export default function Index() {
   const navigate = useNavigate();
   const { user, isAdmin, loading, signOut } = useAdminAuth();
   const { hasActiveSubscription, expiresAt } = useSubscription(user?.id);
+  const { videoBgEnabled } = useDeviceAdaptation();
   const isPremium = isAdmin || hasActiveSubscription;
   const [paywallOpen, setPaywallOpen] = useState(false);
   const [paywallTab, setPaywallTab] = useState<"overview" | "bank">("overview");
@@ -39,7 +41,7 @@ export default function Index() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background selection:bg-primary/20 selection:text-primary">
+    <div className="flex min-h-screen flex-col bg-transparent selection:bg-primary/20 selection:text-primary">
       <SEO
         title="BH KONVER | Besplatni online konverteri i Premium alati"
         description="Besplatni online konverteri valuta, jedinica, teksta i datuma bez prijave. Premium generatori, kalkulatori i testovi za korisnike u Bosni i Hercegovini."
@@ -67,8 +69,8 @@ export default function Index() {
       />
 
       <main className="relative flex-1 overflow-hidden">
-        {/* Subtle etno-futura stećak background with animated floating light cubes */}
-        <EthnoFuturaBackground />
+        {/* Render legacy EthnoFuturaBackground only if video background is disabled */}
+        {!videoBgEnabled && <EthnoFuturaBackground />}
 
         {/* ========================================================
             HERO SEKCIJA ("STRUKTURA JEDNOG EKRANA")
@@ -93,7 +95,7 @@ export default function Index() {
             </h1>
 
             {/* Subtitle with exact requested text */}
-            <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-slate-300/90 sm:text-lg">
+            <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-slate-200/95 sm:text-lg">
               {t(
                 "home.heroDesc",
                 "BH KONVER je moderna, brza i intuitivna web aplikacija namijenjena višenamjenskoj konverziji datoteka, valuta i mjernih jedinica na jednom mjestu. Projekat je razvijen s fokusom na jednostavnost korištenja, visoke performanse i potpunu privatnost korisničkih podataka."
@@ -120,7 +122,7 @@ export default function Index() {
             ODVOJENI EDUKATIVNI SADRŽAJ (VODIČI & DIGITALNA PISMENOST)
             Jasno odvojena editorial sekcija s povezanim alatima i idućim koracima
         ======================================================== */}
-        <section className="relative z-10 px-4 py-10 sm:py-14 border-t border-border/60 bg-muted/20">
+        <section className="relative z-10 px-4 py-10 sm:py-14 border-t border-border/50 bg-slate-950/20">
           <div className="mx-auto max-w-6xl">
             <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
               <div>
@@ -142,7 +144,7 @@ export default function Index() {
 
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {/* Article 1 */}
-              <article className="group flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-5 shadow-sm hover:border-cyan-500/50 transition-all">
+              <article className="group flex flex-col justify-between rounded-2xl border border-border/80 bg-card/80 backdrop-blur-md p-5 shadow-sm hover:border-cyan-500/50 transition-all">
                 <div>
                   <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
                     <span className="font-semibold text-cyan-400">Video formati</span>
@@ -169,7 +171,7 @@ export default function Index() {
               </article>
 
               {/* Article 2 */}
-              <article className="group flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-5 shadow-sm hover:border-cyan-500/50 transition-all">
+              <article className="group flex flex-col justify-between rounded-2xl border border-border/80 bg-card/80 backdrop-blur-md p-5 shadow-sm hover:border-cyan-500/50 transition-all">
                 <div>
                   <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
                     <span className="font-semibold text-cyan-400">Dokumenti</span>
@@ -196,7 +198,7 @@ export default function Index() {
               </article>
 
               {/* Article 3 */}
-              <article className="group flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-5 shadow-sm hover:border-cyan-500/50 transition-all">
+              <article className="group flex flex-col justify-between rounded-2xl border border-border/80 bg-card/80 backdrop-blur-md p-5 shadow-sm hover:border-cyan-500/50 transition-all">
                 <div>
                   <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
                     <span className="font-semibold text-cyan-400">Slike & Foto</span>

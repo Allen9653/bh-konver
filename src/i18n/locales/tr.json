@@ -1240,5 +1240,25 @@
     "navigate": "navigate",
     "open": "open",
     "close": "close"
+  },
+  "deviceAdaptation": {
+    "title": "iOS / Android Uyarlaması",
+    "shortLabel": "Cihaz",
+    "detectedPrefix": "Algılanan",
+    "activePrefix": "Etkin",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "platformDesktop": "Masaüstü",
+    "modeAuto": "Otomatik",
+    "modeSelect": "Cihaz görünüm modu",
+    "toggleAria": "iOS ve Android cihazlar için otomatik uyarlama",
+    "videoBgLabel": "Video Arka Plan",
+    "videoBgDesc": "Ambiyans YouTube videosu",
+    "videoBgToggleAria": "Video arka planını aç veya kapat",
+    "mobileNavLabel": "Mobil hızlı gezinme",
+    "tabConverters": "Dönüştürücüler",
+    "tabGenerators": "Üreteçler",
+    "tabCalculators": "Hesaplayıcılar",
+    "tabTests": "Testler"
   }
 }

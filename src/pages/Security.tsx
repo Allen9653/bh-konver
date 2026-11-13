@@ -45,7 +45,7 @@ export default function SecurityPage() {
   ];
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <SEO
         title="Sigurnost i zaštita podataka — BH KONVER"
         description="Detaljan uvid u sigurnosnu arhitekturu BH KONVER-a: klijentska obrada, 256-bitna TLS enkripcija i automatsko brisanje server datoteka."

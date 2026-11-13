@@ -20,7 +20,7 @@ export function ShimmerBox({ className = "" }: SkeletonProps) {
  */
 export function CategoryLandingSkeleton({ category = "Alati" }: { category?: string }) {
   return (
-    <div className="relative flex min-h-screen flex-col bg-background" aria-label="Učitavanje kategorije...">
+    <div className="relative flex min-h-screen flex-col bg-transparent" aria-label="Učitavanje kategorije...">
       {/* Branded Header Silhouette */}
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -120,7 +120,7 @@ export function PremiumGateSkeleton({
 
   return (
     <div
-      className="relative flex min-h-screen flex-col bg-background"
+      className="relative flex min-h-screen flex-col bg-transparent"
       aria-label="Provjera Premium pristupa..."
     >
       {/* Top Navbar Skeleton */}

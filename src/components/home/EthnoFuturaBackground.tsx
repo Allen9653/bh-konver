@@ -109,9 +109,8 @@ export const EthnoFuturaBackground: React.FC = () => {
         </svg>
       </div>
 
-      {/* 2. Cybernetic Gradient Overlays for High Contrast & Text Legibility */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/85 via-[#020617]/75 to-[#020617] backdrop-blur-[0.5px]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_#020617_85%)]" />
+      {/* 2. Ultra-light transparent blend so global YouTube video background stays vivid */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#020617]/20" />
 
       {/* 3. Subtle IT Cybernetic Grid Pattern */}
       <div className="absolute inset-0 opacity-[0.035] bg-[linear-gradient(to_right,#06b6d4_1px,transparent_1px),linear-gradient(to_bottom,#06b6d4_1px,transparent_1px)] bg-[size:4rem_4rem] animate-tech-drift" />

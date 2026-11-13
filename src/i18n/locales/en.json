@@ -1240,5 +1240,25 @@
     "navigate": "navigate",
     "open": "open",
     "close": "close"
+  },
+  "deviceAdaptation": {
+    "title": "iOS / Android Adaptation",
+    "shortLabel": "Device",
+    "detectedPrefix": "Detected",
+    "activePrefix": "Active",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "platformDesktop": "Desktop",
+    "modeAuto": "Auto",
+    "modeSelect": "Device layout mode",
+    "toggleAria": "Automatic iOS and Android device adaptation",
+    "videoBgLabel": "Video Background",
+    "videoBgDesc": "Ambient YouTube background",
+    "videoBgToggleAria": "Toggle ambient video background",
+    "mobileNavLabel": "Mobile quick navigation",
+    "tabConverters": "Converters",
+    "tabGenerators": "Generators",
+    "tabCalculators": "Calculators",
+    "tabTests": "Tests"
   }
 }

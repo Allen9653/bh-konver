@@ -327,7 +327,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-background text-foreground">
+    <div className="relative flex min-h-screen flex-col bg-transparent text-foreground">
       <SEO
         title="Prijava i registracija | BH KONVER"
         description="Prijavite se na svoj BH KONVER račun ili se besplatno registrujte za pristup naprednim konverterima, kalkulatorima i generatorima."

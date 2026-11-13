@@ -149,7 +149,7 @@ const Alati = () => {
       : t("alati.quotaLocked");
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col">
       <SEO
         title={toolSlug ? t(`toolSeo.${toolSlug}.title`, { defaultValue: t("alati.seoTitle") }) : t("alati.seoTitle")}
         description={toolSlug ? t(`toolSeo.${toolSlug}.description`, { defaultValue: t("alati.seoDescription") }) : t("alati.seoDescription")}

@@ -17,6 +17,9 @@ import { useSubscription } from "@/hooks/useSubscription";
 import { Crown, LockKeyhole } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { FluidTechBackground } from "@/components/layout/FluidTechBackground";
+import { YouTubeVideoBackground } from "@/components/layout/YouTubeVideoBackground";
+import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
+import { DeviceAdaptationProvider, useDeviceAdaptation } from "@/contexts/DeviceAdaptationContext";
 import { BackButton } from "@/components/common/BackButton";
 import { PremiumGateSkeleton, CategoryLandingSkeleton } from "@/components/skeletons/BrandedSkeletons";
 import ScrollToTop from "@/components/common/ScrollToTop";
@@ -131,7 +134,7 @@ const PremiumAccessGate = ({
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <SEO title={metadata.title} description={metadata.description} path={canonicalPath} />
       <Navbar activeCategory={category} />
       <main className="mx-auto flex w-full max-w-4xl flex-1 items-center justify-center px-4 py-12 sm:px-6">
@@ -238,7 +241,7 @@ const CalculatorPage = () => {
   if (!Calculator) return <NotFound />;
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <SEO
         title={PREMIUM_PAGE_SEO[`/kalkulatori/${calculatorId}`]?.title ?? "Premium kalkulator | BH KONVER"}
         description={PREMIUM_PAGE_SEO[`/kalkulatori/${calculatorId}`]?.description ?? "Informativni online kalkulator BH KONVER-a."}
@@ -270,14 +273,14 @@ const CategoryLanding = ({
   const page = categoryPages[activeCategory as keyof typeof categoryPages] ?? categoryPages.GENERATORI;
 
   const content = (
-    <div className="relative flex min-h-screen flex-col bg-background">
+    <div className="relative flex min-h-screen flex-col bg-transparent">
       <SEO title={`${page.title} online | BH KONVER`} description={`${page.description} Pregledajte dostupne BH KONVER alate i njihove mogućnosti.`} path={`/category/${activeCategory.toLocaleLowerCase("bs")}`} />
       <Navbar activeCategory={activeCategory} onCategoryChange={onNavigate} />
       <main className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
         <div className="mb-6">
           <BackButton label={t("common.backToHome", "← Povratak na početnu")} fallbackTo="/" />
         </div>
-        <header className="relative mb-8 overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 sm:p-9 shadow-2xl backdrop-blur-xl flex flex-col-reverse sm:flex-row items-center sm:items-center justify-between gap-6 sm:gap-8">
+        <header className="relative mb-8 overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-slate-950/75 via-slate-900/70 to-slate-950/75 p-6 sm:p-9 shadow-2xl backdrop-blur-xl flex flex-col-reverse sm:flex-row items-center sm:items-center justify-between gap-6 sm:gap-8">
           {/* Ambient Background Watermark Logo */}
           <div className="absolute -right-6 top-1/2 -translate-y-1/2 w-80 sm:w-[480px] md:w-[600px] h-full pointer-events-none overflow-hidden select-none opacity-15 sm:opacity-20 flex items-center justify-end">
             <img
@@ -349,6 +352,7 @@ const EnglishRouteHandler = () => {
 const AppRoutes = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { isMobileAdapted, videoBgEnabled } = useDeviceAdaptation();
   const [activeCategory, setActiveCategory] = useState(() => getCategoryFromLocation(location.pathname, location.hash));
 
   useEffect(() => {
@@ -364,10 +368,15 @@ const AppRoutes = () => {
     <>
       <ScrollToTop />
       <AnalyticsRouteTracker />
+      <YouTubeVideoBackground />
       <AppInitializer>
-        {/* IT-inspired fluid animated background on subpages, excluding admin dashboard */}
-        {location.pathname !== "/" && !location.pathname.startsWith("/admin") && <FluidTechBackground />}
-        <main className="relative z-10 flex-1 flex flex-col min-h-screen">
+        {/* Legacy subpage tech backdrop renders only when video background is disabled */}
+        {!videoBgEnabled && location.pathname !== "/" && !location.pathname.startsWith("/admin") && <FluidTechBackground />}
+        <div
+          className={`relative z-10 flex-1 flex flex-col min-h-screen-dvh ${
+            isMobileAdapted ? "pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))]" : ""
+          }`}
+        >
           <Suspense fallback={<CategoryLandingSkeleton category="BH KONVER" />}>
             <Routes>
               {/* Direct English entry routes */}
@@ -427,7 +436,8 @@ const AppRoutes = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
-        </main>
+        </div>
+        <MobileBottomNav />
       </AppInitializer>
     </>
   );
@@ -435,13 +445,15 @@ const AppRoutes = () => {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </TooltipProvider>
+    <DeviceAdaptationProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </TooltipProvider>
+    </DeviceAdaptationProvider>
   </QueryClientProvider>
 );
 

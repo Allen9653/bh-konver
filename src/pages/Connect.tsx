@@ -22,7 +22,7 @@ export default function Connect() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col">
       <SEO
         title="Poveži AI asistenta — BH Konver"
         description="Uputstvo za povezivanje ChatGPT-a ili Claude-a sa BH Konver MCP serverom."
